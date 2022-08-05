@@ -1,0 +1,17 @@
+.center{
+    text-align: center;
+}
+#card{
+    width: 250px;
+    margin-top: 15vh;
+}
+@media (min-width: 480px) {
+    #card{
+        width: 400px;
+    }
+}
+@media (min-width: 1440px) {
+    #card{
+        width: 500px;
+    }
+}
