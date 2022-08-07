@@ -23,7 +23,7 @@
     <header>
       <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="../index.html">Group 23</a>
+          <a class="navbar-brand" href="../index.php">Group 23</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -75,7 +75,7 @@
             <a class="nav-link mob" href="#"
               ><i class="fa-solid fa-cart-shopping"></i> <sup>0</sup></a
             >
-            <a class="nav-link mob" href="./login/login.html">Login/Registering</a>
+            <a class="nav-link mob" href="./login/login.php">Login/Registering</a>
           </div>
         </div>
       </nav>
