@@ -92,9 +92,12 @@ include('./functions/functions.php')
                             </td>
                             <td style='height:120px;' > </td>
                               <td style='height:120px;'>
-                              <div class='d-flex w-100 justify-content-center'>
+                              <form method='post'>
+                              <div class='d-flex w-100 justify-content-center'> 
+                              <input type='hidden' name='pId' value='$pId'>                           
                               <input class='text-center rounded mx-2 form-control' type='submit' value='Remove' name='remove' style='width:80px'>
                               </div>
+                              </form>
                             </td>
                         </tr>";
                         }
@@ -115,6 +118,7 @@ include('./functions/functions.php')
                     echo "<script>window.open('cart.php','_self')</script>";
                 }
             }
+            else
             if(isset($_POST['remove'])){
                 $pId = $_POST['pId'];
                 $query = "Delete from `cart_details` where ip_address='$ip' and product_id=$pId";
