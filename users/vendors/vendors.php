@@ -40,11 +40,12 @@
   <main>
     <div class="container text-center my-4 ">
       <?php
+      
       if(isset($_GET['addproduct'])){
         include('addproduct.php');
-      }else  if(isset($_GET['viewproduct'])){
-        include('viewproduct.php');
       }
+      else
+      include('viewproduct.php');
       ?>
     </div>
   </main>

@@ -81,10 +81,7 @@ include('./functions/functions.php')
         </form>
        
       </div>
-
-
-
-      <div class="row row-cols-1 row-cols-md-2 row-cols-xxl-4">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
         <?php
         if(isset($_GET['search_product'])){
             search_product();
