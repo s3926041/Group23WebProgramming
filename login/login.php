@@ -1,3 +1,7 @@
+<?php
+include('../includes/connect.php');
+include('../functions/functions.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,28 +42,15 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
-            <form class="d-flex mob" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-            <a class="nav-link mob" href="#"
-              ><i class="fa-solid fa-cart-shopping"></i> <sup>0</sup></a
-            >
-            <a class="nav-link mob" href="./login.php">Login/Registering</a>
+            <a class="nav-link mob" href="../cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup><?php cart_item() ?></sup></a>
+          <a class="nav-link mob" href="./login/login.php">Login/Registering</a>
           </div>
         </div>
       </nav>
     </header>
-
+<?php cart(); ?>
     <main>
-      <div class="card p-4 mx-auto" id="card">
+      <div class="card p-4 mx-auto my-4" id="card">
         <h2 class="center">Login</h2>
         <div class="row">
           <div class="col">
@@ -96,7 +87,9 @@
         </div>
       </div>
     </main>
-
+    <?php
+  include('../includes/footer.php');
+  ?>
     <!-- JavaScript Bundle with Popper -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
