@@ -32,13 +32,19 @@ include('./functions/functions.php')
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data" />
                         <input type="submit" value="Search" class="btn btn-outline-success" name="search_product">
                     </form>
-                    <a class="nav-link mob" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup><?php cart_item() ?></sup></a>
-                    <a class="nav-link mob" href="./login/login.php">Login/Registering</a>
+                    <a class="nav-link mob" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup><?php cart_item2() ?></sup></a>
+                    <?php 
+          if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    echo "<a class='nav-link mob' href='./users/customer/myaccount.php'>My Account</a>
+    <a class='nav-link mob' href='./index.php?logout'>Logout</a>
+    ";
+} else {
+    echo "<a class='nav-link mob' href='./login/login.php'>Login/Registering</a>";
+} ?>
                 </div>
             </div>
         </nav>
     </header>
-
     <main>
         <?php
         if(isset($_GET['search_product'])){
@@ -47,7 +53,6 @@ include('./functions/functions.php')
               <h2>Products</h2>
             </div>
             <div class='row form-floating d-flex mx-3' style='width:200px; '>
-      
               <form method='get'>
               <div class='form-floating'>
               <select class='form-select' id='floatingSelect' aria-label='Floating label select example' name='sort'>
@@ -60,12 +65,14 @@ include('./functions/functions.php')
               <label for='floatingSelect'>Sort by:</label>
               </div>
               </form> 
-            </div><div class='row row-cols-1 row-cols-md-2 row-cols-xxl-3'>";
+            </div>
+            <div class='row row-cols-1 row-cols-md-2 row-cols-xxl-3'>";
             search_product();
-            echo " </div></div>";
+            echo "</div>
+            </div>";
         }else{
-            view_product();
-           
+            view_product(); 
+            cart2();
         }    
         ?>
     </main>

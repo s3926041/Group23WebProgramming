@@ -1,3 +1,8 @@
+<?php
+include('../../includes/connect.php');
+include('../../functions/functions.php');
+redr('vendor');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,8 +35,8 @@
             <a href="vendors.php?addproduct" >Add Product</a>
           </div>
 
-          <div class="nav-item mx-lg-4 mob"><strong>Vendor</strong></div>
-          <a class="nav-link mob" href="../../index.php">Logout</a>
+          <div class="nav-item mx-lg-4 mob">Hi<strong> <?php name();?></strong></div>
+          <a class="nav-link mob" href="../../index.php?logout">Logout</a>
         </div>
       </div>
     </nav>

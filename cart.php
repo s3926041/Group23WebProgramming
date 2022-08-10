@@ -30,23 +30,27 @@ include('./functions/functions.php')
                     </ul>
                     </li>
                     </ul>
-                    <a class="nav-link mob" href="./login/login.php">Login/Registering</a>
+                    <?php 
+          if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    echo "<a class='nav-link mob' href='./users/customer/myaccount.php'>My Account</a>
+    <a class='nav-link mob' href='./index.php?logout'>Logout</a>
+    ";
+} else {
+    echo "<a class='nav-link mob' href='./login/login.php'>Login/Registering</a>";
+} ?>
                 </div>
             </div>
         </nav>
     </header>
-
-
     <main>
         <div class="container text-center my-4">
-            <h2 class="my-2">Cart</h2>
-           
+            <h2 class="my-2">Cart</h2>           
                 <table class="table" style="overflow-x:auto;">
                     <thead class="thead-light">
                         <tr>
                             <th class='text-center' scope='col'>ID:</th>
                             <th class='text-center' scope='col'>Product</th>
-                            <th class='text-center' scope='col'>Product Image</th>
+                            <th class='text-center' scope='col'>Image</th>
                             <th class='text-center' scope='col'>Price</th>
                             <th class='text-center' scope='col'>Quantity</th>
                             <th class='text-center' scope='col'>Vendors</th>
@@ -74,6 +78,11 @@ include('./functions/functions.php')
                             $subPrice = $pPrice * $quantity;
                             $tempPrice += $subPrice;
                             $pImage = $r_data['product_img'];
+                            $vendor = $r_data['vendor'];
+                            $query = "select * from `vendor_table` where user_id= $vendor";
+                            $venquery = mysqli_query($con, $query);
+                            $r_data = mysqli_fetch_assoc($venquery);
+                            $vendorname = $r_data['bussiness_name'];
                             echo "<tr>
                             <th class='text-center' scope='row'>$pId</th>
                             <td style='height:120px;'  class='text-center'>$pName</td>
@@ -90,7 +99,7 @@ include('./functions/functions.php')
                             </div>                      
                             </form>            
                             </td>
-                            <td style='height:120px;' > </td>
+                            <td style='height:120px;' >$vendorname </td>
                               <td style='height:120px;'>
                               <form method='post'>
                               <div class='d-flex w-100 justify-content-center'> 
@@ -101,6 +110,7 @@ include('./functions/functions.php')
                             </td>
                         </tr>";
                         }
+                       
                         ?>
                     </tbody>
                 </table>
@@ -128,16 +138,29 @@ include('./functions/functions.php')
                 }
             }
             ?>
-
-            <div class="d-flex my-4">
+            <div class="row my-4 row-col-md-3" >
+                <div class="d-flex">
                 <h4 class="m-0">Total price:</h4>
                 <span class='mx-2' style='font-size:20px'> <?php echo $tempPrice ?></span>
-                <a href="./index.php" class="form-control mx-2" style='width:180px; text-decoration:none'>Continue Shopping</a>
-                <a href="" class="form-control mx-2" style='width:180px; text-decoration:none'>Order</a>
+                </div>
+                <a href="./index.php" class="form-control m-2" style='width:180px; text-decoration:none'>Continue Shopping</a>
+                <a href="./cart.php?order" class="form-control m-2" style='width:180px; text-decoration:none'>Order</a>
+                <?php
+                global $con;
+                if(isset($_GET['order'])){
+                    if($_SESSION['loggedin']){
+                        $query = "Delete from `cart_details`";
+                        $res=mysqli_query($con, $query);
+                        echo "<script> alert('Ok br...');window.open('cart.php','_self');</script>";
+                    }
+                    else{
+                        echo "<script> alert('You need to login first');
+                                window.open('./login/login.php','_self');</script>";
+                    }
+                }
+                ?>
             </div>
         </div>
-
-
     </main>
     <?php
     include('includes/footer.php');

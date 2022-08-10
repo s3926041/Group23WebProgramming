@@ -1,6 +1,6 @@
 <?php
 include('includes/connect.php');
-include('./functions/functions.php')
+include('./functions/functions.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,30 +27,35 @@ include('./functions/functions.php')
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
          
-              </ul>
-            </li>
+         
           </ul>
           <form class="d-flex mob" role="search" method="get">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data" />
             <input type="submit" value="Search" class="btn btn-outline-success" name="search_product">
           </form>
           <a class="nav-link mob" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup><?php cart_item() ?></sup></a>
-          <a class="nav-link mob" href="./login/login.php">Login/Registering</a>
+          <?php 
+          if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    echo "<a class='nav-link mob' href='./users/customer/myaccount.php'>My Account</a>
+    <a class='nav-link mob' href='./index.php?logout'>Logout</a>
+    ";
+} else {
+    echo "<a class='nav-link mob' href='./login/login.php'>Login/Registering</a>";
+} ?>
         </div>
       </div>
     </nav>
   </header>
   <?php
   cart();
+  logout();
   ?>
-
   <main>
     <div class="container">
       <div class="row text-center my-4">
         <h2>Products</h2>
       </div>
       <div class="row form-floating d-flex mx-3" style="width:200px; ">
-
         <form action="" method="get">
         <div class="form-floating">
         <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="sort">
@@ -78,6 +83,7 @@ include('./functions/functions.php')
     </div>
   </main>
   <?php
+    logout();
   include('includes/footer.php');
   ?>
   <!-- JavaScript Bundle with Popper -->

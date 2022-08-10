@@ -6,14 +6,25 @@
     align-items: center;
 }
 
+#con{
+    width: 100%;
+}
+
 
 @media (min-width: 480px) {
     #card{
         width: 400px;
     }
+    #con {
+        width: 75%;
+    }
+
 }
-@media (min-width: 1440px) {
+@media (min-width: 1080px) {
     #card{
         width: 500px;
+    }
+    #con{
+        width: 50%;
     }
 }

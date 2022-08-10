@@ -1,25 +1,5 @@
 <?php
-include('../../includes/connect.php');
-if (isset($_POST['add_product'])) {
-  $pName = $_POST['pName'];
-  echo "<script> $pName </script>";
-  if (mysqli_num_rows(mysqli_query($con, "select * from `products` where product_name ='$pName'")) > 0) {
-    echo "<script> alert('Product name existed') </script>";
-  } else {
-    $pName = $_POST['pName'];
-    $pPrice = $_POST['pPrice'];
-    $pImage = $_FILES['pImage']['name'];
-    $tempImage = $_FILES['pImage']['tmp_name'];
-    $pDes = $_POST['pDes'];
-    move_uploaded_file($tempImage, "../../pImages/$pImage");
-    $insert_query = "insert into `products` (product_name,product_price,product_img,product_description) values('$pName','$pPrice','$pImage','$pDes')";
-    $result = mysqli_query($con, $insert_query);
-    // if ($result) {
-    //   echo "<script> alert('Product added succesfully!')
-    //      </script>";
-    // } else echo "<script> alert('Failed!') </script>";
-  }
-}
+add_product();
 ?>
 <h3>Add Product</h3>
 <form action="" method="post" enctype="multipart/form-data" class="mb-2 d-flex justify-content-center">
