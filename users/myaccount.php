@@ -1,6 +1,6 @@
 <?php
-include('../../includes/connect.php');
-include('../../functions.php');
+include('../includes/connect.php');
+include('../functions/functions.php');
 redr('customer');
 ?>
 <!DOCTYPE html>
@@ -31,7 +31,7 @@ redr('customer');
       <header>
         <nav class="navbar navbar-expand-lg bg-light">
           <div class="container-fluid">
-            <a class="navbar-brand" href="./index.html">Group 23</a>
+            <a class="navbar-brand" href="<?php myaccount_link() ?>">Group 23</a>
             <button
               class="navbar-toggler"
               type="button"
@@ -47,8 +47,8 @@ redr('customer');
               <div class="navbar-nav me-auto mb-lg-0">
               </div>
               
-              <div class="nav-item mx-lg-4"><strong>Customer</strong></div>
-              <a class="nav-link mob" href="#"
+              <div class="nav-item mx-lg-4">Hi <strong><?php name(); ?></strong></div>
+              <a class="nav-link mob" href="../index.php?logout"
                   >Logout</a
                 >
             </div>

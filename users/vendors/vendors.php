@@ -1,7 +1,7 @@
 <?php
 include('../../includes/connect.php');
 include('../../functions/functions.php');
-redr('vendor');
+redr();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,8 +35,15 @@ redr('vendor');
             <a href="vendors.php?addproduct" >Add Product</a>
           </div>
 
-          <div class="nav-item mx-lg-4 mob">Hi<strong> <?php name();?></strong></div>
-          <a class="nav-link mob" href="../../index.php?logout">Logout</a>
+          <?php
+          if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            echo "<a class='nav-link mob' href='../myaccount.php'>My Account</a>
+    <a class='nav-link mob' href='../../index.php?logout'>Logout</a>
+    ";
+          } else {
+            echo "<a class='nav-link mob' href='./login/login.php'>Login/Registering</a>";
+          } ?>
+
         </div>
       </div>
     </nav>

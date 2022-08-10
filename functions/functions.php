@@ -350,23 +350,42 @@ function logout(){
   }
 }
 
+function cant_access(){
+  if($_SESSION['loggedin'] == true ){
+ 
+    if($_SESSION['role'] == 'customer'){
+      echo "<script> alert('You are already logged in!');
+      window.open('../index.php','_self');</script>";
+    }
+    else if($_SESSION['role'] == 'vendor'){
+      echo "<script> alert('You are already logged in!');
+      window.open('../users/vendors/vendors.php','_self');</script>";
+    }
+    elseif($_SESSION['role'] == 'shipper'){
+      echo "<script> alert('You are already logged in!');
+      window.open('../users/shippers/shippers.php','_self');</script>";
+    }
+  }
+}
 
-
-
-function redr($role){
+function myaccount_link(){
   $val = $_SESSION['role'];
   // echo "<script>alert('$val');</script>";
-  if($val != $role){
       if($val=='customer'){
-          echo "<script>alert('You are not having permission to access this URL');window.open('../index.php','_self');</script> ";
+          echo "../index.php";
         }
         else if($val =='vendor'){
-          echo "<script>alert('You are not having permission to access this URL');window.open('../users/vendors/vendors.php','_self');</script> ";
+          echo "./vendors/vendors.php";
         }
         else  if($val =='shipper'){
-          echo "<script>alert('You are not having permission to access this URL');window.open('../users/shippers/shippers.php','_self');</script> ";
+          echo "./shippers/shippers.php";
         }
-        else echo "<script> alert('You are not having permission to access this URL');
-        window.open('../../index.php','_self');</script>";
-  }
+        else echo "";
+
+}
+function redr(){
+  $val = $_SESSION['role'];
+  // echo "<script>alert('$val');</script>";
+  if(!$_SESSION['role'] and $val != '' )
+          echo "<script>alert('You are not having permission to access this URL');window.open('../index.php','_self');</script> ";
 }

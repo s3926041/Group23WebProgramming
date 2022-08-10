@@ -1,6 +1,7 @@
 <?php
 include('../includes/connect.php');
 include('../functions/functions.php');
+cant_access();
 ?>
 <!DOCTYPE html>
 <html lang="en">
