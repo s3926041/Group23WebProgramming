@@ -120,6 +120,54 @@ function view_product(){
     
 }
 }
+
+function filter(){
+    global $con;
+    $min = $_POST['min'];
+    $max = $_POST['max'];
+    $query = "select * from `products` where product_price >= $min and product_price <= $max ";
+    $execute = mysqli_query($con,$query);
+    $count = 0;
+    while($row_data = mysqli_fetch_assoc($execute)){
+      $count++;
+      $pId = $row_data['product_id'];
+      $pName = $row_data['product_name'];
+      $pPrice = $row_data['product_price'];
+      $pImage = $row_data['product_img'];
+      $pDes = $row_data['product_description'];
+      echo "<div class='col my-2 p-4'>
+      <div class='card'>
+        <img
+          src='./pImages/$pImage'
+          class='card-img-top'
+          alt='product-image'
+          style='height:200px;
+          width: 100%;
+         object-fit: contain;'
+        />
+        <div class='card-body d-flex justify-content-center' style='flex-direction: column'>
+        <div class=''>
+          <h5 class='card-title'>$pName</h5>
+          <p class='card-text'>
+              $pDes
+          </p>
+          <div class=''>Price: $pPrice</div>
+          </div>
+          <div class=' d-flex justify-content-center'> 
+          <a href='index.php?add_to_cart=$pId' class='btn btn-primary p-2 w-50'style='margin-right:5%' >Add to cart</a>
+          <a href='product_details.php?product_id=$pId' class='btn btn-info p-2  w-50' style='margin-left:5%' >View more</a>
+          </div>
+        </div>
+      </div>
+    </div>";
+    }
+    if($count == 0 ){
+      echo "<h2  style='margin:40px 0;color:crimson; width: 100%; text-align: center'>No product meets requirements </h2>";
+    }
+  
+  
+
+}
 function getIPAddress() {  
   //whether ip is from the share internet  
    if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
