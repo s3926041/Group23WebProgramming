@@ -32,7 +32,7 @@ include('./functions/functions.php')
                     </ul>
                     <?php
                     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-                        echo "<a class='nav-link mob' href='./users/customer/myaccount.php'>My Account</a>
+                        echo "<a class='nav-link mob' href='./users/myaccount.php'>My Account</a>
     <a class='nav-link mob' href='./index.php?logout'>Logout</a>
     ";
                     } else {
@@ -66,7 +66,8 @@ include('./functions/functions.php')
                         let pImage
                         let vendorname
                         let cart = JSON.parse(localStorage.getItem('cart'))
-                        function display() {
+                     
+                        function display(cart) {
                             localStorage.setItem('products', JSON.stringify(products))
                             for (let key in cart) {
                                 pname = products[key].pname
@@ -78,15 +79,19 @@ include('./functions/functions.php')
                                 let append = document.getElementById('append');
                                 append.insertAdjacentHTML('afterend', html);
                             }
+                          
                         }
                         function update(pid,quantity){
                             cart[pid] = quantity
                             localStorage.setItem('cart',JSON.stringify(cart));
+                         
                         }
                         function remove(pid){
                             delete cart[pid]
                             localStorage.setItem('cart',JSON.stringify(cart));
+                  
                         }
+                       
                     </script>
                     <?php
                     global $tempPrice;
@@ -112,9 +117,8 @@ include('./functions/functions.php')
                             products[$pId] = {'pname': pname,'pPrice': pPrice,'pImage' : pImage, 'vendorname': vendorname}
                             </script>";
                     }
-                    echo "<script> display() </script>"
+                    echo "<script> display(cart) </script>"
                     ?>
-
                 </tbody>
             </table>
 
@@ -146,15 +150,44 @@ include('./functions/functions.php')
                         </script>
                     </span>
                 </div>
-                <a href="./index.php" class="form-control m-2" style='width:180px; text-decoration:none'>Continue Shopping</a>
-                <a href="./cart.php?order" class="form-control m-2" style='width:180px; text-decoration:none'>Order</a>
+               
+                <form action="" method="post" class="d-flex m-0">
+                    <input type="hidden" name="json" id="json" value="">
+                    <script>          document.getElementById('json').value = JSON.stringify(cart)</script>
+                    <a href="./index.php" class="form-control m-2" style='width:180px; text-decoration:none'>Continue Shopping</a>
+                    <input type="submit" value="Order" class="form-control m-2" name="order" style='width:180px; text-decoration:none'>
+                </form>
+        
+                <!-- <a href="./cart.php?order" class="form-control m-2" style='width:180px; text-decoration:none'>Order</a> -->
+              
                 <?php
                 global $con;
-                if (isset($_GET['order'])) {
-                    if ($_SESSION['loggedin']) {
-                        $query = "Delete from `cart_details`";
-                        $res = mysqli_query($con, $query);
-                        echo "<script> alert('Ok br...');window.open('cart.php','_self');</script>";
+                if (isset($_POST['order'])) {
+                    if ($_SESSION['loggedin'] and $_SESSION['role'] ='customer') {
+                        $json1 = $_POST['json'];
+                        $json = json_decode($json1,true);
+                        if($json == null){
+                            echo"<script> alert('Cart is empty!');
+                            </script>";
+                        }
+                        else{
+                         
+                                $userid = $_SESSION['id'];
+                                $query = "insert into `order_table` (user_id) values ('$userid')";
+                                $res = mysqli_query($con,$query);
+                                $query = "select max(order_id) from `order_table`";
+                                $res2 = mysqli_query($con,$query);
+                                $row = mysqli_fetch_assoc($res2);
+                                $orderId = $row['max(order_id)'];
+                                foreach($json as $key => $value){
+                                    $query = "insert into `order_details` (order_id,product_id,quantity) values ('$orderId','$key','$value')";
+                                    $res = mysqli_query($con,$query);
+                                }
+                                echo "<script> alert('You have placed an order !')
+                                 localStorage.clear(); window.open('./cart.php','_self');</script>";
+                            
+                        }
+                       
                     } else {
                         echo "<script> alert('You need to login first');
                                 window.open('./login/login.php','_self');</script>";

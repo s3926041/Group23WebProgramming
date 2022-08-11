@@ -172,7 +172,9 @@ function cart()
 {
   if (isset($_GET['add_to_cart'])) {
     $pId = $_GET['add_to_cart'];
+
     echo "<script>
+ 
     if (localStorage.getItem('cart') === null){
       let cart = {'$pId' : 1}
       localStorage.setItem('cart',JSON.stringify(cart))
@@ -204,6 +206,7 @@ for(let key in cart){
   }</script>";
     $count = "<script> document.write(parseInt(count)) </script>";
     echo $count;
+  
 }
 function cart2()
 {
