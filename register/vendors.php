@@ -79,7 +79,7 @@ include('../functions/functions.php')
         </div>
         <div class="mb-3 ">
           <label for="image" class="form-label">Image</label>
-          <input type="file" class="form-control" id="image"  name='image' required>
+          <input type="file" class="form-control" id="image"  name='image'>
         </div>
         <div class=" d-flex justify-content-center align-items-center">
           <button type="submit" class="btn btn-primary" name="vendor_reg" style='width:200px'>Submit</button>

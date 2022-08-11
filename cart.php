@@ -30,143 +30,132 @@ include('./functions/functions.php')
                     </ul>
                     </li>
                     </ul>
-                    <?php 
-          if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    echo "<a class='nav-link mob' href='./users/customer/myaccount.php'>My Account</a>
+                    <?php
+                    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+                        echo "<a class='nav-link mob' href='./users/customer/myaccount.php'>My Account</a>
     <a class='nav-link mob' href='./index.php?logout'>Logout</a>
     ";
-} else {
-    echo "<a class='nav-link mob' href='./login/login.php'>Login/Registering</a>";
-} ?>
+                    } else {
+                        echo "<a class='nav-link mob' href='./login/login.php'>Login/Registering</a>";
+                    } ?>
                 </div>
             </div>
         </nav>
     </header>
     <main>
         <div class="container text-center my-4">
-            <h2 class="my-2">Cart</h2>           
-                <table class="table" style="overflow-x:auto;">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class='text-center' scope='col'>ID:</th>
-                            <th class='text-center' scope='col'>Product</th>
-                            <th class='text-center' scope='col'>Image</th>
-                            <th class='text-center' scope='col'>Price</th>
-                            <th class='text-center' scope='col'>Quantity</th>
-                            <th class='text-center' scope='col'>Vendors</th>
-                            <th class='text-center' scope='col'>Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php   
-                        global $tempPrice;
-                        $tempPrice = 0;
-                        global $con;                   
+            <h2 class="my-2">Cart</h2>
+            <table class="table" style="overflow-x:auto;">
+                <thead class="thead-light">
+                    <tr>
+                        <th class='text-center' scope='col'>ID:</th>
+                        <th class='text-center' scope='col'>Product</th>
+                        <th class='text-center' scope='col'>Image</th>
+                        <th class='text-center' scope='col'>Price</th>
+                        <th class='text-center' scope='col'>Quantity</th>
+                        <th class='text-center' scope='col'>Vendors</th>
+                        <th class='text-center' scope='col'>Remove</th>
+                    </tr>
+                </thead>
+                <tbody id="append">
+                    <script>
+                        let products = {};
+                        let temp = 0
+                        let pname
+                        let pPrice
+                        let pImage
+                        let vendorname
+                        let cart = JSON.parse(localStorage.getItem('cart'))
+                        function display() {
+                            localStorage.setItem('products', JSON.stringify(products))
+                            for (let key in cart) {
+                                pname = products[key].pname
+                                pPrice = products[key].pPrice
+                                pImage = products[key].pImage
+                                vendorname = products[key].vendorname
+                                temp += pPrice*cart[key]
+                                let html = `<tr> <th class='text-center' >${key}</th> <td style='height:120px;'  class='text-center'>${pname}</td> <td style='height:120px;'  class='text-center' id='img'> <img src='./pImages/${pImage}' alt='cart-image' style='width: 150px;height: 100%; object-fit:contain;'> </td> <td style='height:120px;'  class='text-center'>${pPrice}</td> <td style='height:120px;'  class='text-center'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'> <input class='text-center rounded mx-2 form-control' style='width:80px' type='number' name='quantity' min='1' max='100' value='${cart[key]}' required> <input class='text-center rounded mx-2 form-control' type='submit' value='Update' name='update' style='width:80px'> </div> </form> </td> <td style='height:120px;' >${vendorname} </td> <td style='height:120px;'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'> <input class='text-center rounded mx-2 form-control' type='submit' value='Remove' name='remove' style='width:80px'> </div> </form> </td> </tr>`
+                                let append = document.getElementById('append');
+                                append.insertAdjacentHTML('afterend', html);
+                            }
+                        }
+                        function update(pid,quantity){
+                            cart[pid] = quantity
+                            localStorage.setItem('cart',JSON.stringify(cart));
+                        }
+                        function remove(pid){
+                            delete cart[pid]
+                            localStorage.setItem('cart',JSON.stringify(cart));
+                        }
+                    </script>
+                    <?php
+                    global $tempPrice;
+                    $tempPrice = '0';
+                    global $con;
+                    $query = "select * from `products`";
+                    $res = mysqli_query($con, $query);
+                    while ($r_data = mysqli_fetch_assoc($res)) {
+                        $pId =  $r_data['product_id'];
+                        $pName = $r_data['product_name'];
+                        $pPrice = $r_data['product_price'];
+                        $pImage = $r_data['product_img'];
+                        $vendor = $r_data['vendor'];
+                        $query = "select * from `vendor_table` where user_id= $vendor";
+                        $venquery = mysqli_query($con, $query);
+                        $r_data = mysqli_fetch_assoc($venquery);
+                        $vendorname = $r_data['bussiness_name'];
                         echo "<script>
-                        cart = JSON.parse(localStorage.getItem('cart'))
-                        let count = Object.keys(cart).length
-                        </script>";
-                        $count = "<script>document.writeln(parseInt(count))</script> ";
-                        echo (int) $count;
-                        $i = 0;      
-                        $string = "<script>document.writeln(Object.keys(cart)[0])</script> ";   
-                        echo $string;
-
-                        $pId = (int) $string;          
-                        echo $pId; 
-                        while ($i < $count) {
-                            echo "<script>
-                           console.log($i)
+                            pname = '$pName'
+                            pPrice = $pPrice
+                            pImage = '$pImage'
+                            vendorname = '$vendorname'
+                            products[$pId] = {'pname': pname,'pPrice': pPrice,'pImage' : pImage, 'vendorname': vendorname}
                             </script>";
-                            $string =  "<script> document.write(parseInt(Object.keys(cart)[$i])) </script> ";  
-                            $pId = (int)$string;
-                            $query = "select * from `products` where product_id=$pId";
-                            $r_query = mysqli_query($con, $query);
-                            $r_data = mysqli_fetch_assoc($r_query);
-                            $pName = $r_data['product_name'];
-                            $pPrice = $r_data['product_price'];
-                            $quantity = "<script> document.write(parseInt(Object.values(cart)[$i])) </script> "; 
-                            $subPrice = $pPrice *$quantity;
-                            $tempPrice += $subPrice;
-                            $pImage = $r_data['product_img'];
-                            $vendor = $r_data['vendor'];
-                            $query = "select * from `vendor_table` where user_id= $vendor";
-                            $venquery = mysqli_query($con, $query);
-                            $r_data = mysqli_fetch_assoc($venquery);
-                            $vendorname = $r_data['bussiness_name'];
-                            echo "<tr>
-                            <th class='text-center' scope='row'>$pId</th>
-                            <td style='height:120px;'  class='text-center'>$pName</td>
-                            <td style='height:120px;'  class='text-center'>
-                                <img src='./pImages/$pImage' alt='cart-image' style='width: 150px;height: 100%; object-fit:contain;'>
-                            </td>
-                            <td style='height:120px;'  class='text-center'>$pPrice</td>
-                            <td style='height:120px;'  class='text-center'>
-                            <form method='post'>
-                            <div class='d-flex w-100 justify-content-center'>
-                            <input type='hidden' name='pId' value='$pId'>
-                            <input class='text-center rounded mx-2 form-control' style='width:80px' type='number' name='quantity' min='1' max='100' value='$quantity' required>
-                            <input class='text-center rounded mx-2 form-control' type='submit' value='Update' name='update' style='width:80px'>
-                            </div>                      
-                            </form>            
-                            </td>
-                            <td style='height:120px;' >$vendorname </td>
-                              <td style='height:120px;'>
-                              <form method='post'>
-                              <div class='d-flex w-100 justify-content-center'> 
-                              <input type='hidden' name='pId' value='$pId'>                           
-                              <input class='text-center rounded mx-2 form-control' type='submit' value='Remove' name='remove' style='width:80px'>
-                              </div>
-                              </form>
-                            </td>
-                        </tr>";
-                        $i++;
                     }
-                        
-                       
-                        ?>
-                    </tbody>
-                </table>
+                    echo "<script> display() </script>"
+                    ?>
+
+                </tbody>
+            </table>
 
             <!-- Remove item -->
             <?php
-       
-            // global $con;
-            // if(isset($_POST['update'])) {
-            //     $pId = $_POST['pId'];
-            //     $quantity = $_POST['quantity'];
-            //     $query = "update `cart_details` set quantity=$quantity where ip_address='$ip' and product_id=$pId";
-            //     $res=mysqli_query($con, $query);
-            //     if($res){
-            //         echo "<script>window.open('cart.php','_self')</script>";
-            //     }
-            // }
-            // else
-            // if(isset($_POST['remove'])){
-            //     $pId = $_POST['pId'];
-            //     $query = "Delete from `cart_details` where ip_address='$ip' and product_id=$pId";
-            //     $res=mysqli_query($con, $query);
-            //     if($res){
-            //         echo "<script>window.open('cart.php','_self')</script>";
-            //     }
-            // }
+
+            global $con;
+            if(isset($_POST['update'])) {
+                $pId = $_POST['pId'];
+                $quantity = $_POST['quantity'];                             
+                    echo "<script>update('$pId',$quantity) 
+                    window.open('cart.php','_self')</script>";
+            }
+            else
+            if(isset($_POST['remove'])){
+                $pId = $_POST['pId'];
+                    echo "
+                    <script>remove('$pId') 
+                    window.open('cart.php','_self')</script>";
+                
+            }
             ?>
-            <div class="row my-4 row-col-md-3" >
+            <div class="row my-4 row-col-md-3">
                 <div class="d-flex">
-                <h4 class="m-0">Total price:</h4>
-                <span class='mx-2' style='font-size:20px'> <?php echo $tempPrice ?></span>
+                    <h4 class="m-0">Total price:</h4>
+                    <span class='mx-2' style='font-size:20px'>
+                        <script>
+                            document.write(temp)
+                        </script>
+                    </span>
                 </div>
                 <a href="./index.php" class="form-control m-2" style='width:180px; text-decoration:none'>Continue Shopping</a>
                 <a href="./cart.php?order" class="form-control m-2" style='width:180px; text-decoration:none'>Order</a>
                 <?php
                 global $con;
-                if(isset($_GET['order'])){
-                    if($_SESSION['loggedin']){
+                if (isset($_GET['order'])) {
+                    if ($_SESSION['loggedin']) {
                         $query = "Delete from `cart_details`";
-                        $res=mysqli_query($con, $query);
+                        $res = mysqli_query($con, $query);
                         echo "<script> alert('Ok br...');window.open('cart.php','_self');</script>";
-                    }
-                    else{
+                    } else {
                         echo "<script> alert('You need to login first');
                                 window.open('./login/login.php','_self');</script>";
                     }

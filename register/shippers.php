@@ -57,7 +57,7 @@ include('../functions/functions.php')
         </div>
         <div class="mb-3 ">
           <label for="image" class="form-label">Image</label>
-          <input type="file" class="form-control" id="image" name='image' required>
+          <input type="file" class="form-control" id="image" name='image'>
         </div>
         <div class="mb-3">
           <label for="hub">Distribution hub:</label>
