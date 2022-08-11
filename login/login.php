@@ -70,16 +70,6 @@ cant_access();
                   name = "password"
                 />
               </div>
-              <div class="mb-1">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label class="form-check-label" for="exampleCheck1"
-                  >Remember me</label
-                >
-              </div>
               <div class="mb-3"><a href="../register/general.php" style="text-decoration: none;">Don't have acount? Registering</a></div>
 
               <button type="submit" class="btn btn-primary" name="login">Submit</button>

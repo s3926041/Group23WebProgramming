@@ -36,14 +36,8 @@ redr();
           </div>
 
           <?php
-          if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             echo "<a class='nav-link mob' href='../myaccount.php'>My Account</a>
-    <a class='nav-link mob' href='../../index.php?logout'>Logout</a>
-    ";
-          } else {
-            echo "<a class='nav-link mob' href='./login/login.php'>Login/Registering</a>";
-          } ?>
-
+    <a class='nav-link mob' href='../../index.php?logout'>Logout</a>" ?>
         </div>
       </div>
     </nav>

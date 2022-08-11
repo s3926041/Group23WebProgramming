@@ -58,24 +58,35 @@ include('./functions/functions.php')
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        $ip =  getIPAddress();
-                        global $con;                   
-                        $query = "select * from `cart_details` where ip_address='$ip'";
-                        $result_query = mysqli_query($con, $query);
-                        $count = 0;
+                        <?php   
                         global $tempPrice;
                         $tempPrice = 0;
-                        while ($row_data = mysqli_fetch_assoc($result_query)) {
-                            $count++;
-                            $pId = $row_data['product_id'];  
+                        global $con;                   
+                        echo "<script>
+                        cart = JSON.parse(localStorage.getItem('cart'))
+                        let count = Object.keys(cart).length
+                        </script>";
+                        $count = "<script>document.writeln(parseInt(count))</script> ";
+                        echo (int) $count;
+                        $i = 0;      
+                        $string = "<script>document.writeln(Object.keys(cart)[0])</script> ";   
+                        echo $string;
+
+                        $pId = (int) $string;          
+                        echo $pId; 
+                        while ($i < $count) {
+                            echo "<script>
+                           console.log($i)
+                            </script>";
+                            $string =  "<script> document.write(parseInt(Object.keys(cart)[$i])) </script> ";  
+                            $pId = (int)$string;
                             $query = "select * from `products` where product_id=$pId";
                             $r_query = mysqli_query($con, $query);
                             $r_data = mysqli_fetch_assoc($r_query);
                             $pName = $r_data['product_name'];
                             $pPrice = $r_data['product_price'];
-                            $quantity = $row_data['quantity'];
-                            $subPrice = $pPrice * $quantity;
+                            $quantity = "<script> document.write(parseInt(Object.values(cart)[$i])) </script> "; 
+                            $subPrice = $pPrice *$quantity;
                             $tempPrice += $subPrice;
                             $pImage = $r_data['product_img'];
                             $vendor = $r_data['vendor'];
@@ -109,7 +120,9 @@ include('./functions/functions.php')
                               </form>
                             </td>
                         </tr>";
-                        }
+                        $i++;
+                    }
+                        
                        
                         ?>
                     </tbody>
@@ -117,26 +130,26 @@ include('./functions/functions.php')
 
             <!-- Remove item -->
             <?php
-            $ip = getIPAddress();
-            global $con;
-            if(isset($_POST['update'])) {
-                $pId = $_POST['pId'];
-                $quantity = $_POST['quantity'];
-                $query = "update `cart_details` set quantity=$quantity where ip_address='$ip' and product_id=$pId";
-                $res=mysqli_query($con, $query);
-                if($res){
-                    echo "<script>window.open('cart.php','_self')</script>";
-                }
-            }
-            else
-            if(isset($_POST['remove'])){
-                $pId = $_POST['pId'];
-                $query = "Delete from `cart_details` where ip_address='$ip' and product_id=$pId";
-                $res=mysqli_query($con, $query);
-                if($res){
-                    echo "<script>window.open('cart.php','_self')</script>";
-                }
-            }
+       
+            // global $con;
+            // if(isset($_POST['update'])) {
+            //     $pId = $_POST['pId'];
+            //     $quantity = $_POST['quantity'];
+            //     $query = "update `cart_details` set quantity=$quantity where ip_address='$ip' and product_id=$pId";
+            //     $res=mysqli_query($con, $query);
+            //     if($res){
+            //         echo "<script>window.open('cart.php','_self')</script>";
+            //     }
+            // }
+            // else
+            // if(isset($_POST['remove'])){
+            //     $pId = $_POST['pId'];
+            //     $query = "Delete from `cart_details` where ip_address='$ip' and product_id=$pId";
+            //     $res=mysqli_query($con, $query);
+            //     if($res){
+            //         echo "<script>window.open('cart.php','_self')</script>";
+            //     }
+            // }
             ?>
             <div class="row my-4 row-col-md-3" >
                 <div class="d-flex">

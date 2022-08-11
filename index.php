@@ -21,7 +21,6 @@ include('./functions/functions.php');
     -webkit-appearance: none;
     margin: 0;
   }
-
   input[type=number] {
     -moz-appearance: textfield;
   }
@@ -102,6 +101,7 @@ include('./functions/functions.php');
   include('includes/footer.php');
   ?>
   <!-- JavaScript Bundle with Popper -->
+  <script src="./index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 

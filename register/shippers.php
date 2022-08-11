@@ -102,7 +102,7 @@ include('../functions/functions.php')
         $resquery = mysqli_query($con, $query);
         if ($rowdata = mysqli_fetch_assoc($resquery)) {
           $userId = $rowdata['user_id'];
-          $query = "insert into `shipper_table` (user_id,hub_name) values ('$userId','$hub');";
+          $query = "insert into `shipper_table` (user_id,hub_id) values ('$userId','$hub');";
           $execute = mysqli_query($con, $query);
           if ($execute) echo "<script> alert('Registered!');window.open('shippers.php','_self'); </script>";
         }

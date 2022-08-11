@@ -1,16 +1,17 @@
 <?php
 session_start();
-function get_product(){
-    global $con;
-    $select_products = "select * from `products` order by product_id LIMIT 12";
-          $result_products = mysqli_query($con,$select_products);
-          while($row_data = mysqli_fetch_assoc($result_products)){
-            $pId = $row_data['product_id'];
-            $pName = $row_data['product_name'];
-            $pPrice = $row_data['product_price'];
-            $pImage = $row_data['product_img'];
-            $pDes = $row_data['product_description'];
-            echo "<div class='col my-2 p-4'>
+function get_product()
+{
+  global $con;
+  $select_products = "select * from `products` order by product_id LIMIT 12";
+  $result_products = mysqli_query($con, $select_products);
+  while ($row_data = mysqli_fetch_assoc($result_products)) {
+    $pId = $row_data['product_id'];
+    $pName = $row_data['product_name'];
+    $pPrice = $row_data['product_price'];
+    $pImage = $row_data['product_img'];
+    $pDes = $row_data['product_description'];
+    echo "<div class='col my-2 p-4'>
             <div class='card'>
               <img
                 src='./pImages/$pImage'
@@ -35,25 +36,26 @@ function get_product(){
               </div>
             </div>
           </div>";
-          }
+  }
 }
-function search_product(){
+function search_product()
+{
   global $con;
-  if(isset($_GET['search_product'])){
+  if (isset($_GET['search_product'])) {
     $search_data = $_GET['search_data'];
   }
-        $select_products = "select * from `products` where product_name like '%$search_data%'";
-        $result_products = mysqli_query($con,$select_products);
-       
-        $count = 0;
-        while($row_data = mysqli_fetch_assoc($result_products)){
-          $count++;
-          $pId = $row_data['product_id'];
-          $pName = $row_data['product_name'];
-          $pPrice = $row_data['product_price'];
-          $pImage = $row_data['product_img'];
-          $pDes = $row_data['product_description'];
-          echo "<div class='col my-2 p-4'>
+  $select_products = "select * from `products` where product_name like '%$search_data%'";
+  $result_products = mysqli_query($con, $select_products);
+
+  $count = 0;
+  while ($row_data = mysqli_fetch_assoc($result_products)) {
+    $count++;
+    $pId = $row_data['product_id'];
+    $pName = $row_data['product_name'];
+    $pPrice = $row_data['product_price'];
+    $pImage = $row_data['product_img'];
+    $pDes = $row_data['product_description'];
+    echo "<div class='col my-2 p-4'>
           <div class='card'>
             <img
               src='./pImages/$pImage'
@@ -78,27 +80,28 @@ function search_product(){
             </div>
           </div>
         </div>";
-        }
-        if($count == 0 ){
-          echo "<h1  style='margin:40px 0;color:crimson; width: 100%; text-align: center'>No product contain '$search_data' </h1>";
-        }
-} 
+  }
+  if ($count == 0) {
+    echo "<h1  style='margin:40px 0;color:crimson; width: 100%; text-align: center'>No product contain '$search_data' </h1>";
+  }
+}
 
-function view_product(){
+function view_product()
+{
   global $con;
-  if(isset($_GET['product_id'])){
+  if (isset($_GET['product_id'])) {
     $product_id = $_GET['product_id'];
-        $query = "select * from `products` where product_id=$product_id";
-        $result_products = mysqli_query($con,$query);
-        $count = 0;
-        while($row_data = mysqli_fetch_assoc($result_products)){
-          $count++;
-          $pId = $row_data['product_id'];
-          $pName = $row_data['product_name'];
-          $pPrice = $row_data['product_price'];
-          $pImage = $row_data['product_img'];
-          $pDes = $row_data['product_description'];
-          echo "  <div class='card'style='width:200px'>
+    $query = "select * from `products` where product_id=$product_id";
+    $result_products = mysqli_query($con, $query);
+    $count = 0;
+    while ($row_data = mysqli_fetch_assoc($result_products)) {
+      $count++;
+      $pId = $row_data['product_id'];
+      $pName = $row_data['product_name'];
+      $pPrice = $row_data['product_price'];
+      $pImage = $row_data['product_img'];
+      $pDes = $row_data['product_description'];
+      echo "  <div class='card'style='width:200px'>
           <img src='./pImages/$pImage' class='card-img-top' alt='product-image' style='height:200px;
               width: 100%;
              object-fit: contain;' />
@@ -116,26 +119,26 @@ function view_product(){
 
           </div>
       </div>";
-        }
-    
-}
+    }
+  }
 }
 
-function filter(){
-    global $con;
-    $min = $_POST['min'];
-    $max = $_POST['max'];
-    $query = "select * from `products` where product_price >= $min and product_price <= $max ";
-    $execute = mysqli_query($con,$query);
-    $count = 0;
-    while($row_data = mysqli_fetch_assoc($execute)){
-      $count++;
-      $pId = $row_data['product_id'];
-      $pName = $row_data['product_name'];
-      $pPrice = $row_data['product_price'];
-      $pImage = $row_data['product_img'];
-      $pDes = $row_data['product_description'];
-      echo "<div class='col my-2 p-4'>
+function filter()
+{
+  global $con;
+  $min = $_POST['min'];
+  $max = $_POST['max'];
+  $query = "select * from `products` where product_price >= $min and product_price <= $max ";
+  $execute = mysqli_query($con, $query);
+  $count = 0;
+  while ($row_data = mysqli_fetch_assoc($execute)) {
+    $count++;
+    $pId = $row_data['product_id'];
+    $pName = $row_data['product_name'];
+    $pPrice = $row_data['product_price'];
+    $pImage = $row_data['product_img'];
+    $pDes = $row_data['product_description'];
+    echo "<div class='col my-2 p-4'>
       <div class='card'>
         <img
           src='./pImages/$pImage'
@@ -160,143 +163,102 @@ function filter(){
         </div>
       </div>
     </div>";
-    }
-    if($count == 0 ){
-      echo "<h2  style='margin:40px 0;color:crimson; width: 100%; text-align: center'>No product meets requirements </h2>";
-    }
-  
-  
-
+  }
+  if ($count == 0) {
+    echo "<h2  style='margin:40px 0;color:crimson; width: 100%; text-align: center'>No product meets requirements </h2>";
+  }
 }
-function getIPAddress() {  
-  //whether ip is from the share internet  
-   if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
-              $ip = $_SERVER['HTTP_CLIENT_IP'];  
-      }  
-  //whether ip is from the proxy  
-  elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
-              $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];  
-   }  
-//whether ip is from the remote address  
-  else{  
-           $ip = $_SERVER['REMOTE_ADDR'];  
-   }  
-   return $ip;  
-}  
-function cart(){
-  if(isset($_GET['add_to_cart'])){
-    global $con;
-    $query = "CREATE TABLE if not exists `ecommerce`.`cart_details` (`product_id` INT(255) NOT NULL , `ip_address` VARCHAR(255) NOT NULL , `quantity` INT(100) NOT NULL , PRIMARY KEY (`product_id`)) ENGINE = InnoDB;";
-    $result_query = mysqli_query($con,$query);
-
-    $getIp =  getIPAddress();
+function cart()
+{
+  if (isset($_GET['add_to_cart'])) {
     $pId = $_GET['add_to_cart'];
-    $query = "select * from `cart_details` where ip_address='$getIp' and product_id =$pId";
-    $result_query = mysqli_query($con,$query);
-    $count = mysqli_num_rows($result_query);
-    if($count > 0  ){
-      $row_data = mysqli_fetch_assoc($result_query);
-      $newquantity = $row_data['quantity']+1;
-      $query = "update `cart_details` set quantity=$newquantity where ip_address='$getIp' and product_id =$pId";
-      $result_query = mysqli_query($con,$query);
-      echo "<script>
-      window.open('index.php','_self');</script>";
-    }
-    else{
-      $query = "insert into `cart_details` (product_id,ip_address,quantity) values('$pId','$getIp',1)";
-      $result_query = mysqli_query($con,$query);
-      echo "<script>
-      window.open('index.php','_self');</script>";
-    }
-  }
-}
-function cart_item(){
-  if(isset($_GET['add_to_cart'])){
-    global $con;
-    $getIp =  getIPAddress();
-    $query = "select * from `cart_details` where ip_address='$getIp'";
-    $result_query = mysqli_query($con,$query);
-    $count = 0;
-    while($row_data = mysqli_fetch_assoc($result_query)){
-      $count += $row_data['quantity'];
-    }
-    echo $count;
-  }
-  else{
-    global $con;
-    $getIp =  getIPAddress();
-    $query = "select * from `cart_details` where ip_address='$getIp'";
-    $result_query = mysqli_query($con,$query);
-    $count = 0;
-    while($row_data = mysqli_fetch_assoc($result_query)){
-      $count += $row_data['quantity'];
-    }
-    echo $count;
-  }
-}
-function cart2(){
-  if(isset($_GET['add_cart'])){
-    global $con;
-    $query = "CREATE TABLE if not exists `ecommerce`.`cart_details` (`product_id` INT(255) NOT NULL , `ip_address` VARCHAR(255) NOT NULL , `quantity` INT(100) NOT NULL , PRIMARY KEY (`product_id`)) ENGINE = InnoDB;";
-    $result_query = mysqli_query($con,$query);
 
-    $getIp =  getIPAddress();
-    $pId = $_GET['add_cart'];
-    $query = "select * from `cart_details` where ip_address='$getIp' and product_id =$pId";
-    $result_query = mysqli_query($con,$query);
-    $count = mysqli_num_rows($result_query);
-    if($count > 0  ){
-      $row_data = mysqli_fetch_assoc($result_query);
-      $newquantity = $row_data['quantity']+1;
-      $query = "update `cart_details` set quantity=$newquantity where ip_address='$getIp' and product_id =$pId";
-      $result_query = mysqli_query($con,$query);
-      echo "<script>
-      window.open('product_details.php?product_id=$pId','_self');</script>";
+    echo "<script>
+ 
+    if (localStorage.getItem('cart') === null){
+      let cart = {'$pId' : 1}
+      localStorage.setItem('cart',JSON.stringify(cart))
     }
     else{
-      $query = "insert into `cart_details` (product_id,ip_address,quantity) values('$pId','$getIp',1)";
-      $result_query = mysqli_query($con,$query);
-      echo "<script>
-      window.open('product_details.php?product_id=$pId','_self');</script>";
+    let str = localStorage.getItem('cart')
+    let cart = JSON.parse(str)
+    if('$pId' in cart){
+      let i = parseInt(cart['$pId']) +1 
+        cart[$pId] = i
     }
+    else{
+        cart['$pId'] = 1
+    }
+    localStorage.setItem('cart',JSON.stringify(cart))
+  }
+  window.open('index.php','_self')
+    </script>";
   }
 }
-function cart_item2(){
-  if(isset($_GET['add_cart'])){
-    global $con;
-    $getIp =  getIPAddress();
-    $query = "select * from `cart_details` where ip_address='$getIp'";
-    $result_query = mysqli_query($con,$query);
-    $count = 0;
-    while($row_data = mysqli_fetch_assoc($result_query)){
-      $count += $row_data['quantity'];
-    }
+function cart_item()
+{
+    echo "<script>
+let cart = JSON.parse(localStorage.getItem('cart'))
+console.log(cart)
+let count = 0
+for(let key in cart){
+  count+= cart[key]
+  }</script>";
+    $count = "<script> document.write(parseInt(count)) </script>";
     echo $count;
+  
+}
+function cart2()
+{
+  if (isset($_GET['add_cart'])) {
+    $pId = $_GET['add_cart'];
+    echo "<script>
+    if (localStorage.getItem('cart') === null){
+      let cart = {'$pId' : 1}
+      localStorage.setItem('cart',JSON.stringify(cart))
+    }
+    else{
+    let str = localStorage.getItem('cart')
+    let cart = JSON.parse(str)
+    if('$pId' in cart){
+      let i = parseInt(cart['$pId']) +1 
+        cart[$pId] = i
+    }
+    else{
+        cart['$pId'] = 1
+    }
+    localStorage.setItem('cart',JSON.stringify(cart))
   }
-  else{
-    global $con;
-    $getIp =  getIPAddress();
-    $query = "select * from `cart_details` where ip_address='$getIp'";
-    $result_query = mysqli_query($con,$query);
-    $count = 0;
-    while($row_data = mysqli_fetch_assoc($result_query)){
-      $count += $row_data['quantity'];
-    }
-    echo $count;
+  window.open('product_details.php?product_id=$pId','_self')
+    </script>";
   }
 }
-function name(){
+function cart_item2()
+{
+  echo "<script>
+let cart = JSON.parse(localStorage.getItem('cart'))
+console.log(cart)
+let count = 0
+for(let key in cart){
+  count+= cart[key]
+  }</script>";
+    $count = "<script> document.write(parseInt(count)) </script>";
+    echo $count;
+}
+function name()
+{
   $name = $_SESSION['username'];
   echo "$name";
 }
-function vendor_product(){
+function vendor_product()
+{
   global $con;
   $userId = $_SESSION['id'];
   $select_products = "select * from `products` where vendor='$userId'";
-  $result_products = mysqli_query($con,$select_products);
+  $result_products = mysqli_query($con, $select_products);
   $count = mysqli_num_rows($result_products);
-  if($count >0){
-    while($row_data = mysqli_fetch_assoc($result_products)){
+  if ($count > 0) {
+    while ($row_data = mysqli_fetch_assoc($result_products)) {
       $pId = $row_data['product_id'];
       $pName = $row_data['product_name'];
       $pPrice = $row_data['product_price'];
@@ -311,14 +273,14 @@ function vendor_product(){
       <td style='height:120px;'  class='text-center'>$pPrice</td>
       <td style='height:120px;'  class='text-center'>$pDes</td>
       </tr>";
+    }
   }
 }
-}
-function add_product(){
+function add_product()
+{
   global $con;
   if (isset($_POST['add_product'])) {
     $pName = $_POST['pName'];
-    echo "<script> $pName </script>";
     if (mysqli_num_rows(mysqli_query($con, "select * from `products` where product_name ='$pName'")) > 0) {
       echo "<script> alert('Product name existed') </script>";
     } else {
@@ -339,10 +301,11 @@ function add_product(){
   }
 }
 
-function logout(){
-  if(isset($_GET['logout'])){
+function logout()
+{
+  if (isset($_GET['logout'])) {
     $_SESSION['loggedin'] = false;
-    $_SESSION['username'] ='';
+    $_SESSION['username'] = '';
     $_SESSION['role'] = '';
     $_SESSION['id'] = '';
     echo "<script> alert('Logging out...');
@@ -350,42 +313,39 @@ function logout(){
   }
 }
 
-function cant_access(){
-  if($_SESSION['loggedin'] == true ){
- 
-    if($_SESSION['role'] == 'customer'){
+function cant_access()
+{
+  if ($_SESSION['loggedin'] == true) {
+
+    if ($_SESSION['role'] == 'customer') {
       echo "<script> alert('You are already logged in!');
       window.open('../index.php','_self');</script>";
-    }
-    else if($_SESSION['role'] == 'vendor'){
+    } else if ($_SESSION['role'] == 'vendor') {
       echo "<script> alert('You are already logged in!');
       window.open('../users/vendors/vendors.php','_self');</script>";
-    }
-    elseif($_SESSION['role'] == 'shipper'){
+    } elseif ($_SESSION['role'] == 'shipper') {
       echo "<script> alert('You are already logged in!');
       window.open('../users/shippers/shippers.php','_self');</script>";
     }
   }
 }
 
-function myaccount_link(){
+function myaccount_link()
+{
   $val = $_SESSION['role'];
   // echo "<script>alert('$val');</script>";
-      if($val=='customer'){
-          echo "../index.php";
-        }
-        else if($val =='vendor'){
-          echo "./vendors/vendors.php";
-        }
-        else  if($val =='shipper'){
-          echo "./shippers/shippers.php";
-        }
-        else echo "";
-
+  if ($val == 'customer') {
+    echo "../index.php";
+  } else if ($val == 'vendor') {
+    echo "./vendors/vendors.php";
+  } else  if ($val == 'shipper') {
+    echo "./shippers/shippers.php";
+  } else echo "";
 }
-function redr(){
+function redr()
+{
   $val = $_SESSION['role'];
   // echo "<script>alert('$val');</script>";
-  if(!$_SESSION['role'] and $val != '' )
-          echo "<script>alert('You are not having permission to access this URL');window.open('../index.php','_self');</script> ";
+  if (!$_SESSION['role'] and $val != '')
+    echo "<script>alert('You are not having permission to access this URL');window.open('../index.php','_self');</script> ";
 }
