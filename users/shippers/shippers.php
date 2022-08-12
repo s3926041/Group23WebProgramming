@@ -1,7 +1,7 @@
 <?php
 include('../../includes/connect.php');
 include('../../functions/functions.php');
-redr();
+redr('shipper');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +21,7 @@ redr();
   <header>
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="./vendors.php">Group 23</a>
+        <a class="navbar-brand" href="./shippers.php">Group 23</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

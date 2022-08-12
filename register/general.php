@@ -60,7 +60,7 @@ include('../functions/functions.php')
        <a href="./customers.php" class="btn mb-3 w-75 btn-primary"> Customer</a>
      <a href="./vendors.php" class="btn mb-3 w-75 btn-secondary">   Vendors</a>
      <a href="./shippers.php" class="btn mb-3 w-75 btn-dark">Shippers</a>
-     <a href="../login/login.php" style="text-decoration: none;">Already have a account? Login</a>
+     <a href="../login/login.php" >Already have a account? Login</a>
       </div>
     </main>
     <?php

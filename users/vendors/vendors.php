@@ -1,7 +1,7 @@
 <?php
 include('../../includes/connect.php');
 include('../../functions/functions.php');
-redr();
+redr('vendor');
 ?>
 <!DOCTYPE html>
 <html lang="en">

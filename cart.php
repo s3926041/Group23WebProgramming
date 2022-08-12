@@ -1,6 +1,7 @@
 <?php
 include('includes/connect.php');
-include('./functions/functions.php')
+include('./functions/functions.php');
+redr('customer');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +27,6 @@ include('./functions/functions.php')
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
                     </ul>
                     </li>
                     </ul>
@@ -75,21 +75,18 @@ include('./functions/functions.php')
                                 pImage = products[key].pImage
                                 vendorname = products[key].vendorname
                                 temp += pPrice*cart[key]
-                                let html = `<tr> <th class='text-center' >${key}</th> <td style='height:120px;'  class='text-center'>${pname}</td> <td style='height:120px;'  class='text-center' id='img'> <img src='./pImages/${pImage}' alt='cart-image' style='width: 150px;height: 100%; object-fit:contain;'> </td> <td style='height:120px;'  class='text-center'>${pPrice}</td> <td style='height:120px;'  class='text-center'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'> <input class='text-center rounded mx-2 form-control' style='width:80px' type='number' name='quantity' min='1' max='100' value='${cart[key]}' required> <input class='text-center rounded mx-2 form-control' type='submit' value='Update' name='update' style='width:80px'> </div> </form> </td> <td style='height:120px;' >${vendorname} </td> <td style='height:120px;'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'> <input class='text-center rounded mx-2 form-control' type='submit' value='Remove' name='remove' style='width:80px'> </div> </form> </td> </tr>`
+                                let html = `<tr> <th class='text-center' >${key}</th> <td   class='text-center h120'>${pname}</td> <td   class='text-center h120' > <img src='./pImages/${pImage}' alt='cart-image' class='vendor_img'> </td> <td  class='text-center h120'>${pPrice}</td> <td  class='text-center h120'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'> <input class='text-center rounded mx-2 form-control' style='width:80px' type='number' name='quantity' min='1' max='100' value='${cart[key]}' required> <input class='text-center rounded mx-2 form-control' type='submit' value='Update' name='update' style='width:80px'> </div> </form> </td> <td class='h120' >${vendorname} </td> <td class='120'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'> <input class='text-center rounded mx-2 form-control' type='submit' value='Remove' name='remove' style='width:80px'> </div> </form> </td> </tr>`
                                 let append = document.getElementById('append');
                                 append.insertAdjacentHTML('afterend', html);
-                            }
-                          
+                            }  
                         }
                         function update(pid,quantity){
                             cart[pid] = quantity
                             localStorage.setItem('cart',JSON.stringify(cart));
-                         
                         }
                         function remove(pid){
                             delete cart[pid]
                             localStorage.setItem('cart',JSON.stringify(cart));
-                  
                         }
                        
                     </script>
@@ -105,7 +102,7 @@ include('./functions/functions.php')
                         $pPrice = $r_data['product_price'];
                         $pImage = $r_data['product_img'];
                         $vendor = $r_data['vendor'];
-                        $query = "select * from `vendor_table` where user_id= $vendor";
+                        $query = "select * from `vendor_table` where user_id= $vendor limit 1";
                         $venquery = mysqli_query($con, $query);
                         $r_data = mysqli_fetch_assoc($venquery);
                         $vendorname = $r_data['bussiness_name'];
@@ -122,7 +119,7 @@ include('./functions/functions.php')
                 </tbody>
             </table>
 
-            <!-- Remove item -->
+        
             <?php
 
             global $con;
@@ -153,7 +150,7 @@ include('./functions/functions.php')
                
                 <form action="" method="post" class="d-flex m-0">
                     <input type="hidden" name="json" id="json" value="">
-                    <script>          document.getElementById('json').value = JSON.stringify(cart)</script>
+                    <script>  document.getElementById('json').value = JSON.stringify(cart)</script>
                     <a href="./index.php" class="form-control m-2" style='width:180px; text-decoration:none'>Continue Shopping</a>
                     <input type="submit" value="Order" class="form-control m-2" name="order" style='width:180px; text-decoration:none'>
                 </form>
@@ -173,12 +170,19 @@ include('./functions/functions.php')
                         else{
                          
                                 $userid = $_SESSION['id'];
-                                $query = "insert into `order_table` (user_id) values ('$userid')";
+                                $query = "select * from `distribution_hub` order by RAND() LIMIT 1";
                                 $res = mysqli_query($con,$query);
+                                $row = mysqli_fetch_assoc($res);
+                                $hub_id =$row['hub_id'];
+
+                                $query = "insert into `order_table` (user_id,hub_id,status) values ('$userid','$hub_id','active')";
+                                $res = mysqli_query($con,$query);
+
                                 $query = "select max(order_id) from `order_table`";
                                 $res2 = mysqli_query($con,$query);
                                 $row = mysqli_fetch_assoc($res2);
                                 $orderId = $row['max(order_id)'];
+
                                 foreach($json as $key => $value){
                                     $query = "insert into `order_details` (order_id,product_id,quantity) values ('$orderId','$key','$value')";
                                     $res = mysqli_query($con,$query);

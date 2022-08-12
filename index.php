@@ -1,6 +1,7 @@
 <?php
 include('includes/connect.php');
 include('./functions/functions.php');
+redr('customer');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,16 +16,7 @@ include('./functions/functions.php');
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css">
 </head>
-<style>
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  input[type=number] {
-    -moz-appearance: textfield;
-  }
-</style>
+
 
 <body>
   <header>
@@ -41,9 +33,9 @@ include('./functions/functions.php');
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data" />
             <input type="submit" value="Search" class="btn btn-outline-success" name="search_product">
           </form>
-          <a class="nav-link mob" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup><?php cart_item() ?></sup></a>
+          <a class="nav-link mob" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup id='total_cart'></sup></a>
           <?php
-          if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+          if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true and !isset($_GET['logout'])) {
             echo "<a class='nav-link mob' href='./users/myaccount.php'>My Account</a>
     <a class='nav-link mob' href='./index.php?logout'>Logout</a>
     ";
@@ -54,8 +46,9 @@ include('./functions/functions.php');
       </div>
     </nav>
   </header>
+  <script src="./app.js"></script>
   <?php
-  cart();
+
   logout();
   ?>
   <main>
@@ -63,29 +56,29 @@ include('./functions/functions.php');
       <div class="row text-center my-4">
         <h2>Products</h2>
       </div>
-      <div class="row form-floating d-flex mx-3 " style="width:200px; ">
-        <form action="" method="post" class="d-flex align-items-end">
+      <div class="row form-floating d-flex mx-3 w200">
+        <form action="" method="GET" class="d-flex align-items-end">
           <div class=" mx-2">
             <label for="min">Min</label>
-            <input  style="height:40px;width:100px" type="number" id="min" name="min" class="form-control" value="<?php if (isset($_POST['min'])) {
-                                                                                                        $min = $_POST['min'];
+            <input type="number" id="min" name="min" class="form-control filter_input" value="<?php if (isset($_GET['min'])) {
+                                                                                                        $min = $_GET['min'];
                                                                                                         echo $min;
                                                                                                       } else echo 0; ?>" required>
           </div>
           <div class=" mx-2">
             <label for="max">Max</label>
-            <input  style="height:40px;width:100px" type="number" id="max" name="max" class="form-control" value="<?php if (isset($_POST['max'])) {
-                                                                                                        $max = $_POST['max'];
+            <input type="number" id="max" name="max" class="form-control filter_input" value="<?php if (isset($_GET['max'])) {
+                                                                                                        $max = $_GET['max'];
                                                                                                         echo $max;
                                                                                                       } else echo 10000000; ?>" required>
           </div>
-          <input  style="height:40px;width:100px" type="submit" value="Filter" name="filter" class="form-control mx-2">
+          <input type="submit" value="Filter" name="filter" class="form-control mx-2 filter_input">
         </form>
 
       </div>
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
         <?php
-        if (isset($_POST['filter'])) {
+        if (isset($_GET['filter'])) {
           filter();
         } else
         if (isset($_GET['search_product'])) {
@@ -101,8 +94,7 @@ include('./functions/functions.php');
   include('includes/footer.php');
   ?>
   <!-- JavaScript Bundle with Popper -->
-  <script src="./index.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
-
 </html>

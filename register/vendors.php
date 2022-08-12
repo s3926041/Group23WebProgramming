@@ -82,7 +82,7 @@ include('../functions/functions.php')
           <input type="file" class="form-control" id="image"  name='image'>
         </div>
         <div class=" d-flex justify-content-center align-items-center">
-          <button type="submit" class="btn btn-primary" name="vendor_reg" style='width:200px'>Submit</button>
+          <button type="submit" class="btn btn-primary w200" name="vendor_reg">Submit</button>
         </div>
       </form>
     </div>
@@ -97,7 +97,6 @@ include('../functions/functions.php')
       $address = $_POST['address'];
       $image = $_FILES['image']['name'];
       $tmp_image = $_FILES['image']['tmp_name'];
-      $ip = getIPAddress();
       $query = "select username from `user_table` where username= '$username'";
       $resquery= mysqli_query($con,$query);
       $count = mysqli_num_rows($resquery);

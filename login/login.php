@@ -43,12 +43,13 @@ cant_access();
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
-            <a class="nav-link mob" href="../cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup><?php cart_item() ?></sup></a>
+            <a class="nav-link mob" href="../cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup id='tota_cart'></sup></a>
           <a class="nav-link mob" href="./login.php">Login/Registering</a>
           </div>
         </div>
       </nav>
     </header>
+    <script src="../app.js"></script>
     <main>
       <div class="card p-4 mx-auto my-4" id="card">
         <h2 class="center">Login</h2>
@@ -70,7 +71,7 @@ cant_access();
                   name = "password"
                 />
               </div>
-              <div class="mb-3"><a href="../register/general.php" style="text-decoration: none;">Don't have acount? Registering</a></div>
+              <div class="mb-3"><a href="../register/general.php" >Don't have acount? Registering</a></div>
 
               <button type="submit" class="btn btn-primary" name="login">Submit</button>
             </form>
@@ -117,7 +118,6 @@ cant_access();
     <?php
   include('../includes/footer.php');
   ?>
-    <!-- JavaScript Bundle with Popper -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"

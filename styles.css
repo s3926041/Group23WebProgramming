@@ -11,12 +11,42 @@ body{
 header,footer{
     width: 100%;
 }
+a{
+    text-decoration: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 .mob{
     margin:10px 0px;
 }
-
-
+.mr5{
+    margin-right: 5%;
+}
+.ml5{
+    margin-left: 5%;
+}
+.h120{
+    height: 120px;
+}
+.w200{
+    width:200px;
+}
+.nodata_message{
+    margin:40px 0;color:crimson; width: 100%; text-align: center;
+}
+.vendor_img{
+    width: 150px;height: 100%; object-fit:contain;
+}
+.filter_input{
+    height:40px;width:100px;
+}
 #footer {
    margin-top: auto;
 }

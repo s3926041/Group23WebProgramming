@@ -62,13 +62,19 @@ include('../functions/functions.php')
         <div class="mb-3">
           <label for="hub">Distribution hub:</label>
           <select name="hub" class="form-control" id="hub">
-            <option value="hub1">hub1</option>
-            <option value="hub2">hub2</option>
-            <option value="hub3">hub3</option>
+            <?php $query = "select * from `distribution_hub`";
+            $res = mysqli_query($con, $query);
+            while($row = mysqli_fetch_assoc($res)){
+              $hub_id = $row['hub_id'];
+              $name = $row['name'];
+              
+              echo"<option value='$hub_id'>$name</option>";
+            }
+            ?>
           </select>
         </div>
         <div class=" d-flex justify-content-center align-items-center">
-          <button type="submit" class="btn btn-primary" name="shipper_reg" style='width:200px'>Submit</button>
+          <button type="submit" class="btn btn-primary w200" name="shipper_reg">Submit</button>
         </div>
       </form>
     </div>
@@ -77,13 +83,12 @@ include('../functions/functions.php')
     if (isset($_POST['shipper_reg'])) {
       $username = $_POST['username'];
       $password = $_POST['password'];
-      $hashp = password_hash($password,PASSWORD_DEFAULT);
+      $hashp = password_hash($password, PASSWORD_DEFAULT);
       $password2 = $_POST['password2'];
       $name = $_POST['name'];
       $image = $_FILES['image']['name'];
       $tmp_image = $_FILES['image']['tmp_name'];
       $hub = $_POST['hub'];
-      $ip = getIPAddress();
       $query = "select username from `user_table` where username= '$username'";
       $resquery = mysqli_query($con, $query);
       $count = mysqli_num_rows($resquery);
@@ -94,19 +99,19 @@ include('../functions/functions.php')
         if ($password != $password2) {
           echo "<script> alert('Password not match!');</script>";
         } else {
-        move_uploaded_file($tmp_image, "../users/userImages/$image");
-        $query = "insert into `user_table` (username,password,image,role) values ('$username','$hashp','$image','shipper');";
-        $resquery = mysqli_query($con, $query);
+          move_uploaded_file($tmp_image, "../users/userImages/$image");
+          $query = "insert into `user_table` (username,password,image,role) values ('$username','$hashp','$image','shipper');";
+          $resquery = mysqli_query($con, $query);
 
-        $query = "select user_id from `user_table` where username='$username'";
-        $resquery = mysqli_query($con, $query);
-        if ($rowdata = mysqli_fetch_assoc($resquery)) {
-          $userId = $rowdata['user_id'];
-          $query = "insert into `shipper_table` (user_id,hub_id) values ('$userId','$hub');";
-          $execute = mysqli_query($con, $query);
-          if ($execute) echo "<script> alert('Registered!');window.open('shippers.php','_self'); </script>";
+          $query = "select user_id from `user_table` where username='$username'";
+          $resquery = mysqli_query($con, $query);
+          if ($rowdata = mysqli_fetch_assoc($resquery)) {
+            $userId = $rowdata['user_id'];
+            $query = "insert into `shipper_table` (user_id,hub_id) values ('$userId','$hub');";
+            $execute = mysqli_query($con, $query);
+            if ($execute) echo "<script> alert('Registered!');window.open('shippers.php','_self'); </script>";
+          }
         }
-      }
       }
     }
     ?>

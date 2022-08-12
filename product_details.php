@@ -1,6 +1,7 @@
 <?php
 include('includes/connect.php');
-include('./functions/functions.php')
+include('./functions/functions.php');
+redr('customer')
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,8 +33,9 @@ include('./functions/functions.php')
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data" />
                         <input type="submit" value="Search" class="btn btn-outline-success" name="search_product">
                     </form>
-                    <a class="nav-link mob" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup><?php cart_item2() ?></sup></a>
+                    <a class="nav-link mob" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup id='total_cart'></sup></a>
                     <?php 
+                  
           if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     echo "<a class='nav-link mob' href='./users/customer/myaccount.php'>My Account</a>
     <a class='nav-link mob' href='./index.php?logout'>Logout</a>
@@ -45,6 +47,7 @@ include('./functions/functions.php')
             </div>
         </nav>
     </header>
+    <script src="./app.js"></script>
     <main>
         <?php
         if(isset($_GET['search_product'])){
@@ -52,27 +55,17 @@ include('./functions/functions.php')
             <div class='row text-center my-4'>
               <h2>Products</h2>
             </div>
-            <div class='row form-floating d-flex mx-3' style='width:200px; '>
-              <form method='get'>
-              <div class='form-floating'>
-              <select class='form-select' id='floatingSelect' aria-label='Floating label select example' name='sort'>
-                <option selected>Default</option>
-                <option value='az'>A-Z</option>
-                <option value='za'>Z-A</option>
-                <option value='lh'>Price low to high</option>
-                <option value='hl'>Price high to low</option>
-              </select>
-              <label for='floatingSelect'>Sort by:</label>
-              </div>
-              </form> 
+            <div class='row form-floating d-flex mx-3 w200'>
             </div>
             <div class='row row-cols-1 row-cols-md-2 row-cols-xxl-3'>";
             search_product();
             echo "</div>
             </div>";
         }else{
+            echo "<div class='container-fluid d-flex justify-content-center my-4'>";
             view_product(); 
-            cart2();
+            echo"</div>";
+           
         }    
         ?>
     </main>
