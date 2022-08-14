@@ -1,7 +1,7 @@
 <?php
 include('includes/connect.php');
 include('./functions/functions.php');
-redr('customer')
+redr('customer');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,8 +48,10 @@ redr('customer')
         </nav>
     </header>
     <script src="./app.js"></script>
+
     <main>
         <?php
+   
         if(isset($_GET['search_product'])){
             echo "<div class='container'>
             <div class='row text-center my-4'>
@@ -63,9 +65,9 @@ redr('customer')
             </div>";
         }else{
             echo "<div class='container-fluid d-flex justify-content-center my-4'>";
-            view_product(); 
+            
+            view_product();
             echo"</div>";
-           
         }    
         ?>
     </main>

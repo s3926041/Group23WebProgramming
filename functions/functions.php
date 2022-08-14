@@ -1,41 +1,43 @@
 <?php
 session_start();
-function generate($para,$res){
-    if($para == 1){
-      cart('index.php');
-    }
-    else cart('');
-    while ($row_data = mysqli_fetch_assoc($res)) {
+function generate($para, $res)
+{
+  while ($row_data = mysqli_fetch_assoc($res)) {
     $pId = $row_data['product_id'];
     $pName = $row_data['product_name'];
     $pPrice = $row_data['product_price'];
     $pImage = $row_data['product_img'];
     $pDes = $row_data['product_description'];
-    if($para== 1)
-    echo "<div class='col my-2 p-4'>";
-            
-      echo    "<div class='card'>
+    if ($para == 1)
+      echo "<div class='col my-2 p-4'>";
+
+    echo    "<div class='card d-flex '>
+          <div class='d-flex justify-content-center'>
             <img
               src='./pImages/$pImage'
               class='card-img-top'
               alt='product-image'
             />
-            <div class='card-body d-flex justify-content-center flex-column'>
-            <div class=''>
+            </div>
+            <div class='card-body d-flex justify-content-center align-content-center flex-column'>
+            <div class='mb-2'>
               <h5 class='card-title'>$pName</h5>
               <p class='card-text'>
-                  $pDes
+   
               </p>
               <div class=''>Price: $pPrice</div>
               </div>
-              <div class=' d-flex justify-content-center'> 
-              <a href='index.php?add_to_cart=$pId' class='btn btn-primary p-2 w-50 mr5' >Add to cart</a>";
-              if($para== 1)
-             echo "<a href='product_details.php?product_id=$pId' class='btn btn-info p-2  w-50 ml5' >View more</a>";
-            echo "</div></div></div>";
-        if($para== 1)
-        echo "</div>";
-  } 
+              <div class=' d-flex justify-content-center'> ";
+    if ($para == 1)
+      echo "<a class='btn btn-primary p-2 w-50 mr5' onclick='addcart($pId)'>Add to cart</a>";
+    else   echo "<a id='$pId' class='btn btn-primary p-2 w-50 mr5'onclick='addcart($pId)' >Add to cart</a>";
+    
+    if ($para == 1)
+      echo "<a href='product_details.php?product_id=$pId' class='btn btn-info p-2  w-50 ml5' >View more</a>";
+    echo "</div></div></div>";
+    if ($para == 1)
+      echo "</div>";
+  }
 }
 
 function get_product()
@@ -43,7 +45,7 @@ function get_product()
   global $con;
   $query = "select * from `products` ";
   $res = mysqli_query($con, $query);
-  generate(1,$res);
+  generate(1, $res);
 }
 function search_product()
 {
@@ -51,7 +53,7 @@ function search_product()
   $search_data = $_GET['search_data'];
   $query = "select * from `products` where product_name like '%$search_data%'";
   $res = mysqli_query($con, $query);
-  generate(1,$res);
+  generate(1, $res);
   $count = mysqli_num_rows($res);
   if ($count == 0) {
     echo "<h2  class='nodata_message'>No product meets requirements </h2>";
@@ -61,11 +63,10 @@ function search_product()
 function view_product()
 {
   global $con;
-
-    $product_id = $_GET['product_id'];
-    $query = "select * from `products` where product_id=$product_id";
-    $res = mysqli_query($con, $query);
-    generate(2,$res);
+  $product_id = $_GET['product_id'];
+  $query = "select * from `products` where product_id=$product_id limit 1";
+  $res = mysqli_query($con, $query);
+  generate(2, $res);
 }
 
 function filter()
@@ -75,46 +76,10 @@ function filter()
   $max = $_GET['max'];
   $query = "select * from `products` where product_price >= $min and product_price <= $max ";
   $res = mysqli_query($con, $query);
-  generate(1,$res);
+  generate(1, $res);
   $count = mysqli_num_rows($res);
   if ($count == 0) {
     echo "<h2  class='nodata_message'>No product meets requirements </h2>";
-  }
-}
-function cart($link)
-{
-  if (isset($_GET['add_to_cart'])) {
-    $pId = $_GET['add_to_cart'];
-
-    echo "<script>
-    if (localStorage.getItem('cart') === null){
-      let cart = {'$pId' : 1}
-      localStorage.setItem('cart',JSON.stringify(cart))
-    }
-    else{
-    let str = localStorage.getItem('cart')
-    let cart = JSON.parse(str)
-    if('$pId' in cart){
-      let i = parseInt(cart['$pId']) +1 
-      cart[$pId] = i
-    }
-    else{
-        cart['$pId'] = 1
-    }
-    let count = 0
-
-    for(let key in cart){
-      count += cart[key]
-      }
-    localStorage.setItem('cart',JSON.stringify(cart))
-    document.getElementById('total_cart').innerHTML = count;
-    console.log('$link')
-    if('$link' == 'index.php'){
-      window.open('index.php','_self')
-    }
-    else window.open('product_details.php?product_id=$pId','_self')
-  }
-    </script>";
   }
 }
 function name()
@@ -140,7 +105,7 @@ function vendor_product()
       <th class='text-center' scope='row'>$pId</th>
       <td class='text-center h120'>$pName</td>
       <td class='text-center h120'>
-          <img src='../../pImages/$pImage' alt='cart-image' class=card-image-top>
+          <img src='../../pImages/$pImage' alt='cart-image' class='vendor_img'>
       </td>
       <td class='text-center h120'>$pPrice</td>
       <td class='text-center h120'>$pDes</td>
@@ -172,6 +137,34 @@ function add_product()
     }
   }
 }
+function shipper_orders()
+{
+  global $con;
+  $userId = $_SESSION['id'];
+  $query = "select * from `shipper_table` where user_id=$userId limit 1"; 
+  $res = mysqli_query($con, $query);
+  $row_data = mysqli_fetch_assoc($res);
+  $hub = $row_data['hub_id'];
+
+  $query = "select * from `order_table` where status='active' and hub_id=$hub";
+  $res = mysqli_query($con, $query);
+  $count = mysqli_num_rows($res);
+  if ($count > 0) {
+    while ($row_data = mysqli_fetch_assoc($res)) {
+      $oId = $row_data['order_id'];
+      $userId = $row_data['user_id'];
+      $status = $row_data['status'];
+      echo "<tr>
+      <th class=''  scope='row'>$oId</th>
+      <td class='' >$userId</td>
+   
+      <td  class=''>$hub</td>
+      <td  class=''>$status</td>
+      <td  class='d-flex justify-content-center w200' ><a href='./shipper.php?order_id=$oId' class='text-center form-control w200'>Order Details</a></td>
+      </tr>";
+    }
+  }
+}
 
 function logout()
 {
@@ -180,27 +173,28 @@ function logout()
     $_SESSION['username'] = '';
     $_SESSION['role'] = '';
     $_SESSION['id'] = '';
-    echo "<script> alert('Logging out...');
+    $_SESSION['img'] = '';
+    echo "<script> alert('Logged out!');
     window.open('index.php','_self');</script>";
   }
 }
 
 function cant_access()
 {
-  if(isset($_SESSION['loggedin'])){
-  if ($_SESSION['loggedin'] == true) {
-    if ($_SESSION['role'] == 'customer') {
-      echo "<script> alert('You are already logged in!');
+  if (isset($_SESSION['loggedin'])) {
+    if ($_SESSION['loggedin'] == true) {
+      if ($_SESSION['role'] == 'customer') {
+        echo "<script> alert('You are already logged in!');
       window.open('../index.php','_self');</script>";
-    } else if ($_SESSION['role'] == 'vendor') {
-      echo "<script> alert('You are already logged in!');
-      window.open('../users/vendors/vendors.php','_self');</script>";
-    } elseif ($_SESSION['role'] == 'shipper') {
-      echo "<script> alert('You are already logged in!');
-      window.open('../users/shippers/shippers.php','_self');</script>";
+      } else if ($_SESSION['role'] == 'vendor') {
+        echo "<script> alert('You are already logged in!');
+      window.open('../users/vendor/vendor.php','_self');</script>";
+      } elseif ($_SESSION['role'] == 'shipper') {
+        echo "<script> alert('You are already logged in!');
+      window.open('../users/shipper/shipper.php','_self');</script>";
+      }
     }
   }
-} 
 }
 
 function myaccount_link()
@@ -210,38 +204,35 @@ function myaccount_link()
   if ($val == 'customer') {
     echo "../index.php";
   } else if ($val == 'vendor') {
-    echo "./vendors/vendors.php";
+    echo "./vendor/vendor.php";
   } else  if ($val == 'shipper') {
-    echo "./shippers/shippers.php";
-  } 
+    echo "./shipper/shipper.php";
+  }
 }
-function redrmyAc(){
-  if(isset($_SESSION['role'])){
+function redrmyAc()
+{
+  if (isset($_SESSION['role'])) {
     $val = $_SESSION['role'];
-    if($val== '')  echo "<script>alert('You are not having permission to access this URL');window.open('../index.php','_self');</script> ";
+    if ($val == '')  echo "<script>alert('You are not having permission to access this URL');window.open('../index.php','_self');</script> ";
   }
 }
 function redr($role)
 {
-  if(!isset($_SESSION['role'])){
-    if($role != 'customer'){
-      echo "<script>alert('You are not having permission to access this URL');window.open('../../index.php','_self');</script> ";
-    }
-  }
-  else{
-    $val = $_SESSION['role'];
-  // echo "<script>alert('$val');</script>";
-  if($role=='customer'){
-    if(!isset($_GET['logout']))
-    if($val!='' and $val!='customer'){
-      echo "<script>alert('You are not having permission to access this URL');window.open('./index.php','_self');</script> ";
-    }
-  }
-  else
-  if ($val!=$role)
-  {
-    echo "<script>alert('You are not having permission to access this URL');window.open('../../index.php','_self');</script> ";
-  }
-}
-}
+  if (!isset($_GET['logout'])) {
+    $check = true;
+    if (!isset($_SESSION['role'])) {
+      if ($role != 'customer') $check = false;
+    } else {
+      $value = $_SESSION['role'];
 
+      if ($value != $role) {
+        if ($value == '') {
+          if ($role != 'customer')
+            $check = false;
+        } else
+          $check = false;
+      }
+    }
+    if (!$check) echo "<script>alert('You are not having permission to access this URL');window.history.go(-1);</script> ";
+  }
+}

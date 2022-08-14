@@ -66,29 +66,67 @@ redr('customer');
                         let pImage
                         let vendorname
                         let cart = JSON.parse(localStorage.getItem('cart'))
-                     
+
                         function display(cart) {
-                            localStorage.setItem('products', JSON.stringify(products))
                             for (let key in cart) {
                                 pname = products[key].pname
                                 pPrice = products[key].pPrice
                                 pImage = products[key].pImage
                                 vendorname = products[key].vendorname
-                                temp += pPrice*cart[key]
-                                let html = `<tr> <th class='text-center' >${key}</th> <td   class='text-center h120'>${pname}</td> <td   class='text-center h120' > <img src='./pImages/${pImage}' alt='cart-image' class='vendor_img'> </td> <td  class='text-center h120'>${pPrice}</td> <td  class='text-center h120'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'> <input class='text-center rounded mx-2 form-control' style='width:80px' type='number' name='quantity' min='1' max='100' value='${cart[key]}' required> <input class='text-center rounded mx-2 form-control' type='submit' value='Update' name='update' style='width:80px'> </div> </form> </td> <td class='h120' >${vendorname} </td> <td class='120'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'> <input class='text-center rounded mx-2 form-control' type='submit' value='Remove' name='remove' style='width:80px'> </div> </form> </td> </tr>`
+                                temp += pPrice * cart[key]
+                                let html = `<tr> <th class='text-center' >${key}</th> 
+                                <td   class='text-center h120'>${pname}</td>
+                                <td   class='text-center h120' > <img src='./pImages/${pImage}' alt='cart-image' class='vendor_img'>
+                                 </td> <td  class='text-center h120'>${pPrice}</td>
+                                  <td  class='text-center h120'> <form method='post'> 
+                                  <div class='d-flex w-100 justify-content-center'> 
+                                   <input id='${key}' class='text-center rounded mx-2 form-control' style='width:80px' type='text'
+                                    name='quantity' onchange='change_quantity(${key},this.value,${cart[key]})' value='${cart[key]}' required>
+                                   </div> </form> </td> <td class='h120' >${vendorname} </td> <td class='120'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'>
+                                <input class='text-center rounded mx-2 form-control' type='submit' value='Remove' name='remove' style='width:80px'> </div> </form> </td> </tr>`
                                 let append = document.getElementById('append');
                                 append.insertAdjacentHTML('afterend', html);
-                            }  
+                            }
                         }
-                        function update(pid,quantity){
-                            cart[pid] = quantity
-                            localStorage.setItem('cart',JSON.stringify(cart));
-                        }
-                        function remove(pid){
-                            delete cart[pid]
-                            localStorage.setItem('cart',JSON.stringify(cart));
-                        }
-                       
+                            function remove(pid) {
+                                delete cart[pid]
+                                localStorage.setItem('cart', JSON.stringify(cart));
+                            }
+
+                            function isNumeric(str) {
+                                if (typeof str != "string") return false
+                                return !isNaN(str) && !isNaN(parseFloat(str))
+                            }
+
+                            function change_quantity(pid, value, prev) {
+                    
+                                if (isNumeric(value)) {
+                                    let intValue = parseInt(value);
+                                    console.log(intValue)
+                                    let intId = parseInt(pid);
+                                    if (intValue > 0 && intValue <=100) {
+                                        cart[pid] = intValue
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+                                        temp = 0
+                                        for (let key in cart) {
+                                            pPrice = products[key].pPrice
+                                            temp += pPrice * cart[key]
+                                        }
+                                        document.getElementById('total_price').innerHTML = temp;
+                                    }
+                                    else{
+                                        alert('Quantity must be greater than 0!')
+                                        document.getElementById(`${pid}`).value = cart[pid]
+                                    }
+                                }
+                                else{
+                                    alert('Inapopriate input!')
+                                    document.getElementById(`${pid}`).value = cart[pid]
+                                }
+
+                            }
+                        
+
                     </script>
                     <?php
                     global $tempPrice;
@@ -105,13 +143,14 @@ redr('customer');
                         $query = "select * from `vendor_table` where user_id= $vendor limit 1";
                         $venquery = mysqli_query($con, $query);
                         $r_data = mysqli_fetch_assoc($venquery);
-                        $vendorname = $r_data['bussiness_name'];
+                        $vendorname = $r_data['business_name'];
                         echo "<script>
                             pname = '$pName'
                             pPrice = $pPrice
                             pImage = '$pImage'
                             vendorname = '$vendorname'
                             products[$pId] = {'pname': pname,'pPrice': pPrice,'pImage' : pImage, 'vendorname': vendorname}
+                            localStorage.setItem('products', JSON.stringify(products))
                             </script>";
                     }
                     echo "<script> display(cart) </script>"
@@ -119,79 +158,71 @@ redr('customer');
                 </tbody>
             </table>
 
-        
+
             <?php
 
             global $con;
-            if(isset($_POST['update'])) {
+            if (isset($_POST['remove'])) {
                 $pId = $_POST['pId'];
-                $quantity = $_POST['quantity'];                             
-                    echo "<script>update('$pId',$quantity) 
+                echo "
+                    <script>
+                    remove('$pId') 
                     window.open('cart.php','_self')</script>";
-            }
-            else
-            if(isset($_POST['remove'])){
-                $pId = $_POST['pId'];
-                    echo "
-                    <script>remove('$pId') 
-                    window.open('cart.php','_self')</script>";
-                
             }
             ?>
             <div class="row my-4 row-col-md-3">
                 <div class="d-flex">
                     <h4 class="m-0">Total price:</h4>
-                    <span class='mx-2' style='font-size:20px'>
-                        <script>
-                            document.write(temp)
-                        </script>
+                    <span class='mx-2' style='font-size:20px' id='total_price'>
                     </span>
                 </div>
-               
+                <script>
+                    document.getElementById('total_price').innerHTML = temp;
+                </script>
+
                 <form action="" method="post" class="d-flex m-0">
                     <input type="hidden" name="json" id="json" value="">
-                    <script>  document.getElementById('json').value = JSON.stringify(cart)</script>
+                    <script>
+                        document.getElementById('json').value = JSON.stringify(cart)
+                    </script>
                     <a href="./index.php" class="form-control m-2" style='width:180px; text-decoration:none'>Continue Shopping</a>
                     <input type="submit" value="Order" class="form-control m-2" name="order" style='width:180px; text-decoration:none'>
                 </form>
-        
+
                 <!-- <a href="./cart.php?order" class="form-control m-2" style='width:180px; text-decoration:none'>Order</a> -->
-              
+
                 <?php
                 global $con;
                 if (isset($_POST['order'])) {
-                    if ($_SESSION['loggedin'] and $_SESSION['role'] ='customer') {
+                    if ($_SESSION['loggedin'] and $_SESSION['role'] = 'customer') {
                         $json1 = $_POST['json'];
-                        $json = json_decode($json1,true);
-                        if($json == null){
-                            echo"<script> alert('Cart is empty!');
+                        $json = json_decode($json1, true);
+                        if ($json == null) {
+                            echo "<script> alert('Cart is empty!');
                             </script>";
-                        }
-                        else{
-                         
-                                $userid = $_SESSION['id'];
-                                $query = "select * from `distribution_hub` order by RAND() LIMIT 1";
-                                $res = mysqli_query($con,$query);
-                                $row = mysqli_fetch_assoc($res);
-                                $hub_id =$row['hub_id'];
+                        } else {
 
-                                $query = "insert into `order_table` (user_id,hub_id,status) values ('$userid','$hub_id','active')";
-                                $res = mysqli_query($con,$query);
+                            $userid = $_SESSION['id'];
+                            $query = "select * from `distribution_hub` order by RAND() LIMIT 1";
+                            $res = mysqli_query($con, $query);
+                            $row = mysqli_fetch_assoc($res);
+                            $hub_id = $row['hub_id'];
 
-                                $query = "select max(order_id) from `order_table`";
-                                $res2 = mysqli_query($con,$query);
-                                $row = mysqli_fetch_assoc($res2);
-                                $orderId = $row['max(order_id)'];
+                            $query = "insert into `order_table` (user_id,hub_id,status) values ('$userid','$hub_id','active')";
+                            $res = mysqli_query($con, $query);
 
-                                foreach($json as $key => $value){
-                                    $query = "insert into `order_details` (order_id,product_id,quantity) values ('$orderId','$key','$value')";
-                                    $res = mysqli_query($con,$query);
-                                }
-                                echo "<script> alert('You have placed an order !')
+                            $query = "select max(order_id) from `order_table`";
+                            $res2 = mysqli_query($con, $query);
+                            $row = mysqli_fetch_assoc($res2);
+                            $orderId = $row['max(order_id)'];
+
+                            foreach ($json as $key => $value) {
+                                $query = "insert into `order_details` (order_id,product_id,quantity) values ('$orderId','$key','$value')";
+                                $res = mysqli_query($con, $query);
+                            }
+                            echo "<script> alert('You have placed an order !')
                                  localStorage.clear(); window.open('./cart.php','_self');</script>";
-                            
                         }
-                       
                     } else {
                         echo "<script> alert('You need to login first');
                                 window.open('./login/login.php','_self');</script>";

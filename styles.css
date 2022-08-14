@@ -22,7 +22,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-
+td {
+    vertical-align: center; 
+}
 .mob{
     margin:10px 0px;
 }
@@ -42,7 +44,7 @@ input[type=number] {
     margin:40px 0;color:crimson; width: 100%; text-align: center;
 }
 .vendor_img{
-    width: 150px;height: 100%; object-fit:contain;
+    width: 150px;height: 100%;
 }
 .filter_input{
     height:40px;width:100px;
@@ -52,8 +54,7 @@ input[type=number] {
 }
 .card-img-top{
     height:200px;
-    width: 100%;
-   object-fit: contain;
+    width: 200px;
 }
 
 

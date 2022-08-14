@@ -61,16 +61,16 @@ redr('customer');
           <div class=" mx-2">
             <label for="min">Min</label>
             <input type="number" id="min" name="min" class="form-control filter_input" value="<?php if (isset($_GET['min'])) {
-                                                                                                        $min = $_GET['min'];
-                                                                                                        echo $min;
-                                                                                                      } else echo 0; ?>" required>
+                                                                                                $min = $_GET['min'];
+                                                                                                echo $min;
+                                                                                              } else echo 0; ?>" required>
           </div>
           <div class=" mx-2">
             <label for="max">Max</label>
             <input type="number" id="max" name="max" class="form-control filter_input" value="<?php if (isset($_GET['max'])) {
-                                                                                                        $max = $_GET['max'];
-                                                                                                        echo $max;
-                                                                                                      } else echo 10000000; ?>" required>
+                                                                                                $max = $_GET['max'];
+                                                                                                echo $max;
+                                                                                              } else echo 10000000; ?>" required>
           </div>
           <input type="submit" value="Filter" name="filter" class="form-control mx-2 filter_input">
         </form>
@@ -97,4 +97,5 @@ redr('customer');
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
+
 </html>

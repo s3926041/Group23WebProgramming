@@ -29,27 +29,12 @@ cant_access();
       <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="../index.php">Group 23</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            </ul>
-            <a class="nav-link mob" href="../cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup id='tota_cart'></sup></a>
-          <a class="nav-link mob" href="./login.php">Login/Registering</a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
           </div>
         </div>
       </nav>
     </header>
-    <script src="../app.js"></script>
     <main>
       <div class="card p-4 mx-auto my-4" id="card">
         <h2 class="center">Login</h2>
@@ -94,15 +79,16 @@ cant_access();
               $_SESSION['username'] = $username;
               $_SESSION['role'] = $row['role'];
               $_SESSION['id'] = $row['user_id'];
+              $_SESSION['img'] = $row['image'];
               echo "<script>alert('Login successful!') </script> ";
               if($row['role']=='customer'){
                 echo "<script>window.open('../index.php','_self');</script> ";
               }
               else if($row['role'] =='vendor'){
-                echo "<script>window.open('../users/vendors/vendors.php','_self');</script> ";
+                echo "<script>window.open('../users/vendor/vendor.php','_self');</script> ";
               }
               else  if($row['role'] =='shipper'){
-                echo "<script>window.open('../users/shippers/shippers.php','_self');</script> ";
+                echo "<script>window.open('../users/shipper/shipper.php','_self');</script> ";
               }
             }
             else{
