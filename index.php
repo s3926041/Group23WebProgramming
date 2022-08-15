@@ -56,7 +56,7 @@ redr('customer');
       <div class="row text-center my-4">
         <h2>Products</h2>
       </div>
-      <div class="row form-floating d-flex mx-3 w200">
+      <div class="row form-floating d-flex w200">
         <form action="" method="GET" class="d-flex align-items-end">
           <div class=" mx-2">
             <label for="min">Min</label>

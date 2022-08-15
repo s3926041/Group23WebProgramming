@@ -236,3 +236,6 @@ function redr($role)
     if (!$check) echo "<script>alert('You are not having permission to access this URL');window.history.go(-1);</script> ";
   }
 }
+function validate(){
+  
+}
