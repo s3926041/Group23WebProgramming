@@ -93,6 +93,12 @@ include('../functions/functions.php')
           if ($count > 0) {
             echo "<script>alert('Business Name existed!');</script>";
           } else {
+            $query = "select * from `vendor_table` where business_address= '$address'";
+            $resquery = mysqli_query($con, $query);
+            $count = mysqli_num_rows($resquery);
+            if ($count > 0) {
+              echo "<script>alert('Business address existed!');</script>";
+            } else {
             move_uploaded_file($tmp_image, "../users/userImages/$image");
             $query = "insert into `user_table` (username,password,image,role) values ('$username','$hashp','$image','vendor');";
             $resquery = mysqli_query($con, $query);
@@ -103,7 +109,7 @@ include('../functions/functions.php')
               $query = "insert into `vendor_table` (user_id,business_name,business_address) values ('$userId','$name','$address');";
               $execute = mysqli_query($con, $query);
               if ($execute) echo "<script> alert('Registered!');window.open('vendors.php','_self'); </script>";
-            }
+            }}
           }
         }
       } else echo "<script>alert('$validate') </script>";
