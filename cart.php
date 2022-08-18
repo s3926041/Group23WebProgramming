@@ -81,7 +81,7 @@ redr('customer');
                                   <td  class='text-center h120'> <form method='post'> 
                                   <div class='d-flex w-100 justify-content-center'> 
                                    <input id='${key}' class='text-center rounded mx-2 form-control' style='width:80px' type='text'
-                                    name='quantity' onkeyup='change_quantity(${key},this.value,${cart[key]})' value='${cart[key]}' required>
+                                    name='quantity' onkeyup='change_quantity(${key},this.value,${cart[key]},1)' onchange='change_quantity(${key},this.value,${cart[key]},2)' value='${cart[key]}' required>
                                    </div> </form> </td> <td class='h120' >${vendorname} </td> <td class='120'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'>
                                 <input class='text-center rounded mx-2 form-control' type='submit' value='Remove' name='remove' style='width:80px'> </div> </form> </td> </tr>`
                                 let append = document.getElementById('append');
@@ -98,8 +98,7 @@ redr('customer');
                                 return !isNaN(str) && !isNaN(parseFloat(str))
                             }
 
-                            function change_quantity(pid, value, prev) {
-                    
+                            function change_quantity(pid, value, prev,para) {
                                 if (isNumeric(value)) {
                                     let intValue = parseInt(value);
                                     console.log(intValue)
@@ -120,8 +119,16 @@ redr('customer');
                                     }
                                 }
                                 else{
-                                    alert('Inapopriate input!')
-                                    document.getElementById(`${pid}`).value = cart[pid]
+                                    if(!value ==''){
+                                        alert('Inapopriate input!')
+                                        document.getElementById(`${pid}`).value = cart[pid]
+                                    }
+                                    else if(para==2){
+                                        alert('You can not leave this field blank')
+                                        document.getElementById(`${pid}`).value = cart[pid]
+                                    }
+                                    
+                                    
                                 }
 
                             }
