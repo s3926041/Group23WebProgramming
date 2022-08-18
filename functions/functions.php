@@ -8,34 +8,35 @@ function generate($para, $res)
     $pPrice = $row_data['product_price'];
     $pImage = $row_data['product_img'];
     $pDes = $row_data['product_description'];
-    $row = 'flex-column';
-    $s = "";
-    if($para ==2){
-      $row = 'flex-row';
-      $s ='min-width:400px';
+    $w50 = 'w-50';
+    $wh300 = '';
+    $c = 'd-flex justify-content-center align-content-center flex-column';
+    $containerId = "";
+    $imgId = "";
+    if ($para == 2) {
+      $containerId = 'product_details_container';
+      $imgId = 'product_details_img';
+      $w50 = '';
+      $wh300 = 'w300';
     }
     if ($para == 1)
       echo "<div class='col my-2 p-4'>";
 
-    echo    "<div class='card d-flex $row' style='$s'>
+    echo    "<div class='card ' id='$containerId'>
           <div class='d-flex justify-content-center'>
             <img
               src='./pImages/$pImage'
               class='card-img-top'
               alt='product-image'
+              id='$imgId'
             />
             </div>
-            <div class='card-body d-flex justify-content-center align-content-center flex-column'>
-            <div class='mb-2'>
-              <h5 class='card-title mb-1'>$pName</h5><div class='card-text mb-2'>Price: $pPrice</div>";
-            
-              if($para ==2) echo"<p class='card-text'>
-              Description: $pDes
-                        </p>";
-            echo"  
-              </div>
-              <div class=' d-flex justify-content-center'> ";
-    echo "<a id='$pId' class='btn btn-primary p-2 w-50 mr5'onclick='addcart($pId)' >Add to cart</a>";
+            <div class='card-body $c $wh300'>
+            <div class='mb-3'>
+              <h5 class='card-title mb-3'>$pName</h5><div class='card-text mb-3 fw-normal'>Price: <span class='price mx-1'>$pPrice<span></div>";
+    if ($para == 2) echo "<p class='card-text mb-1'>Description: $pDes</p>";                        
+    echo "   </div><div class=' d-flex justify-content-center'> ";                           
+    echo "<a id='$pId' class='btn btn-primary p-2 $w50 mr5'onclick='addcart($pId)' >Add to cart</a>";
     if ($para == 1)
       echo "<a href='product_details.php?product_id=$pId' class='btn btn-info p-2  w-50 ml5' >View more</a>";
     echo "</div></div></div>";
@@ -240,7 +241,7 @@ function redr($role)
     if (!$check) echo "<script>alert('You are not having permission to access this URL');window.history.go(-1);</script> ";
   }
 }
-function validate( $username,$password,$password2)
+function validate($username, $password, $password2)
 {
   $err = '';
   //PASSWORD VALIDATION
@@ -248,15 +249,15 @@ function validate( $username,$password,$password2)
   $uppercase = preg_match('@[A-Z]@', $password);
   $lowercase = preg_match('@[a-z]@', $password);
   $specialChars = preg_match('/[!@#$%^&*]+/', $password);
-  if(strlen($password) < 8 || strlen($password) > 20 || !$number || !$uppercase || !$lowercase || !$specialChars) {
+  if (strlen($password) < 8 || strlen($password) > 20 || !$number || !$uppercase || !$lowercase || !$specialChars) {
     $err = "Password must contains at least one upper case letter, at least one lower case letter, at least one digit, at least one special letter in the set !@#$%^&*, NO other kind of characters, has a length from 8 to 20 characters";
-  } 
-  if($password != $password2){
+  }
+  if ($password != $password2) {
     $err = "Confirm password not match";
   }
   //USERNAME VALIDATION
-  if(strlen($username) < 8 || strlen($username) > 15 || !ctype_alnum($username)) {
+  if (strlen($username) < 8 || strlen($username) > 15 || !ctype_alnum($username)) {
     $err = "Username contains only letters (lower and upper case) and digits, has a length from 8 to 15 characters, unique";
-  } 
+  }
   return $err;
 }
