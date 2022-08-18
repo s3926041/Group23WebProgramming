@@ -27,6 +27,9 @@ redr('shipper');
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <div class="navbar-nav me-auto mb-lg-0"></div>
+          <div class='nav-item mx-lg-4 mob'>
+            <a href='shipper.php' >All Orders</a>
+          </div>
           <?php
             echo "<a class='nav-link mob' href='../myaccount.php'>My Account</a>
     <a class='nav-link mob' href='../../index.php?logout'>Logout</a>"

@@ -19,3 +19,6 @@ form{
         width: 35%;
     }
 }
+#error {
+    color: crimson;
+}

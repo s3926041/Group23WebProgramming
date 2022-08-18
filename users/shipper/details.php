@@ -14,18 +14,18 @@
   $address = $row['address'];
   echo "
   <div class= 'd-flex flex-column'>
-  <span class='my-1'>Order ID: $oId</span> 
-  <span class='my-1'>User ID: $uId</span> 
-  <span class='my-1'>Distribution hub ID: $hub</span> 
-  <span class='my-1'>Customer's name: $name</span> 
-  <span class='my-1'>Customer's address: $address</span>
+  <span class='my-1 fw-bold'>Order ID: <span class='fw-normal'>$oId</span></span> 
+  <span class='my-1 fw-bold'>User ID: <span class='fw-normal'>$uId</span></span> 
+  <span class='my-1 fw-bold'>Distribution hub ID: <span class='fw-normal'>$hub</span></span> 
+  <span class='my-1 fw-bold'>Customer's name: <span class='fw-normal'>$name</span></span> 
+  <span class='my-1 fw-bold'>Customer's address: <span class='fw-normal'>$address</span></span>
   </div>
   "
 ?>
 
 <form action="" method='post'class="d-flex my-3">
-  <div class="d-flex ">  <label for="status">Status</label>
-<select class="form-control text-center mx-3" style="width:100px ;" name="status" id="status">
+  <div class="d-flex ">  <label for="status" class="">Status</label>
+<select class="text-center mx-3" style="width:100px ;" name="status" id="status">
   <option value="active">active</option>
   <option value="delivered">delivered</option>
   <option value="canceled">canceled</option>

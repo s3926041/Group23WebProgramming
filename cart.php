@@ -81,7 +81,7 @@ redr('customer');
                                   <td  class='text-center h120'> <form method='post'> 
                                   <div class='d-flex w-100 justify-content-center'> 
                                    <input id='${key}' class='text-center rounded mx-2 form-control' style='width:80px' type='text'
-                                    name='quantity' onchange='change_quantity(${key},this.value,${cart[key]})' value='${cart[key]}' required>
+                                    name='quantity' onkeyup='change_quantity(${key},this.value,${cart[key]})' value='${cart[key]}' required>
                                    </div> </form> </td> <td class='h120' >${vendorname} </td> <td class='120'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'>
                                 <input class='text-center rounded mx-2 form-control' type='submit' value='Remove' name='remove' style='width:80px'> </div> </form> </td> </tr>`
                                 let append = document.getElementById('append');
@@ -104,7 +104,7 @@ redr('customer');
                                     let intValue = parseInt(value);
                                     console.log(intValue)
                                     let intId = parseInt(pid);
-                                    if (intValue > 0 && intValue <=100) {
+                                    if (intValue > 0) {
                                         cart[pid] = intValue
                                         localStorage.setItem('cart', JSON.stringify(cart));
                                         temp = 0
@@ -115,7 +115,7 @@ redr('customer');
                                         document.getElementById('total_price').innerHTML = temp;
                                     }
                                     else{
-                                        alert('Quantity must be greater than 0!')
+                                        alert('Quantity must be greater than 0 ')
                                         document.getElementById(`${pid}`).value = cart[pid]
                                     }
                                 }

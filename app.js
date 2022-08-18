@@ -7,10 +7,7 @@ let count = 0;
 for (let key in cart) {
   count += cart[key];
 }
-// localStorage.setItem('cart',JSON.stringify(cart))
 document.getElementById("total_cart").innerHTML = count;
-
-
 
 function addcart(pid){
   console.log(pid)
@@ -34,5 +31,14 @@ function addcart(pid){
   }
   // localStorage.setItem('cart',JSON.stringify(cart))
   document.getElementById("total_cart").innerHTML = count;
+}
+
+function validate(para,s){
+  let regex;
+  if(!para) //false for password
+  regex = /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).([a-zA-Z 0-9\!\@\#\$\%\^\&\*]){8,20}$/;
+  else //true for user
+  regex = /^(?!.*\s)([a-zA-Z 0-9]){8,15}$/;
+  return regex.test(s)
 }
 

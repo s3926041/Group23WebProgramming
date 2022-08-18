@@ -8,10 +8,16 @@ function generate($para, $res)
     $pPrice = $row_data['product_price'];
     $pImage = $row_data['product_img'];
     $pDes = $row_data['product_description'];
+    $row = 'flex-column';
+    $s = "";
+    if($para ==2){
+      $row = 'flex-row';
+      $s ='min-width:400px';
+    }
     if ($para == 1)
       echo "<div class='col my-2 p-4'>";
 
-    echo    "<div class='card d-flex '>
+    echo    "<div class='card d-flex $row' style='$s'>
           <div class='d-flex justify-content-center'>
             <img
               src='./pImages/$pImage'
@@ -21,17 +27,15 @@ function generate($para, $res)
             </div>
             <div class='card-body d-flex justify-content-center align-content-center flex-column'>
             <div class='mb-2'>
-              <h5 class='card-title'>$pName</h5>
-              <p class='card-text'>
-   
-              </p>
-              <div class=''>Price: $pPrice</div>
+              <h5 class='card-title mb-1'>$pName</h5><div class='card-text mb-2'>Price: $pPrice</div>";
+            
+              if($para ==2) echo"<p class='card-text'>
+              Description: $pDes
+                        </p>";
+            echo"  
               </div>
               <div class=' d-flex justify-content-center'> ";
-    if ($para == 1)
-      echo "<a class='btn btn-primary p-2 w-50 mr5' onclick='addcart($pId)'>Add to cart</a>";
-    else   echo "<a id='$pId' class='btn btn-primary p-2 w-50 mr5'onclick='addcart($pId)' >Add to cart</a>";
-    
+    echo "<a id='$pId' class='btn btn-primary p-2 w-50 mr5'onclick='addcart($pId)' >Add to cart</a>";
     if ($para == 1)
       echo "<a href='product_details.php?product_id=$pId' class='btn btn-info p-2  w-50 ml5' >View more</a>";
     echo "</div></div></div>";
@@ -141,7 +145,7 @@ function shipper_orders()
 {
   global $con;
   $userId = $_SESSION['id'];
-  $query = "select * from `shipper_table` where user_id=$userId limit 1"; 
+  $query = "select * from `shipper_table` where user_id=$userId limit 1";
   $res = mysqli_query($con, $query);
   $row_data = mysqli_fetch_assoc($res);
   $hub = $row_data['hub_id'];
@@ -236,6 +240,23 @@ function redr($role)
     if (!$check) echo "<script>alert('You are not having permission to access this URL');window.history.go(-1);</script> ";
   }
 }
-function validate(){
-  
+function validate( $username,$password,$password2)
+{
+  $err = '';
+  //PASSWORD VALIDATION
+  $number = preg_match('@[0-9]@', $password);
+  $uppercase = preg_match('@[A-Z]@', $password);
+  $lowercase = preg_match('@[a-z]@', $password);
+  $specialChars = preg_match('/[!@#$%^&*]+/', $password);
+  if(strlen($password) < 8 || strlen($password) > 20 || !$number || !$uppercase || !$lowercase || !$specialChars) {
+    $err = "Password must contains at least one upper case letter, at least one lower case letter, at least one digit, at least one special letter in the set !@#$%^&*, NO other kind of characters, has a length from 8 to 20 characters";
+  } 
+  if($password != $password2){
+    $err = "Confirm password not match";
+  }
+  //USERNAME VALIDATION
+  if(strlen($username) < 8 || strlen($username) > 15 || !ctype_alnum($username)) {
+    $err = "Username contains only letters (lower and upper case) and digits, has a length from 8 to 15 characters, unique";
+  } 
+  return $err;
 }

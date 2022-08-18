@@ -37,7 +37,7 @@ redr('customer');
                     <?php 
                   
           if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    echo "<a class='nav-link mob' href='./users/customer/myaccount.php'>My Account</a>
+    echo "<a class='nav-link mob' href='./users/myaccount.php'>My Account</a>
     <a class='nav-link mob' href='./index.php?logout'>Logout</a>
     ";
 } else {
