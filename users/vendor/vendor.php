@@ -17,7 +17,6 @@ redr('vendor');
   <link rel="stylesheet" href="../../styles.css" />
   <link rel="stylesheet" href="./vendors.css">
 </head>
-
 <body>
   <header>
     <nav class="navbar navbar-expand-lg bg-light">

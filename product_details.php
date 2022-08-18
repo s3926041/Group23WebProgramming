@@ -49,7 +49,7 @@ redr('customer');
     </header>
     <script src="./app.js"></script>
 
-    <main>
+    <main class="center_main">
         <?php
    
         if(isset($_GET['search_product'])){
