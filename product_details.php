@@ -1,7 +1,12 @@
 <?php
 include('includes/connect.php');
 include('./functions/functions.php');
-redr('customer');
+if(isset($_SESSION['role']) and !isset($_GET['logout'])){
+    if($_SESSION['role'] =='vendor') echo "<script> alert('You are already logged in!');
+    window.open('./users/vendor/vendor.php','_self');</script>";
+    if($_SESSION['role'] =='shipper') echo "<script> alert('You are already logged in!');
+    window.open('./users/shipper/shipper.php','_self');</script>";
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
