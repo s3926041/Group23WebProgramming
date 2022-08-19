@@ -13,7 +13,7 @@ redr('customer');
     <title>Homepage</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="./styles.css">
 </head>
 
@@ -27,22 +27,22 @@ redr('customer');
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        
+
                     </ul>
                     <form class="d-flex mob" role="search" method="get">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data" />
                         <input type="submit" value="Search" class="btn btn-outline-success" name="search_product">
                     </form>
-                    <a class="nav-link mob" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup id='total_cart'></sup></a>
-                    <?php 
-                  
-          if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    echo "<a class='nav-link mob' href='./users/myaccount.php'>My Account</a>
+                    <a class="nav-link mob" href="./cart.php"><img src="./cart.png" id='cart'> <sup id='total_cart' class="align-bottom"></sup></a>
+                    <?php
+
+                    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+                        echo "<a class='nav-link mob' href='./users/myaccount.php'>My Account</a>
     <a class='nav-link mob' href='./index.php?logout'>Logout</a>
     ";
-} else {
-    echo "<a class='nav-link mob' href='./login/login.php'>Login/Registering</a>";
-} ?>
+                    } else {
+                        echo "<a class='nav-link mob' href='./login/login.php'>Login/Registering</a>";
+                    } ?>
                 </div>
             </div>
         </nav>
@@ -51,8 +51,8 @@ redr('customer');
 
     <main class="center_main">
         <?php
-   
-        if(isset($_GET['search_product'])){
+
+        if (isset($_GET['search_product'])) {
             echo "<div class='container'>
             <div class='row text-center my-4'>
               <h2>Products</h2>
@@ -63,12 +63,12 @@ redr('customer');
             search_product();
             echo "</div>
             </div>";
-        }else{
+        } else {
             echo "<div class='container-fluid d-flex justify-content-center my-4'>";
-            
+
             view_product();
-            echo"</div>";
-        }    
+            echo "</div>";
+        }
         ?>
     </main>
     <?php

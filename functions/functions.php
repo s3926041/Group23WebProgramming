@@ -12,31 +12,29 @@ function generate($para, $res)
     $wh300 = '';
     $c = 'd-flex justify-content-center align-content-center flex-column';
     $containerId = "";
-    $imgId = "";
+    $imgClass = "card-img-top";
     if ($para == 2) {
       $containerId = 'product_details_container';
-      $imgId = 'product_details_img';
+      $imgClass = 'product_details_img';
       $w50 = '';
       $wh300 = 'w300';
     }
     if ($para == 1)
       echo "<div class='col my-2 p-4'>";
-
-    echo    "<div class='card ' id='$containerId'>
+    echo    "<div class='card $containerId'>
           <div class='d-flex justify-content-center'>
             <img
               src='./pImages/$pImage'
-              class='card-img-top'
+              class='$imgClass'
               alt='product-image'
-              id='$imgId'
             />
             </div>
             <div class='card-body $c $wh300'>
             <div class='mb-3'>
-              <h5 class='card-title mb-3'>$pName</h5><div class='card-text mb-3 fw-normal'>Price: <span class='price mx-1'>$pPrice<span></div>";
-    if ($para == 2) echo "<p class='card-text mb-1'>Description: $pDes</p>";                        
-    echo "   </div><div class=' d-flex justify-content-center'> ";                           
-    echo "<a id='$pId' class='btn btn-primary p-2 $w50 mr5'onclick='addcart($pId)' >Add to cart</a>";
+              <h5 class='card-title mb-3'>$pName</h5><div class='card-text mb-3 fw-normal'>Price: <span class='price mx-1'>$pPrice</span></div>";
+    if ($para == 2) echo "<p class='card-text mb-1'>Description: $pDes</p>";
+    echo "   </div><div class=' d-flex justify-content-center'> ";
+    echo "<a id='$pId' class='btn btn-primary p-2 $w50 mr5' onclick='addcart($pId)' >Add to cart</a>";
     if ($para == 1)
       echo "<a href='product_details.php?product_id=$pId' class='btn btn-info p-2  w-50 ml5' >View more</a>";
     echo "</div></div></div>";
@@ -110,7 +108,7 @@ function vendor_product()
       <th class='text-center' scope='row'>$pId</th>
       <td class='text-center h120'>$pName</td>
       <td class='text-center h120'>
-          <img src='../../pImages/$pImage' alt='cart-image' class='vendor_img'>
+          <img src='../../pImages/$pImage' alt='vendor_products' class='vendor_img'>
       </td>
       <td class='text-center h120'>$pPrice</td>
       <td class='text-center h120'>$pDes</td>
