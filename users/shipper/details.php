@@ -23,7 +23,7 @@
   "
 ?>
 
-<form action="" method='post'class="d-flex my-3">
+<form method='post' class="d-flex my-3">
   <div class="d-flex ">  <label for="status" class="">Status</label>
 <select class="text-center mx-3" style="width:100px ;" name="status" id="status">
   <option value="active">active</option>
@@ -69,7 +69,7 @@ if(isset($_POST['status'])){
       <th class='text-center' scope='row'>$pid</th>
       <td class='text-center h120'>$pname</td>
       <td class='text-center h120'>
-          <img src='../../pImages/$img' alt='cart-image' class='vendor_img'>
+          <img src='../../pImages/$img' alt='' class='vendor_img'>
       </td>
       <td class='text-center h120'>$price</td>
       <td class='text-center h120'>$quantity</td>

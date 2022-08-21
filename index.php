@@ -1,7 +1,12 @@
 <?php
 include('includes/connect.php');
 include('./functions/functions.php');
-redr('customer');
+if(isset($_SESSION['role']) and !isset($_GET['logout'])){
+  if($_SESSION['role'] =='vendor') echo "<script> alert('You are already logged in!');
+  window.open('./users/vendor/vendor.php','_self');</script>";
+  if($_SESSION['role'] =='shipper') echo "<script> alert('You are already logged in!');
+  window.open('./users/shipper/shipper.php','_self');</script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +18,7 @@ redr('customer');
   <title>Homepage</title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" rel="stylesheet" />
+
   <link rel="stylesheet" href="./styles.css">
 </head>
 
@@ -33,7 +38,7 @@ redr('customer');
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data" />
             <input type="submit" value="Search" class="btn btn-outline-success" name="search_product">
           </form>
-          <a class="nav-link mob" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup id='total_cart'></sup></a>
+          <a class="nav-link mob" href="./cart.php"><img src="./cart.png" id='cart'> <sup id='total_cart' class="align-bottom"></sup></a>
           <?php
           if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true and !isset($_GET['logout'])) {
             echo "<a class='nav-link mob' href='./users/myaccount.php'>My Account</a>
@@ -48,7 +53,6 @@ redr('customer');
   </header>
   <script src="./app.js"></script>
   <?php
-
   logout();
   ?>
   <main>
@@ -57,7 +61,7 @@ redr('customer');
         <h2>Products</h2>
       </div>
       <div class="row form-floating d-flex w200">
-        <form action="" method="GET" class="d-flex align-items-end">
+        <form method="GET" class="d-flex align-items-end">
           <div class=" mx-2">
             <label for="min">Min</label>
             <input type="number" id="min" name="min" class="form-control filter_input" value="<?php if (isset($_GET['min'])) {

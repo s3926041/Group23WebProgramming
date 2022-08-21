@@ -2,7 +2,7 @@
 add_product();
 ?>
 <h3>Add Product</h3>
-<form action="" method="post" enctype="multipart/form-data" class="mb-2 d-flex justify-content-center" id='form'>
+<form method="post" enctype="multipart/form-data" class="mb-2 d-flex justify-content-center" id='form'>
   <div class="input-group mb-3 ">
     <input type="text" class="form-control" placeholder="Product name" name="pName" required id='name'>
   </div>
@@ -13,7 +13,7 @@ add_product();
     <label for="img">Image:</label>
   </div>
   <div class="input-group mb-3 ">
-    <input type="file" class="form-control" name="pImage" id="img" >
+    <input type="file" class="form-control" name="pImage" id="img">
   </div>
   <div class="input-group mb-3 ">
     <input type="text" class="form-control" placeholder="Description" name="pDes" required id='des'>
