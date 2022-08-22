@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 function generate($para, $res)
 {
   while ($row_data = mysqli_fetch_assoc($res)) {
@@ -11,18 +12,18 @@ function generate($para, $res)
     $w50 = 'w-50';
     $wh300 = '';
     $c = 'd-flex justify-content-center align-content-center flex-column';
-    $containerId = "";
+    $container = "";
     $imgClass = "card-img-top";
     if ($para == 2) {
-      $containerId = 'product_details_container';
+      $container = 'product_details_container';
       $imgClass = 'product_details_img';
       $w50 = '';
       $wh300 = 'w300';
     }
     if ($para == 1)
       echo "<div class='col my-2 p-4'>";
-    echo    "<div class='card $containerId'>
-          <div class='d-flex justify-content-center'>
+    echo    "<div class='card $container'>
+          <div class='d-flex justify-content-center border-bottom'>
             <img
               src='./pImages/$pImage'
               class='$imgClass'
@@ -108,7 +109,7 @@ function vendor_product()
       <th class='text-center' scope='row'>$pId</th>
       <td class='text-center h120'>$pName</td>
       <td class='text-center h120'>
-          <img src='../../pImages/$pImage' alt='vendor_products' class='vendor_img'>
+          <img src='../../pImages/$pImage' alt='vendor_product' class='vendor_img'>
       </td>
       <td class='text-center h120'>$pPrice</td>
       <td class='text-center h120'>$pDes</td>

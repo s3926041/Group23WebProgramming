@@ -85,7 +85,13 @@ td {
         height: 300px;
         width: 300px;
     }
-    #product_details_container{
+    .product_details_container{
         flex-direction: row;
     }
+}
+#error{
+    color:crimson;
+}
+.w100{
+    width:100px
 }

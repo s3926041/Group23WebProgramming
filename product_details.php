@@ -54,20 +54,12 @@ if(isset($_SESSION['role']) and !isset($_GET['logout'])){
     </header>
     <script src="./app.js"></script>
 
-    <main class="center_main">
+    <main class='center_main'>
         <?php
 
         if (isset($_GET['search_product'])) {
-            echo "<div class='container'>
-            <div class='row text-center my-4'>
-              <h2>Products</h2>
-            </div>
-            <div class='row form-floating d-flex mx-3 w200'>
-            </div>
-            <div class='row row-cols-1 row-cols-md-2 row-cols-xxl-3'>";
-            search_product();
-            echo "</div>
-            </div>";
+            $data = $_GET['search_data'];
+            echo"<script>window.open('index.php?search_data=$data&search_product=Search','_self') </script>";
         } else {
             echo "<div class='container-fluid d-flex justify-content-center my-4'>";
 
