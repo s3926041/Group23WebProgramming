@@ -16,10 +16,10 @@ add_product();
     <input type="file" class="form-control" name="pImage" id="img">
   </div>
   <div class="input-group mb-3 ">
-    <input type="text" class="form-control" placeholder="Description" name="pDes" required id='des'>
+    <textarea type="text" class="form-control" placeholder="Description" name="pDes" required id='des'> </textarea>
   </div>
   <div class="mb-3 text-center">
-    <span id="error" style="color:crimson"></span>
+    <span id="error" ></span>
   </div>
   <div class="input-group mb-3">
     <input type="submit" class="form-control" id="hover" value="Add" name="add_product">

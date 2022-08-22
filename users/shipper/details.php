@@ -25,12 +25,12 @@
 
 <form method='post' class="d-flex my-3">
   <div class="d-flex ">  <label for="status" class="">Status</label>
-<select class="text-center mx-3" style="width:100px ;" name="status" id="status">
+<select class="text-center mx-3 w100"  name="status" id="status">
   <option value="active">active</option>
   <option value="delivered">delivered</option>
   <option value="canceled">canceled</option>
 </select></div>
-<input type="submit" value="Update"  style="width:100px ;" class="form-control  mx-3">
+<input type="submit" value="Update" class="form-control mx-3 w100">
 </form>
 <?php 
 if(isset($_POST['status'])){

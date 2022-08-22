@@ -1,10 +1,10 @@
 <?php
 include('includes/connect.php');
 include('./functions/functions.php');
-if(isset($_SESSION['role']) and !isset($_GET['logout'])){
-  if($_SESSION['role'] =='vendor') echo "<script> alert('You are already logged in!');
+if (isset($_SESSION['role']) and !isset($_GET['logout'])) {
+  if ($_SESSION['role'] == 'vendor') echo "<script> alert('You are already logged in!');
   window.open('./users/vendor/vendor.php','_self');</script>";
-  if($_SESSION['role'] =='shipper') echo "<script> alert('You are already logged in!');
+  if ($_SESSION['role'] == 'shipper') echo "<script> alert('You are already logged in!');
   window.open('./users/shipper/shipper.php','_self');</script>";
 }
 ?>
@@ -64,17 +64,11 @@ if(isset($_SESSION['role']) and !isset($_GET['logout'])){
         <form method="GET" class="d-flex align-items-end">
           <div class=" mx-2">
             <label for="min">Min</label>
-            <input type="number" id="min" name="min" class="form-control filter_input" value="<?php if (isset($_GET['min'])) {
-                                                                                                $min = $_GET['min'];
-                                                                                                echo $min;
-                                                                                              } else echo 0; ?>" required>
+            <input type="number" id="min" name="min" class="form-control filter_input" value="<?php if (isset($_GET['min'])) {$min = $_GET['min']; echo $min;} else echo 0; ?>" required>
           </div>
           <div class=" mx-2">
             <label for="max">Max</label>
-            <input type="number" id="max" name="max" class="form-control filter_input" value="<?php if (isset($_GET['max'])) {
-                                                                                                $max = $_GET['max'];
-                                                                                                echo $max;
-                                                                                              } else echo 10000000; ?>" required>
+            <input type="number" id="max" name="max" class="form-control filter_input" value="<?php if (isset($_GET['max'])) {$max = $_GET['max'];echo $max; } else echo 10000000; ?>" required>
           </div>
           <input type="submit" value="Filter" name="filter" class="form-control mx-2 filter_input">
         </form>

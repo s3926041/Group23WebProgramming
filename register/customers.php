@@ -60,7 +60,7 @@ include('../functions/functions.php')
           <input type="file" class="form-control" id="image" name='image'>
         </div>
         <div class="mb-3 text-center">
-          <span id="error" style="color:crimson"></span>
+          <span id="error" ></span>
         </div>
         <div class=" d-flex justify-content-center align-items-center">
           <button type="submit" class="btn btn-primary w200" name="customer_reg">Submit</button>
