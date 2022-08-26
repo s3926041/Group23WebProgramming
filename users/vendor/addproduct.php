@@ -13,7 +13,7 @@ add_product();
     <label for="img">Image:</label>
   </div>
   <div class="input-group mb-3 ">
-    <input type="file" class="form-control" name="pImage" id="img"value='<?php if(isset($_FILES['pImage'])) $var = $_FILES['pImage'];else $var = ""; echo $var;  ?>'>
+    <input type="file" class="form-control" name="pImage" id="img" required>
   </div>
   <div class="input-group mb-3 ">
     <textarea type="text" class="form-control" placeholder="Description" name="pDes" required id='des' value='<?php if(isset($_POST['pDes'])) $var = $_POST['pDes'];else $var = ""; echo $var;  ?>'> </textarea>

@@ -10,7 +10,7 @@ forme.addEventListener('submit', (e) => {
   if(namee.value.length < 10 || namee.value.length > 20){
     messages.push(`Product's name has a length from 10 to 20`)
   }
- if(parseFloat(pricee.value) != NaN){
+ if(/^\d+$/.test(pricee.value)){
     let s =parseFloat(pricee.value)
     if(s <=0) {
         messages.push(`Price must be an positve number and greater > 0`)
