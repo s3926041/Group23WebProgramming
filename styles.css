@@ -88,6 +88,9 @@ td {
     .product_details_container{
         flex-direction: row;
     }
+    .container{
+        max-width: 900px;
+    }
 }
 #error{
     color:crimson;
