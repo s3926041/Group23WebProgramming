@@ -5,7 +5,7 @@ if(localStorage.getItem("cart")===null)
 let cart = JSON.parse(localStorage.getItem("cart"));
 let count = 0;
 for (let key in cart) {
-  count += cart[key];
+  count += cart[key] >0 ? 1 : 0;
 }
 document.getElementById("total_cart").innerHTML = count;
 
@@ -13,13 +13,12 @@ function addcart(pid){
   console.log(pid)
   cart = JSON.parse(localStorage.getItem('cart'));
   if (cart === null) {
-    cart = {pid: 1 };
+    cart[pid] = 1
     localStorage.setItem('cart', JSON.stringify(cart));
   }
   else{
     if (cart.hasOwnProperty(pid)) {
-      let i = parseInt(cart[pid]) + 1;
-      cart[pid] = i;
+      setToast('bg-danger','Product already in cart!')
     } else {
       cart[pid] = 1;
     }
@@ -27,7 +26,7 @@ function addcart(pid){
   }
   count = 0
   for (let key in cart) {
-    count += cart[key];
+    count += cart[key] >0 ? 1 : 0;
   }
   // localStorage.setItem('cart',JSON.stringify(cart))
   document.getElementById("total_cart").innerHTML = count;

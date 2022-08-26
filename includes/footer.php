@@ -9,19 +9,19 @@
                               <li class="mb-2">From RMIT University</li><br>
                               <li class="mb-3">
                                     <i class="bi bi-envelope-fill"></i>
-                                    <a class="text-dark font-italic" href="#"><i>Group23.rmit.edu.vn</i></a>
+                                    <a class="text-dark " href="#"><i>Group23.rmit.edu.vn</i></a>
                               </li>
                               <li class="mb-3">
                                     <i class="bi bi-facebook"></i>
-                                    <a class="text-dark font-italic" href="#"><i>Group 23</i></a>
+                                    <a class="text-dark " href="#"><i>Group 23</i></a>
                               </li>
                               <li class="mb-3">
                                     <i class="bi bi-linkedin"></i>
-                                    <a class="text-dark font-italic" href="#"><i>Group 23</i></a>
+                                    <a class="text-dark " href="#"><i>Group 23</i></a>
                               </li>
                               <li class="mb-3">
                                     <i class="bi bi-telephone-fill"></i>
-                                    <a class="text-dark font-italic" href="#"><i>09-9999-999</i></a>
+                                    <a class="text-dark " href="#"><i>09-9999-999</i></a>
                               </li>
                         </ul>
                   </div>
@@ -36,7 +36,7 @@
                                     <a class="text-dark" href="#"><i>Privacy Policy</i></a>
                               </li>
                               <li class="mb-3">
-                                    <a class="text-dark" href="#"><i>Terms of Use</i></a>      
+                                    <a class="text-dark" href="#"><i>Terms of Use</i></a>
                               </li>
                               <li class="mb-3">
                                     <a class="text-dark" href="#"><i>Disclaimer</i></a>
@@ -50,23 +50,11 @@
                                     <a class="text-dark" href="#"><i>How to use</i></a>
                               </li>
                               <li class="mb-3">
-                                    <a class="text-dark" href="#"><i>Payment</i></a>
+                                    <a class="text-dark" href="#"><i>Payment Method</i></a>
                               </li>
-                              <li class="mb-3">
-                                    <a class="text-dark" href="#"><i>Account</i></a>
-                              </li>
-                              <li class="mb-3">
-                                    <a class="text-dark" href="#"><i>Personal Information</i></a>
-                              </li>
-                              <li class="mb-3">
-                                    <a class="text-dark" href="#"><i></i>Order History</a>
-                              </li>
-                              <li class="mb-3">
-                                    <a class="text-dark" href="#"><i>Customer vs Vendor vs Shipper</i></a>
-                              </li>
+
                         </ul>
                   </div>
             </div>
-     </div>
+      </div>
 </footer>
-
