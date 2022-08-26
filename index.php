@@ -18,12 +18,13 @@ if (isset($_SESSION['role']) and !isset($_GET['logout'])) {
   <title>Homepage</title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
   <link rel="stylesheet" href="./styles.css">
 </head>
 
 
 <body>
+  <?php include('./includes/toast.php') ?>
   <header>
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
@@ -38,7 +39,7 @@ if (isset($_SESSION['role']) and !isset($_GET['logout'])) {
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data" />
             <input type="submit" value="Search" class="btn btn-outline-success" name="search_product">
           </form>
-          <a class="nav-link mob" href="./cart.php"><img src="./cart.png" id='cart'> <sup id='total_cart' class="align-bottom"></sup></a>
+          <a class="nav-link mob" href="./cart.php"><img src="./cart.png" alt="cart_img" id='cart'> <sup id='total_cart' class="align-bottom"></sup></a>
           <?php
           if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true and !isset($_GET['logout'])) {
             echo "<a class='nav-link mob' href='./users/myaccount.php'>My Account</a>
@@ -51,6 +52,7 @@ if (isset($_SESSION['role']) and !isset($_GET['logout'])) {
       </div>
     </nav>
   </header>
+  <script src="./toast.js"></script>
   <script src="./app.js"></script>
   <?php
   logout();
@@ -95,5 +97,4 @@ if (isset($_SESSION['role']) and !isset($_GET['logout'])) {
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
-
 </html>

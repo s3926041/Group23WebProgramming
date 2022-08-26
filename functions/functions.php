@@ -123,7 +123,7 @@ function add_product()
   if (isset($_POST['add_product'])) {
     $pName = $_POST['pName'];
     if (mysqli_num_rows(mysqli_query($con, "select * from `products` where product_name ='$pName'")) > 0) {
-      echo "<script> alert('Product name existed') </script>";
+      echo "<script> setToast('bg-danger','Product name existed') </script>";
     } else {
       $pName = $_POST['pName'];
       $pPrice = $_POST['pPrice'];
@@ -135,9 +135,9 @@ function add_product()
       $insert_query = "insert into `products` (product_name,product_price,product_img,product_description,vendor) values('$pName','$pPrice','$pImage','$pDes','$userId')";
       $result = mysqli_query($con, $insert_query);
       if ($result) {
-        echo "<script> alert('Product added succesfully!')
+        echo "<script> setToast('bg-success','Product added succesfully!')
            </script>";
-      } else echo "<script> alert('Failed!') </script>";
+      } else echo "<script> setToast('bg-danger','Fail to add product!') </script>";
     }
   }
 }
@@ -173,12 +173,9 @@ function shipper_orders()
 function logout()
 {
   if (isset($_GET['logout'])) {
+    session_destroy();
     $_SESSION['loggedin'] = false;
-    $_SESSION['username'] = '';
-    $_SESSION['role'] = '';
-    $_SESSION['id'] = '';
-    $_SESSION['img'] = '';
-    echo "<script> alert('Logged out!');
+    echo "<script> 
     window.open('index.php','_self');</script>";
   }
 }
@@ -217,7 +214,7 @@ function redrmyAc()
 {
   if (isset($_SESSION['role'])) {
     $val = $_SESSION['role'];
-    if ($val == '')  echo "<script>alert('You are not having permission to access this URL');window.open('../index.php','_self');</script> ";
+    if ($val == '')  echo "<script>window.open('../index.php','_self');</script> ";
   }
 }
 function redr($role)
@@ -237,7 +234,7 @@ function redr($role)
           $check = false;
       }
     }
-    if (!$check) echo "<script>alert('You are not having permission to access this URL');window.history.go(-1);</script> ";
+    if (!$check) echo "<script>window.history.go(-1);</script> ";
   }
 }
 function validate($username, $password, $password2)

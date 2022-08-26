@@ -55,6 +55,7 @@ td {
     height:40px;width:100px;
 }
 #footer {
+    position: relative;
    margin-top: auto;
 }
 .card-img-top{
@@ -77,7 +78,18 @@ td {
     color: #f57224;
     font-size: 25px;
 }
-@media (min-width:991px) {
+#footer-grid{
+    display: grid;
+    grid-template-columns:auto;
+}
+
+@media (min-width:720px) {
+    #footer-grid{
+        display: grid;
+        grid-template-columns:auto auto;
+    }
+}
+@media (min-width:1080px) {
     .mob{
         margin: 0 10px;
     }
@@ -88,7 +100,10 @@ td {
     .product_details_container{
         flex-direction: row;
     }
- 
+    #footer-grid{
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+    }
 }
 #error{
     color:crimson;

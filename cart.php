@@ -17,6 +17,7 @@ redr('customer');
 </head>
 
 <body>
+<?php include('./includes/toast.php') ?>
     <header>
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
@@ -40,6 +41,9 @@ redr('customer');
         </nav>
     </header>
     <main>
+    <?php include('./includes/toast.php') ?>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  <script src="./toast.js"></script>
         <div class="container text-center my-4">
             <h2 class="my-2">Cart</h2>
             <table class="table" style="overflow-x:auto;">
@@ -111,15 +115,17 @@ redr('customer');
                                     }
                                     document.getElementById('total_price').innerHTML = temp;
                                 } else {
-                                    alert('Quantity must be greater than 0 ')
+                                    setToast('bg-danger','Quantity must be greater than 0! ')
                                     document.getElementById(`${pid}`).value = cart[pid]
                                 }
                             } else {
                                 if (!value == '') {
-                                    alert('Inapopriate input!')
+                                    // alert('Inapopriate input!')
+                                    setToast('bg-danger','Inapopriate input!')
                                     document.getElementById(`${pid}`).value = cart[pid]
                                 } else if (para == 2) {
-                                    alert('You can not leave this field blank')
+                                    // alert('You can not leave this field blank')
+                                    setToast('bg-danger','You can not leave this field blank!')
                                     document.getElementById(`${pid}`).value = cart[pid]
                                 }
                             }
@@ -155,8 +161,6 @@ redr('customer');
                     ?>
                 </tbody>
             </table>
-
-
             <?php
 
             global $con;
@@ -192,14 +196,14 @@ redr('customer');
                 <?php
                 global $con;
                 if (isset($_POST['order'])) {
-                    if ($_SESSION['loggedin'] and $_SESSION['role'] = 'customer') {
+          
+                    if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true and $_SESSION['role'] == 'customer') {
                         $json1 = $_POST['json'];
                         $json = json_decode($json1, true);
                         if ($json == null) {
-                            echo "<script> alert('Cart is empty!');
+                            echo "<script> setToast('bg-danger','Cart is empty!');
                             </script>";
                         } else {
-
                             $userid = $_SESSION['id'];
                             $query = "select * from `distribution_hub` order by RAND() LIMIT 1";
                             $res = mysqli_query($con, $query);
@@ -218,12 +222,12 @@ redr('customer');
                                 $query = "insert into `order_details` (order_id,product_id,quantity) values ('$orderId','$key','$value')";
                                 $res = mysqli_query($con, $query);
                             }
-                            echo "<script> alert('You have placed an order !')
+                            echo "<script> setToast('bg-success','You have placed an order !');
                                  localStorage.clear(); window.open('./cart.php','_self');</script>";
                         }
                     } else {
-                        echo "<script> alert('You need to login first');
-                                window.open('./login/login.php','_self');</script>";
+                        echo "<script>setToast('bg-danger','You need to login first!');
+                                </script>";
                     }
                 }
                 ?>
@@ -234,6 +238,7 @@ redr('customer');
     include('includes/footer.php');
     ?>
     <!-- JavaScript Bundle with Popper -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 
