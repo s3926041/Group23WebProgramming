@@ -20,6 +20,14 @@ redrmyAc();
 
 ?>
 <body>
+<?php include('../includes/toast.php') ?>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  <script src="../toast.js"> 
+</script>
+<script>  if(localStorage.getItem('imgChange') !== null){
+    setToast('bg-success','Avatar changed!')
+    localStorage.removeItem('imgChange')
+  }</script>
   <header>
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
@@ -50,9 +58,6 @@ redrmyAc();
       </div>
     </nav>
   </header>
-  <script>function sub() {
-      document.getElementById("form").submit();
-};</script>
   <main class="center_main">
     <?php
     $role = $_SESSION['role'];
@@ -78,7 +83,7 @@ redrmyAc();
           $res = mysqli_query($con,$query);
           $_SESSION['img']= $image;
           echo "<script>
-          alert('Profile image changed!')
+          localStorage.setItem('imgChange','true')
           window.open('./myaccount.php','_self') </script>";
         }
     ?>

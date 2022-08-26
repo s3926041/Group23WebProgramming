@@ -16,10 +16,6 @@ include('../functions/functions.php')
       integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
       crossorigin="anonymous"
     />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="./general.css">
     <link rel="stylesheet" href="../styles.css">
   </head>
@@ -38,7 +34,7 @@ include('../functions/functions.php')
       </nav>
     </header>
 
-    <main>
+    <main class="center_main">
       <div class="card p-4 mx-auto d-flex my-4" id="card">
         <h2 class="mb-3">Registering</h2>
         <h5 class="">Your role:</h5>

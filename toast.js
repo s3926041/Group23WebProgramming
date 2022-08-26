@@ -8,7 +8,3 @@ function setToast(bg,text){
     toast.show()
 
 }
-
-
-setToast('bg-danger',
-setToast('bg-success',
