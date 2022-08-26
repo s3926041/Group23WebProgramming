@@ -215,7 +215,7 @@ function redrmyAc()
   if (isset($_SESSION['role'])) {
     $val = $_SESSION['role'];
     if ($val == '')  echo "<script>window.open('../index.php','_self');</script> ";
-  }
+  } echo "<script>window.open('../index.php','_self');</script> ";
 }
 function redr($role)
 {
