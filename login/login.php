@@ -37,7 +37,7 @@ cant_access();
       <h2 class="center">Login</h2>
       <div class="row">
         <div class="col">
-          <form method="post">
+          <form method="post" id="form">
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
               <input type="text" class="form-control" id="username" name='username' 
@@ -48,10 +48,13 @@ cant_access();
               />
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" name="password" />
+              <label for="Password1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="Password1" name="password" />
             </div>
             <div class="mb-3"><a href="../register/general.php">Don't have acount? Registering</a></div>
+            <div class="mb-3 ">
+          <span id="error"></span>
+        </div>
 
             <button type="submit" class="btn btn-primary" name="login">Submit</button>
           </form>
@@ -97,6 +100,7 @@ cant_access();
   <?php
   include('../includes/footer.php');
   ?>
+  <script src="./validate.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 
