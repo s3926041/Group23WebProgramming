@@ -37,7 +37,7 @@
                         </ul>
                   </div>
                   <div class="col my-3 d-flex flex-column align-items-center">
-                        <h5>Contact </h5>
+                        <h5>Contact <i class="bi bi-chat-dots-fill"></i></h5>
                         <ul class="list-unstyled ul-class font-size-10 text-dark">
                               <li class="mb-3">
                                     <i class="bi bi-envelope-fill"></i>
