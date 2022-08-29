@@ -17,7 +17,7 @@ redr('customer');
 </head>
 
 <body>
-<?php include('./includes/toast.php') ?>
+    <?php include('./includes/toast.php') ?>
     <header>
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
@@ -41,9 +41,9 @@ redr('customer');
         </nav>
     </header>
     <main>
-    <?php include('./includes/toast.php') ?>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-  <script src="./toast.js"></script>
+        <?php include('./includes/toast.php') ?>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        <script src="./toast.js"></script>
         <div class="container text-center my-4">
             <h2 class="my-2">Cart</h2>
             <table class="table" style="overflow-x:auto;">
@@ -54,7 +54,6 @@ redr('customer');
                         <th class='text-center' scope='col'>Image</th>
                         <th class='text-center' scope='col'>Price</th>
                         <th class='text-center' scope='col'>Quantity</th>
-                        <th class='text-center' scope='col'>Vendors</th>
                         <th class='text-center' scope='col'>Remove</th>
                     </tr>
                 </thead>
@@ -73,7 +72,7 @@ redr('customer');
                                 pname = products[key].pname
                                 pPrice = products[key].pPrice
                                 pImage = products[key].pImage
-                                vendorname = products[key].vendorname
+                           
                                 temp += pPrice * cart[key]
                                 let html = `<tr> <th class='text-center' >${key}</th> 
                                 <td   class='text-center h120'>${pname}</td>
@@ -83,7 +82,7 @@ redr('customer');
                                   <div class='d-flex w-100 justify-content-center'> 
                                    <input id='${key}' class='text-center rounded mx-2 form-control' style='width:80px' type='text'
                                     name='quantity' onkeyup='change_quantity(${key},this.value,${cart[key]},1)' onchange='change_quantity(${key},this.value,${cart[key]},2)' value='${cart[key]}' required>
-                                   </div> </form> </td> <td class='h120' >${vendorname} </td> <td class='120'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'>
+                                   </div> </form> </td>  <td class='120'> <form method='post'> <div class='d-flex w-100 justify-content-center'> <input type='hidden' name='pId' value='${key}'>
                                 <input class='text-center rounded mx-2 form-control' type='submit' value='Remove' name='remove' style='width:80px'> </div> </form> </td> </tr>`
                                 let append = document.getElementById('append');
                                 append.insertAdjacentHTML('afterend', html);
@@ -115,47 +114,44 @@ redr('customer');
                                     }
                                     document.getElementById('total_price').innerHTML = temp;
                                 } else {
-                                    setToast('bg-danger','Quantity must be greater than 0! ')
+                                    setToast('bg-danger', 'Quantity must be greater than 0! ')
                                     document.getElementById(`${pid}`).value = cart[pid]
                                 }
                             } else {
                                 if (!value == '') {
                                     // alert('Inapopriate input!')
-                                    setToast('bg-danger','Inapopriate input!')
+                                    setToast('bg-danger', 'Inapopriate input!')
                                     document.getElementById(`${pid}`).value = cart[pid]
                                 } else if (para == 2) {
                                     // alert('You can not leave this field blank')
-                                    setToast('bg-danger','You can not leave this field blank!')
+                                    setToast('bg-danger', 'You can not leave this field blank!')
                                     document.getElementById(`${pid}`).value = cart[pid]
                                 }
                             }
-
+                            document.getElementById('json').value = JSON.stringify(cart)
                         }
                     </script>
                     <?php
                     global $tempPrice;
                     $tempPrice = '0';
-                    global $con;
-                    $query = "select * from `products`";
-                    $res = mysqli_query($con, $query);
-                    while ($r_data = mysqli_fetch_assoc($res)) {
-                        $pId =  $r_data['product_id'];
-                        $pName = $r_data['product_name'];
-                        $pPrice = $r_data['product_price'];
-                        $pImage = $r_data['product_img'];
-                        $vendor = $r_data['vendor'];
-                        $query = "select * from `vendor_table` where user_id= $vendor limit 1";
-                        $venquery = mysqli_query($con, $query);
-                        $r_data = mysqli_fetch_assoc($venquery);
-                        $vendorname = $r_data['business_name'];
-                        echo "<script>
+                    $productData = (array) json_decode(file_get_contents('../products.txt'), true);
+
+                    foreach ($productData as $key => $value) {
+                        if (gettype($value) == 'array') {
+                            $pId =  $value['id'];
+                            $pName = $value['name'];
+                            $pPrice = $value['price'];
+                            $pImage = $value['image'];
+                            $vendor = $value['vendor_id'];
+                            // $vendorname = $value['business_name'];
+                            echo "<script>
                             pname = '$pName'
                             pPrice = $pPrice
                             pImage = '$pImage'
-                            vendorname = '$vendorname'
-                            products[$pId] = {'pname': pname,'pPrice': pPrice,'pImage' : pImage, 'vendorname': vendorname}
+                            products[$pId] = {'pname': pname,'pPrice': pPrice,'pImage' : pImage}
                             localStorage.setItem('products', JSON.stringify(products))
                             </script>";
+                        }
                     }
                     echo "<script> display(cart) </script>"
                     ?>
@@ -182,7 +178,7 @@ redr('customer');
                     document.getElementById('total_price').innerHTML = temp;
                 </script>
 
-                <form  method="post" class="d-flex m-0">
+                <form method="post" class="d-flex m-0">
                     <input type="hidden" name="json" id="json" value="">
                     <script>
                         document.getElementById('json').value = JSON.stringify(cart)
@@ -196,34 +192,40 @@ redr('customer');
                 <?php
                 global $con;
                 if (isset($_POST['order'])) {
-          
                     if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true and $_SESSION['role'] == 'customer') {
                         $json1 = $_POST['json'];
-                        $json = json_decode($json1, true);
+                        
+                        $json = json_decode($json1, true);     
                         if ($json == null) {
                             echo "<script> setToast('bg-danger','Cart is empty!');
                             </script>";
                         } else {
                             $userid = $_SESSION['id'];
-                            $query = "select * from `distribution_hub` order by RAND() LIMIT 1";
-                            $res = mysqli_query($con, $query);
-                            $row = mysqli_fetch_assoc($res);
-                            $hub_id = $row['hub_id'];
 
-                            $query = "insert into `order_table` (user_id,hub_id,status) values ('$userid','$hub_id','active')";
-                            $res = mysqli_query($con, $query);
+                            $hubdata =  (array) json_decode(file_get_contents('../hub.txt'),true);
+                            $randomHub = array_rand($hubdata,1);
+                            $hub_id = $hubdata[$randomHub]['id'];
 
-                            $query = "select max(order_id) from `order_table`";
-                            $res2 = mysqli_query($con, $query);
-                            $row = mysqli_fetch_assoc($res2);
-                            $orderId = $row['max(order_id)'];
-
-                            foreach ($json as $key => $value) {
-                                $query = "insert into `order_details` (order_id,product_id,quantity) values ('$orderId','$key','$value')";
-                                $res = mysqli_query($con, $query);
+                            $orderdata = (array) json_decode(file_get_contents('../order.txt'),true);
+                            if($orderdata == null){
+                                $orderdata = array();
+                                $orderdata['autoID'] = 0;
                             }
-                            echo "<script> setToast('bg-success','You have placed an order !');
-                                 localStorage.clear(); window.open('./cart.php','_self');</script>";
+                            $oid = $orderdata['autoID'];
+                            $orderdata[$oid]['user_id'] = $userid;
+                            $orderdata[$oid]['hub_id'] = $hub_id;
+                            $orderdata[$oid]['status'] = 'active';
+                         
+                            $details = array();
+                            foreach ($json as $key => $value) {
+                                array_push($details,array("p_id" => $key,"quantity" => $value));
+                            }
+                            $orderdata[$oid]['details'] = array();
+                           $orderdata[$oid]['details'] = $details;
+                            $orderdata['autoID'] += 1;
+                            file_put_contents('../order.txt',json_encode($orderdata,JSON_PRETTY_PRINT));
+                            echo "<script> alert('You have placed an order !'); window.open('cart.php','_self');
+                                 localStorage.clear();</script>";
                         }
                     } else {
                         echo "<script>setToast('bg-danger','You need to login first!');

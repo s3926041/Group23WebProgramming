@@ -62,30 +62,28 @@ cant_access();
       </div>
     </div>
     <?php
-    global $con;
+
     if (isset($_POST['login'])) {
       $username = $_POST['username'];
       $password = $_POST['password'];
-      $query = "select * from `user_table` where username='$username'";
-      $resquery = mysqli_query($con, $query);
-      $count = mysqli_num_rows($resquery);
-      $row = mysqli_fetch_assoc($resquery);
-      if ($count > 0) {
-        if (password_verify($password, $row['password'])) {
-          session_start();
+
+      $userdata =  (array) json_decode(file_get_contents('../../accounts.txt'),true);
+      print_r($userdata);
+      if ($userdata != null and array_key_exists($username,$userdata)) {
+        if (password_verify($password, $userdata[$username]['password'])) {
           $_SESSION['loggedin'] = true;
           $_SESSION['username'] = $username;
-          $_SESSION['role'] = $row['role'];
-          $_SESSION['id'] = $row['user_id'];
-          $_SESSION['img'] = $row['image'];
+          $_SESSION['role'] = $userdata[$username]['role'];
+          $_SESSION['id'] = $userdata[$username]['id'];
+          $_SESSION['img'] = $userdata[$username]['image'];
           if (isset($_SESSION['failed_login'])) {
             unset($_SESSION['failed_login']);
           }
-          if ($row['role'] == 'customer') {
+          if ($userdata[$username]['role'] == 'customer') {
             echo "<script>window.open('../index.php','_self');</script> ";
-          } else if ($row['role'] == 'vendor') {
+          } else if ($userdata[$username]['role'] == 'vendor') {
             echo "<script>window.open('../users/vendor/vendor.php','_self');</script> ";
-          } else  if ($row['role'] == 'shipper') {
+          } else  if ($userdata[$username]['role'] == 'shipper') {
             echo "<script>window.open('../users/shipper/shipper.php','_self');</script> ";
           }
         } else {

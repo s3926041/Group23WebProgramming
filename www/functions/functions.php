@@ -1,110 +1,204 @@
 <?php
 session_start();
 
-function generate($para, $res)
+function generate($para,$sec,$id,$min,$max)
 {
-  while ($row_data = mysqli_fetch_assoc($res)) {
-    $pId = $row_data['product_id'];
-    $pName = $row_data['product_name'];
-    $pPrice = $row_data['product_price'];
-    $pImage = $row_data['product_img'];
-    $pDes = $row_data['product_description'];
-    $w50 = 'w-50';
-    $wh300 = '';
-    $c = 'd-flex justify-content-center align-content-center flex-column';
-    $container = "";
-    $imgClass = "card-img-top";
-    if ($para == 2) {
-      $container = 'product_details_container';
-      $imgClass = 'product_details_img';
-      $w50 = '';
-      $wh300 = 'w300';
+  $productData = (array) json_decode(file_get_contents('../products.txt'),true);
+  $count = 0;
+  foreach($productData as $key => $value){
+    if(gettype($value) == 'array'){
+      if($id == ''){
+        if(str_contains(strtolower($key),strtolower($sec)) and $value['price'] >$min and $value['price'] < $max){
+          $pId = $value['id'];
+          $pName = $value['name'];
+          $pPrice = $value['price'];
+          $pImage = $value['image'];
+          $pDes = $value['des'];
+          $w50 = 'w-50';
+          $wh300 = '';
+          $c = 'd-flex justify-content-center align-content-center flex-column';
+          $container = "";
+          $imgClass = "card-img-top";
+          if ($para == 2) {
+            $container = 'product_details_container';
+            $imgClass = 'product_details_img';
+            $w50 = '';
+            $wh300 = 'w300';
+          }
+          if ($para == 1)
+            echo "<div class='col my-2 p-4'>";
+          echo    "<div class='card $container'>
+                <div class='d-flex justify-content-center border-bottom'>
+                  <img
+                    src='./pImages/$pImage'
+                    class='$imgClass'
+                    alt='product-image'
+                  />
+                  </div>
+                  <div class='card-body $c $wh300'>
+                  <div class='mb-3'>
+                    <h5 class='card-title mb-3'>$pName</h5><div class='card-text mb-3 fw-normal'>Price: <span class='price mx-1'>$pPrice</span></div>";
+          if ($para == 2) echo "<p class='card-text mb-1'>Description: $pDes</p>";
+          echo "   </div><div class=' d-flex justify-content-center'> ";
+          echo "<a id='$pId' class='btn btn-primary p-2 $w50 mr5' onclick='addcart($pId)' >Add to cart</a>";
+          if ($para == 1)
+            echo "<a href='product_details.php?product_id=$pId' class='btn btn-info p-2  w-50 ml5' >View more</a>";
+          echo "</div></div></div>";
+          if ($para == 1)
+            echo "</div>";
+          $count += 1;
+        }
+      }
+      else{
+        if($value['id'] == $id){
+          if(str_contains(strtolower($key),strtolower($sec)) and $value['price'] >$min and $value['price'] < $max){
+            $pId = $value['id'];
+            $pName = $value['name'];
+            $pPrice = $value['price'];
+            $pImage = $value['image'];
+            $pDes = $value['des'];
+            $w50 = 'w-50';
+            $wh300 = '';
+            $c = 'd-flex justify-content-center align-content-center flex-column';
+            $container = "";
+            $imgClass = "card-img-top";
+            if ($para == 2) {
+              $container = 'product_details_container';
+              $imgClass = 'product_details_img';
+              $w50 = '';
+              $wh300 = 'w300';
+            }
+            if ($para == 1)
+              echo "<div class='col my-2 p-4'>";
+            echo    "<div class='card $container'>
+                  <div class='d-flex justify-content-center border-bottom'>
+                    <img
+                      src='./pImages/$pImage'
+                      class='$imgClass'
+                      alt='product-image'
+                    />
+                    </div>
+                    <div class='card-body $c $wh300'>
+                    <div class='mb-3'>
+                      <h5 class='card-title mb-3'>$pName</h5><div class='card-text mb-3 fw-normal'>Price: <span class='price mx-1'>$pPrice</span></div>";
+            if ($para == 2) echo "<p class='card-text mb-1'>Description: $pDes</p>";
+            echo "   </div><div class=' d-flex justify-content-center'> ";
+            echo "<a id='$pId' class='btn btn-primary p-2 $w50 mr5' onclick='addcart($pId)' >Add to cart</a>";
+            if ($para == 1)
+              echo "<a href='product_details.php?product_id=$pId' class='btn btn-info p-2  w-50 ml5' >View more</a>";
+            echo "</div></div></div>";
+            if ($para == 1)
+              echo "</div>";
+          }
+        }
+      }
     }
-    if ($para == 1)
-      echo "<div class='col my-2 p-4'>";
-    echo    "<div class='card $container'>
-          <div class='d-flex justify-content-center border-bottom'>
-            <img
-              src='./pImages/$pImage'
-              class='$imgClass'
-              alt='product-image'
-            />
-            </div>
-            <div class='card-body $c $wh300'>
-            <div class='mb-3'>
-              <h5 class='card-title mb-3'>$pName</h5><div class='card-text mb-3 fw-normal'>Price: <span class='price mx-1'>$pPrice</span></div>";
-    if ($para == 2) echo "<p class='card-text mb-1'>Description: $pDes</p>";
-    echo "   </div><div class=' d-flex justify-content-center'> ";
-    echo "<a id='$pId' class='btn btn-primary p-2 $w50 mr5' onclick='addcart($pId)' >Add to cart</a>";
-    if ($para == 1)
-      echo "<a href='product_details.php?product_id=$pId' class='btn btn-info p-2  w-50 ml5' >View more</a>";
-    echo "</div></div></div>";
-    if ($para == 1)
-      echo "</div>";
+  }
+  if($sec != '' or $min !=0 or $max !=100000000){
+    if($count == 0 ){
+      echo "<h2  class='nodata_message'>No product meets requirements </h2>";
+    }
   }
 }
 
 function get_product()
 {
-  global $con;
-  $query = "select * from `products` ";
-  $res = mysqli_query($con, $query);
-  generate(1, $res);
+  generate(1,'','',0,100000000);
 }
 function search_product()
 {
-  global $con;
   $search_data = $_GET['search_data'];
-  $query = "select * from `products` where product_name like '%$search_data%'";
-  $res = mysqli_query($con, $query);
-  generate(1, $res);
-  $count = mysqli_num_rows($res);
-  if ($count == 0) {
-    echo "<h2  class='nodata_message'>No product meets requirements </h2>";
-  }
+  generate(1, $search_data,'',0,100000000);
+
 }
 
 function view_product()
 {
-  global $con;
-  $product_id = $_GET['product_id'];
-  $query = "select * from `products` where product_id=$product_id limit 1";
-  $res = mysqli_query($con, $query);
-  generate(2, $res);
+  $id = $_GET['product_id'];
+  generate(2, '',$id,0,100000000);
 }
 
 function filter()
 {
-  global $con;
   $min = $_GET['min'];
   $max = $_GET['max'];
-  $query = "select * from `products` where product_price >= $min and product_price <= $max ";
-  $res = mysqli_query($con, $query);
-  generate(1, $res);
-  $count = mysqli_num_rows($res);
-  if ($count == 0) {
-    echo "<h2  class='nodata_message'>No product meets requirements </h2>";
-  }
+  generate(1, '','',$min,$max);
+
 }
 function name()
 {
   $name = $_SESSION['username'];
   echo "$name";
 }
+
+function register($post){
+  $val = $post .'_reg';
+  if (isset($_POST[$val])) {
+    $exist = false;
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $password2 = $_POST['password2'];
+    $validate = validate($username, $password,$password2);
+    if ($validate =='' ) {
+      $hashp = password_hash($password, PASSWORD_DEFAULT);
+      $name = $_POST['name'];
+      $address = $_POST['address'];
+      $image = $_FILES['image']['name'];
+      $tmp_image = $_FILES['image']['tmp_name'];
+      $userdata =  (array) json_decode(file_get_contents('../../accounts.txt'),true);
+      if ($userdata != null) {
+        if (array_key_exists($username,  $userdata)) {
+          $exist = true; 
+          echo "<script> setToast('bg-danger','Username existed!');</script>";
+        } 
+        elseif($post == 'vendor'){
+          foreach($userdata as $key => $value){
+              if(gettype($value) == 'array')
+              if($value['name'] == $name){
+                $exist = true;
+                echo "<script> setToast('bg-danger','Vendor name existed!');</script>";
+                break;
+              }elseif($value['address'] == $address){
+                $exist = true;
+                echo "<script> setToast('bg-danger','Vendor address existed!');</script>";
+                break;
+              }
+          }
+        }
+      } else{
+        $userdata=array();
+        $userdata['autoID'] = 0;
+      }
+     
+      if(!$exist){
+        move_uploaded_file($tmp_image, "../users/userImages/$image");
+        $userdata[$username]['id'] = $userdata['autoID'];
+        $userdata['autoID'] += 1;
+        $userdata[$username]['password'] = $hashp;
+        $userdata[$username]['name'] = $name;
+        $userdata[$username]['address'] = $address;
+        $userdata[$username]['image'] = $image;
+        if(isset($_POST['hub']))
+          $userdata[$username]['hub'] = $_POST['hub'];
+        $userdata[$username]['role'] = $post;
+        file_put_contents('../../accounts.txt',json_encode($userdata,JSON_PRETTY_PRINT));
+        echo "<script> setToast('bg-success','Registered!') </script>";
+      }
+    } else echo "<script>setToast('bg-danger','$validate') </script>";
+}
+}
+
 function vendor_product()
 {
-  global $con;
   $userId = $_SESSION['id'];
-  $select_products = "select * from `products` where vendor='$userId'";
-  $result_products = mysqli_query($con, $select_products);
-  $count = mysqli_num_rows($result_products);
-  if ($count > 0) {
-    while ($row_data = mysqli_fetch_assoc($result_products)) {
-      $pId = $row_data['product_id'];
-      $pName = $row_data['product_name'];
-      $pPrice = $row_data['product_price'];
-      $pImage = $row_data['product_img'];
-      $pDes = $row_data['product_description'];
+  $productData = (array) json_decode(file_get_contents('../../../products.txt'),true);
+  foreach($productData as $key => $value){
+    if(gettype($value) == 'array' and $value['vendor_id'] == $userId){
+      $pId = $value['id'];
+      $pName = $value['name'];
+      $pPrice = $value['price'];
+      $pImage = $value['image'];
+      $pDes = $value['des'];
       echo "<tr>
       <th class='text-center' scope='row'>$pId</th>
       <td class='text-center h120'>$pName</td>
@@ -115,60 +209,70 @@ function vendor_product()
       <td class='text-center h120'>$pDes</td>
       </tr>";
     }
+
   }
+     
+  
 }
 function add_product()
 {
-  global $con;
   if (isset($_POST['add_product'])) {
     $pName = $_POST['pName'];
-    if (mysqli_num_rows(mysqli_query($con, "select * from `products` where product_name ='$pName'")) > 0) {
+    echo $pName;
+    $productData = (array) json_decode(file_get_contents('../../../products.txt'),true);
+    print_r($productData);
+    if ($productData != null and array_key_exists($pName,$productData)) {
       echo "<script> setToast('bg-danger','Product name existed') </script>";
     } else {
-      $pName = $_POST['pName'];
-      $pPrice = $_POST['pPrice'];
+      if($productData == null){
+        $productData=array();
+        $productData['autoID'] = 0;
+      }
       $pImage = $_FILES['pImage']['name'];
-      $tempImage = $_FILES['pImage']['tmp_name'];
-      $pDes = $_POST['pDes'];
-      $userId = $_SESSION['id'];
+      $tempImage =$_FILES['pImage']['tmp_name'];
       move_uploaded_file($tempImage, "../../pImages/$pImage");
-      $insert_query = "insert into `products` (product_name,product_price,product_img,product_description,vendor) values('$pName','$pPrice','$pImage','$pDes','$userId')";
-      $result = mysqli_query($con, $insert_query);
-      if ($result) {
-        echo "<script> setToast('bg-success','Product added succesfully!')
-           </script>";
-      } else echo "<script> setToast('bg-danger','Fail to add product!') </script>";
+      $productData[$pName]['id'] = $productData['autoID'];
+      $productData['autoID'] += 1;
+      $productData[$pName]['name'] = $_POST['pName'];
+      $productData[$pName]['price'] = $_POST['pPrice'];
+      $productData[$pName]['image'] = $_FILES['pImage']['name'];
+      $productData[$pName]['des'] = $_POST['pDes'];
+      $productData[$pName]['vendor_id'] = $_SESSION['id'];
+      file_put_contents('../../../products.txt',json_encode($productData,JSON_PRETTY_PRINT));
+       echo "<script> setToast('bg-success','Product added succesfully!')</script>";
+     
     }
   }
 }
 function shipper_orders()
 {
-  global $con;
   $userId = $_SESSION['id'];
-  $query = "select * from `shipper_table` where user_id=$userId limit 1";
-  $res = mysqli_query($con, $query);
-  $row_data = mysqli_fetch_assoc($res);
-  $hub = $row_data['hub_id'];
-
-  $query = "select * from `order_table` where status='active' and hub_id=$hub";
-  $res = mysqli_query($con, $query);
-  $count = mysqli_num_rows($res);
-  if ($count > 0) {
-    while ($row_data = mysqli_fetch_assoc($res)) {
-      $oId = $row_data['order_id'];
-      $userId = $row_data['user_id'];
-      $status = $row_data['status'];
+  $userdata =  (array) json_decode(file_get_contents('../../../accounts.txt'),true);
+  $hub = 0;
+  foreach($userdata as $key => $value){
+    if(gettype($value) =='array')
+    if(strval($value['id']) == $userId){
+      $hub = $value['hub'];
+      break;
+    }
+  }
+  $orderdata = (array) json_decode(file_get_contents('../../../order.txt'),true);
+   foreach($orderdata as $key => $value ){
+    if(gettype($value) == 'array' and $value['status'] == 'active'){
+      $oId = $key;
+      $userId = $value['user_id'];
+      $status = $value['status'];
       echo "<tr>
       <th class=''  scope='row'>$oId</th>
       <td class='' >$userId</td>
-   
       <td  class=''>$hub</td>
       <td  class=''>$status</td>
       <td  class='d-flex justify-content-center w200' ><a href='./shipper.php?order_id=$oId' class='text-center form-control w200'>Order Details</a></td>
       </tr>";
     }
+    }
   }
-}
+
 
 function logout()
 {

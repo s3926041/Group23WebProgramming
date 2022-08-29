@@ -36,7 +36,7 @@
 
                         </ul>
                   </div>
-                  <div class="col my-3 d-flex flex-column align-items-center">
+                  <div class="col mt-3 d-flex flex-column align-items-center">
                         <h5>Contact </h5>
                         <ul class="list-unstyled ul-class font-size-10 text-dark">
                               <li class="mb-3">
@@ -51,7 +51,7 @@
                                     <i class="bi bi-linkedin"></i>
                                     <a class="text-dark mx-1" href="#">Group 23</a>
                               </li>
-                              <li class="mb-3">
+                              <li class="">
                                     <i class="bi bi-telephone-fill"></i>
                                     <a class="text-dark mx-1" href="#">09-9999-999</a>
                               </li>

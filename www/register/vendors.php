@@ -31,7 +31,6 @@ include('../functions/functions.php')
       </div>
     </nav>
   </header>
-
   <main class="center_main">
     <div class="container-fluid  my-4 border p-3 rounded" id='con'>
       <h4 class="mb-4 text-center">Vendor Registration</h4>
@@ -70,52 +69,7 @@ include('../functions/functions.php')
       </form>
     </div>
     <?php
-    global $con;
-    if (isset($_POST['vendor_reg'])) {
-      $username = $_POST['username'];
-      $password = $_POST['password'];
-      $password2 = $_POST['password2'];
-      $validate = validate($username, $password, $password2);
-      if ($validate == '') {
-        $hashp = password_hash($password, PASSWORD_DEFAULT);
-        $name = $_POST['name'];
-        $address = $_POST['address'];
-        $image = $_FILES['image']['name'];
-        $tmp_image = $_FILES['image']['tmp_name'];
-        $query = "select username from `user_table` where username= '$username'";
-        $resquery = mysqli_query($con, $query);
-        $count = mysqli_num_rows($resquery);
-        if ($count > 0) {
-          echo "<script>setToast('bg-danger','Username existed!');</script>";
-        } else {
-          $query = "select * from `vendor_table` where business_name= '$name'";
-          $resquery = mysqli_query($con, $query);
-          $count = mysqli_num_rows($resquery);
-          if ($count > 0) {
-            echo "<script>setToast('bg-danger','Business Name existed!');</script>";
-          } else {
-            $query = "select * from `vendor_table` where business_address= '$address'";
-            $resquery = mysqli_query($con, $query);
-            $count = mysqli_num_rows($resquery);
-            if ($count > 0) {
-              echo "<script>setToast('bg-danger','Business address existed!');</script>";
-            } else {
-              move_uploaded_file($tmp_image, "../users/userImages/$image");
-              $query = "insert into `user_table` (username,password,image,role) values ('$username','$hashp','$image','vendor');";
-              $resquery = mysqli_query($con, $query);
-              $query = "select user_id from `user_table` where username='$username'";
-              $resquery = mysqli_query($con, $query);
-              if ($rowdata = mysqli_fetch_assoc($resquery)) {
-                $userId = $rowdata['user_id'];
-                $query = "insert into `vendor_table` (user_id,business_name,business_address) values ('$userId','$name','$address');";
-                $execute = mysqli_query($con, $query);
-                if ($execute) echo "<script> setToast('bg-success','Registered!');</script>";
-              }
-            }
-          }
-        }
-      } else echo "<script>setToast('bg-danger','$validate')</script>";
-    }
+    register('vendor')
     ?>
   </main>
   <?php

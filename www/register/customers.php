@@ -18,7 +18,7 @@ include('../functions/functions.php')
 </head>
 
 <body>
-<?php include('../includes/toast.php') ?>
+  <?php include('../includes/toast.php') ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
   <script src="../toast.js"></script>
   <header>
@@ -40,23 +40,33 @@ include('../functions/functions.php')
       <form class='' method='post' enctype="multipart/form-data" id='form'>
         <div class="mb-3 ">
           <label for="username" class="form-label">Username:</label>
-          <input type="text" class="form-control " id="username" name='username' value='<?php if(isset($_POST['username'])) $var = $_POST['username'];else $var = ""; echo $var;  ?>' required>
+          <input type="text" class="form-control " id="username" name='username' value='<?php if (isset($_POST['username'])) $var = $_POST['username'];
+                                                                                        else $var = "";
+                                                                                        echo $var;  ?>' required>
         </div>
         <div class="mb-3 ">
           <label for="Password1" class="form-label">Password:</label>
-          <input type="password" class="form-control" id="Password1" name='password' value='<?php if(isset($_POST['password'])) $var = $_POST['password'];else $var = ""; echo $var;  ?>' required>
+          <input type="password" class="form-control" id="Password1" name='password' value='<?php if (isset($_POST['password'])) $var = $_POST['password'];
+                                                                                            else $var = "";
+                                                                                            echo $var;  ?>' required>
         </div>
         <div class="mb-3 ">
           <label for="Password2" class="form-label">Confirm password:</label>
-          <input type="password" class="form-control" id="Password2" name='password2' value='<?php if(isset($_POST['password2'])) $var = $_POST['password2'];else $var = ""; echo $var;  ?>' required>
+          <input type="password" class="form-control" id="Password2" name='password2' value='<?php if (isset($_POST['password2'])) $var = $_POST['password2'];
+                                                                                              else $var = "";
+                                                                                              echo $var;  ?>' required>
         </div>
         <div class="mb-3 ">
           <label for="name" class="form-label">Customer name:</label>
-          <input type="text" class="form-control fivechar" id="name" name='name' value='<?php if(isset($_POST['name'])) $var = $_POST['name'];else $var = ""; echo $var;  ?>' required>
+          <input type="text" class="form-control fivechar" id="name" name='name' value='<?php if (isset($_POST['name'])) $var = $_POST['name'];
+                                                                                        else $var = "";
+                                                                                        echo $var;  ?>' required>
         </div>
         <div class="mb-3 ">
           <label for="address" class="form-label">Customer adress</label>
-          <input type="text" class="form-control fivechar" id="address" name='address' value='<?php if(isset($_POST['address'])) $var = $_POST['address'];else $var = ""; echo $var;  ?>' required>
+          <input type="text" class="form-control fivechar" id="address" name='address' value='<?php if (isset($_POST['address'])) $var = $_POST['address'];
+                                                                                              else $var = "";
+                                                                                              echo $var;  ?>' required>
         </div>
         <div class="mb-3 ">
           <label for="image" class="form-label">Image</label>
@@ -71,41 +81,9 @@ include('../functions/functions.php')
 
       </form>
     </div>
-  <script src="./validate.js"></script>
+    <script src="./validate.js"></script>
     <?php
-    global $con;
-    if (isset($_POST['customer_reg'])) {
-      $username = $_POST['username'];
-      $password = $_POST['password'];
-      $password2 = $_POST['password2'];
-      $validate = validate($username, $password,$password2);
-      if ($validate =='' ) {
-        $hashp = password_hash($password, PASSWORD_DEFAULT);
-        $name = $_POST['name'];
-        $address = $_POST['address'];
-        $image = $_FILES['image']['name'];
-        $tmp_image = $_FILES['image']['tmp_name'];
-        $query = "select username from `user_table` where username= '$username'";
-        $resquery = mysqli_query($con, $query);
-        $count = mysqli_num_rows($resquery);
-        if ($count > 0) {
-          echo "<script> alert('Username existed!');</script>";
-        } else {
-          move_uploaded_file($tmp_image, "../users/userImages/$image");
-          $query = "insert into `user_table` (username,password,image,role) values ('$username','$hashp','$image','customer');";
-          $resquery = mysqli_query($con, $query);
-
-          $query = "select user_id from `user_table` where username='$username'";
-          $resquery = mysqli_query($con, $query);
-          if ($rowdata = mysqli_fetch_assoc($resquery)) {
-            $userId = $rowdata['user_id'];
-            $query = "insert into `customer_table` (user_id,name,address) values ('$userId','$name','$address');";
-            $execute = mysqli_query($con, $query);
-            if ($execute) echo "<script> alert('Registered!');window.open('customers.php','_self'); </script>";
-          }
-        }
-      }  else echo"<script>alert('$validate') </script>";
-    }
+    register('customer')
     ?>
 
   </main>
