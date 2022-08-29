@@ -14,13 +14,13 @@
                         <h5>Privacy <i class="bi bi-shield-fill-check"></i></h5>
                         <ul class="list-unstyled ul-class">
                               <li class="mb-3">
-                                    <a class="text-dark link-primary" href="#"><p>Privacy Policy</p></a>
+                                    <a class="text-dark" href="#"><p>Privacy Policy</p></a>
                               </li>
                               <li class="mb-3">
-                                    <a class="text-dark link-primary" href="#"><p>Terms of Use</p></a>
+                                    <a class="text-dark" href="#"><p>Terms of Use</p></a>
                               </li>
                               <li class="mb-3">
-                                    <a class="text-dark link-primary" href="#"><p>Disclaimer</p></a>
+                                    <a class="text-dark" href="#"><p>Disclaimer</p></a>
                               </li>
                         </ul>
                   </div>
@@ -28,32 +28,32 @@
                         <h5>Help <i class="bi bi-question-circle-fill"></i></h5>
                         <ul class="list-unstyled ul-class">
                               <li class="mb-3">
-                                    <a class="text-dark link-primary" href="#"><p>How to use</p></a>
+                                    <a class="text-dark" href="#"><p>How to use</p></a>
                               </li>
                               <li class="mb-3">
-                                    <a class="text-dark link-primary" href="#"><p>Payment Methods</p></a>
+                                    <a class="text-dark" href="#"><p>Payment Methods</p></a>
                               </li>
 
                         </ul>
                   </div>
-                  <div class="col my-3 d-flex flex-column align-items-center">
-                        <h5>Contact <i class="bi bi-chat-dots-fill"></i></h5>
+                  <div class="col mt-3 d-flex flex-column align-items-center">
+                        <h5>Contact </h5>
                         <ul class="list-unstyled ul-class font-size-10 text-dark">
                               <li class="mb-3">
                                     <i class="bi bi-envelope-fill"></i>
-                                    <a class="text-dark mx-1 link-primary" href="#">Group23.rmit.edu.vn</a>
+                                    <a class="text-dark mx-1" href="#">Group23.rmit.edu.vn</a>
                               </li>
                               <li class="mb-3">
                                     <i class="bi bi-facebook"></i>
-                                    <a class="text-dark mx-1 link-primary" href="#">Group 23</a>
+                                    <a class="text-dark mx-1" href="#">Group 23</a>
                               </li>
                               <li class="mb-3">
                                     <i class="bi bi-linkedin"></i>
-                                    <a class="text-dark mx-1 link-primary" href="#">Group 23</a>
+                                    <a class="text-dark mx-1" href="#">Group 23</a>
                               </li>
-                              <li class="mb-3">
+                              <li class="">
                                     <i class="bi bi-telephone-fill"></i>
-                                    <a class="text-dark mx-1 link-primary" href="#">09-9999-999</a>
+                                    <a class="text-dark mx-1" href="#">09-9999-999</a>
                               </li>
                         </ul>
                   </div>

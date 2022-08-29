@@ -17,7 +17,7 @@ include('../functions/functions.php')
 </head>
 
 <body>
-<?php include('../includes/toast.php') ?>
+<?php include('../includes/toast.php')?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
   <script src="../toast.js"></script>
   <header>
@@ -54,14 +54,21 @@ include('../functions/functions.php')
           <label for="name" class="form-label">Your name:</label>
           <input type="text" class="form-control fivechar" id="name" name='name' value='<?php if(isset($_POST['name'])) $var = $_POST['name'];else $var = ""; echo $var;  ?>' required>
         </div>
+        <div class="mb-3 ">
+          <label for="address" class="form-label">Your adress</label>
+          <input type="text" class="form-control fivechar" id="address" name='address' value='<?php if (isset($_POST['address'])) $var = $_POST['address'];
+                                                                                              else $var = "";
+                                                                                              echo $var;  ?>' required>
+        </div>
         <div class="mb-3">
           <label for="hub">Distribution hub:</label>
           <select name="hub" class="form-control" id="hub" required>
-            <?php $query = "select * from `distribution_hub`";
-            $res = mysqli_query($con, $query);
-            while ($row = mysqli_fetch_assoc($res)) {
-              $hub_id = $row['hub_id'];
-              $name = $row['name'];
+            <?php
+            $hubdata = (array) json_decode(file_get_contents('../../hub.txt'),true);
+
+            foreach($hubdata as $key => $value){
+              $hub_id = $value["id"];
+              $name = $key;
               echo "<option value='$hub_id'>$name</option>";
             }
             ?>
@@ -81,40 +88,7 @@ include('../functions/functions.php')
       
     </div>
     <?php
-    global $con;
-    if (isset($_POST['shipper_reg'])) {
-      $username = $_POST['username'];
-      $password = $_POST['password'];
-      $password2 = $_POST['password2'];
-      $validate = validate($username, $password,$password2);
-      if ($validate =='' ) {
-        $hashp = password_hash($password, PASSWORD_DEFAULT);
-        $name = $_POST['name'];
-        $image = $_FILES['image']['name'];
-        $tmp_image = $_FILES['image']['tmp_name'];
-        $hub = $_POST['hub'];
-        $query = "select username from `user_table` where username= '$username'";
-        $resquery = mysqli_query($con, $query);
-        $count = mysqli_num_rows($resquery);
-        if ($count > 0) {
-          echo "<script> setToast('bg-danger','Username existed!');</script>";
-        }  else {
-        move_uploaded_file($tmp_image, "../users/userImages/$image");
-        $query = "insert into `user_table` (username,password,image,role) values ('$username','$hashp','$image','shipper');";
-        $resquery = mysqli_query($con, $query);
-
-        $query = "select user_id from `user_table` where username='$username'";
-        $resquery = mysqli_query($con, $query);
-        if ($rowdata = mysqli_fetch_assoc($resquery)) {
-          $userId = $rowdata['user_id'];
-          $query = "insert into `shipper_table` (user_id,hub_id) values ('$userId','$hub');";
-          $execute = mysqli_query($con, $query);
-          if ($execute) echo "<script> setToast('bg-success','Registered!');</script>";
-        }
-      }
-    } else echo"<script>setToast('bg-danger','$validate')</script>";
-  }
-    
+    register('shipper');
     ?>
   </main>
   <?php

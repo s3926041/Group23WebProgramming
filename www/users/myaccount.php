@@ -59,6 +59,7 @@ redrmyAc();
   </header>
   <main class="center_main">
     <?php
+    $userdata =  (array) json_decode(file_get_contents('../../accounts.txt'),true);
     $role = $_SESSION['role'];
     $userId = $_SESSION['id'];
     $username = $_SESSION['username'];
@@ -78,8 +79,8 @@ redrmyAc();
           $image = $_FILES['img']['name'];
           $tmp_image = $_FILES['img']['tmp_name'];
           move_uploaded_file($tmp_image, "./userImages/$image");
-          $query = "update `user_table` set image='$image' where user_id=$userId";
-          $res = mysqli_query($con,$query);
+          $userdata[$username]['image'] =$image;
+          file_put_contents('../../accounts.txt',json_encode($userdata,JSON_PRETTY_PRINT));
           $_SESSION['img']= $image;
           echo "<script>
           localStorage.setItem('imgChange','true')
@@ -91,31 +92,26 @@ redrmyAc();
           <span class="card-title strong">Username: <span><?php echo $username ?></span></span>
           <span class="card-title strong">User role: <span><?php echo $role ?></span></span>
           <?php 
+          $name = $userdata[$username]['name'];
+          $address = $userdata[$username]['address'];
           if($role =='customer'){
-            $query = "select * from `customer_table` where user_id =$userId";
-            $row = mysqli_fetch_assoc(mysqli_query($con,$query));
-            $name = $row['name'];
-            $address = $row['address'];
             echo"
             <span class='card-title'>Name: <span>$name</span></span>
             <span class='card-title'>Address: <span> $address</span></span>";
           }
           else if($role=='vendor')
           {
-            $query = "select * from `vendor_table` where user_id =$userId";
-            $row = mysqli_fetch_assoc(mysqli_query($con,$query));
-            $name = $row['business_name'];
-            $address = $row['business_address'];
+
             echo"
             <span class='card-title strong'>Business name: <span>$name</span></span>
             <span class='card-title strong'>Business address: <span> $address</span></span>";
 
           }
           else{
-            $query = "select * from `shipper_table` where user_id =$userId";
-            $row = mysqli_fetch_assoc(mysqli_query($con,$query));
-            $hub = $row['hub_id'];
+            $hub = $userdata[$username]['hub'];
             echo"
+            <span class='card-title'>Name: <span>$name</span></span>
+            <span class='card-title'>Address: <span> $address</span></span>
             <span class='card-title strong'>Distribution Hub ID: <span> $hub</span></span>";
           }
           ?>

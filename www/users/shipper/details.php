@@ -1,17 +1,21 @@
 <h3 class="mb-3 text-center">Order Details:</h3>
 <?php 
-  global $con;
   $oId = $_GET['order_id'];
-  $query ="select * from `order_table` where order_id=$oId limit 1";
-  $res = mysqli_query($con,$query);
-  $row = mysqli_fetch_assoc($res);
-  $hub = $row['hub_id'];
-  $uId = $row['user_id'];
-  $query ="select * from `customer_table` where user_id=$uId limit 1";
-  $res = mysqli_query($con,$query);
-  $row = mysqli_fetch_assoc($res);
-  $name = $row['name'];
-  $address = $row['address'];
+  $orderdata = (array) json_decode(file_get_contents('../../../order.txt'),true);
+  
+
+  $hub = $orderdata[$oId]['hub_id'];
+  $uId = $orderdata[$oId]['user_id'];
+
+  $userdata = (array) json_decode(file_get_contents('../../../accounts.txt'),true);
+  foreach($userdata as $key => $value){
+    if(gettype($value) =='array')
+    if(strval($value['id']) == $uId){
+      $name = $value['name'];
+      $address = $value['address'];
+      break;
+    }
+  }
   echo "
   <div class= 'd-flex flex-column'>
   <span class='my-1 fw-bold'>Order ID: <span class='fw-normal'>$oId</span></span> 
@@ -35,12 +39,11 @@
 <?php 
 if(isset($_POST['status'])){
   $s = $_POST['status'];
-  $query ="update `order_table` set status ='$s' where order_id=$oId";
-  $res = mysqli_query($con,$query);
   if($s != 'active'){
+    $orderdata[$oId]['status'] = $s;
+    file_put_contents('../../../order.txt',json_encode($orderdata,JSON_PRETTY_PRINT));
     echo "<script> window.open('./shipper.php') </script>";
   }
-
 }
 ?>
 <table class="table text-center">
@@ -55,26 +58,33 @@ if(isset($_POST['status'])){
   </thead>
   <tbody>
 <?php
-  $query ="select * from `order_details` where order_id=$oId";
-  $res = mysqli_query($con,$query);
-  while($row = mysqli_fetch_assoc($res)){
-    $pid = $row['product_id'];
-    $quantity = $row['quantity'];
-    $query = "select * from `products` where product_id=$pid limit 1" ;
-    $r = mysqli_fetch_assoc(mysqli_query($con,$query));
-    $pname = $r['product_name'];
-    $price = $r['product_price'];
-    $img = $r['product_img'];
+  $productData = (array) json_decode(file_get_contents('../../../products.txt'), true);
+  foreach($orderdata[$oId]['details'] as $key => $value){
+ 
+    $pid = $value['p_id'];
+    $quantity = $value['quantity'];
+    foreach($productData as $key => $value){
+      if(gettype($value) =='array')
+      if(strval($value['id']) == $pid){
+        $pname = $value['name'];
+        $price = $value['price'];
+        $img = $value['image'];
+        break;
+      }
+    }
     echo "<tr>
-      <th class='text-center' scope='row'>$pid</th>
-      <td class='text-center h120'>$pname</td>
-      <td class='text-center h120'>
-          <img src='../../pImages/$img' alt='' class='vendor_img'>
-      </td>
-      <td class='text-center h120'>$price</td>
-      <td class='text-center h120'>$quantity</td>
-      </tr>";
+    <th class='text-center' scope='row'>$pid</th>
+    <td class='text-center h120'>$pname</td>
+    <td class='text-center h120'>
+        <img src='../../pImages/$img' alt='' class='vendor_img'>
+    </td>
+    <td class='text-center h120'>$price</td>
+    <td class='text-center h120'>$quantity</td>
+    </tr>";
+
   }
+    
+  
 ?>
 
   </tbody>
