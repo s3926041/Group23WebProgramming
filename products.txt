@@ -8,14 +8,6 @@
         "des": " 232432442",
         "vendor_id": 1
     },
-    "Airpodassdaad": {
-        "id": 1,
-        "name": "Airpodassdaad",
-        "price": "3",
-        "image": "20220126_112709522_iOS.jpg",
-        "des": " asfsaffssfa",
-        "vendor_id": 1
-    },
     "sadasdrpodasassdaa": {
         "id": 2,
         "name": "sadasdrpodasassdaa",
