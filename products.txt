@@ -1,0 +1,27 @@
+{
+    "autoID": 3,
+    "Bach Le Xuan": {
+        "id": 0,
+        "name": "Bach Le Xuan",
+        "price": "32322323",
+        "image": "20220101_182539000_iOS.png",
+        "des": " 232432442",
+        "vendor_id": 1
+    },
+    "Airpodassdaad": {
+        "id": 1,
+        "name": "Airpodassdaad",
+        "price": "3",
+        "image": "20220126_112709522_iOS.jpg",
+        "des": " asfsaffssfa",
+        "vendor_id": 1
+    },
+    "sadasdrpodasassdaa": {
+        "id": 2,
+        "name": "sadasdrpodasassdaa",
+        "price": "3",
+        "image": "20220122_153207806_iOS.jpg",
+        "des": " adasdasd",
+        "vendor_id": 1
+    }
+}

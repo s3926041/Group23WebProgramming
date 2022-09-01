@@ -1,0 +1,19 @@
+{
+    "autoID": 2,
+    "customer01": {
+        "id": 0,
+        "password": "$2y$10$OtAdvpA1e7BL0njBFa4u\/e6n4JbGpikszopH6hpDSYxE6YY9F13VC",
+        "name": "Customer01@",
+        "address": "Customer01@",
+        "image": "20220126_112709522_iOS.jpg",
+        "role": "customer"
+    },
+    "vendor01": {
+        "id": 1,
+        "password": "$2y$10$zLupZHy5QaVyEJGqaOcyguTb0L0JF4P\/UolvyvdjWl9b.lCrrL2Oi",
+        "name": "Customer01@",
+        "address": "Customer01@",
+        "image": "20220130_164023312_iOS.jpg",
+        "role": "vendor"
+    }
+}

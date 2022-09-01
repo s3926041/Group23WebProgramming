@@ -154,11 +154,11 @@ function register($post){
         elseif($post == 'vendor'){
           foreach($userdata as $key => $value){
               if(gettype($value) == 'array')
-              if($value['name'] == $name){
+              if($value['name'] == $name and $value["role"] == "vendor"){
                 $exist = true;
                 echo "<script> setToast('bg-danger','Vendor name existed!');</script>";
                 break;
-              }elseif($value['address'] == $address){
+              }elseif($value['address'] == $address  and $value["role"] == "vendor"){
                 $exist = true;
                 echo "<script> setToast('bg-danger','Vendor address existed!');</script>";
                 break;
@@ -218,9 +218,7 @@ function add_product()
 {
   if (isset($_POST['add_product'])) {
     $pName = $_POST['pName'];
-    echo $pName;
     $productData = (array) json_decode(file_get_contents('../../../products.txt'),true);
-    print_r($productData);
     if ($productData != null and array_key_exists($pName,$productData)) {
       echo "<script> setToast('bg-danger','Product name existed') </script>";
     } else {
