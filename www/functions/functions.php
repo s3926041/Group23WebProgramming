@@ -4,6 +4,7 @@ session_start();
 function generate($para,$sec,$id,$min,$max)
 {
   $productData = (array) json_decode(file_get_contents('../products.txt'),true);
+
   $count = 0;
   foreach($productData as $key => $value){
     if(gettype($value) == 'array'){
@@ -38,7 +39,7 @@ function generate($para,$sec,$id,$min,$max)
                   <div class='card-body $c $wh300'>
                   <div class='mb-3'>
                     <h5 class='card-title mb-3'>$pName</h5><div class='card-text mb-3 fw-normal'>Price: <span class='price mx-1'>$pPrice</span></div>";
-          if ($para == 2) echo "<p class='card-text mb-1'>Description: $pDes</p>";
+          if ($para == 2) echo "<p class='card-text mb-1'>Description: $pDes</p><p class='card-text mb-1'>Description: $pDes</p>";
           echo "   </div><div class=' d-flex justify-content-center'> ";
           echo "<a id='$pId' class='btn btn-primary p-2 $w50 mr5' onclick='addcart($pId)' >Add to cart</a>";
           if ($para == 1)
@@ -52,11 +53,21 @@ function generate($para,$sec,$id,$min,$max)
       else{
         if($value['id'] == $id){
           if(str_contains(strtolower($key),strtolower($sec)) and $value['price'] >$min and $value['price'] < $max){
+            $accountData = (array) json_decode(file_get_contents('../accounts.txt'),true);
+            $pven = "";
+            foreach($accountData as $k => $v){
+              if(gettype($v) == 'array' and $v['id'] == $value['vendor_id']){
+                $pven = $v['name'];
+                break;
+              }
+       
+            }
             $pId = $value['id'];
             $pName = $value['name'];
             $pPrice = $value['price'];
             $pImage = $value['image'];
             $pDes = $value['des'];
+        
             $w50 = 'w-50';
             $wh300 = '';
             $c = 'd-flex justify-content-center align-content-center flex-column';
@@ -81,7 +92,9 @@ function generate($para,$sec,$id,$min,$max)
                     <div class='card-body $c $wh300'>
                     <div class='mb-3'>
                       <h5 class='card-title mb-3'>$pName</h5><div class='card-text mb-3 fw-normal'>Price: <span class='price mx-1'>$pPrice</span></div>";
-            if ($para == 2) echo "<p class='card-text mb-1'>Description: $pDes</p>";
+            if ($para == 2) echo "
+              <p class='card-text mb-1'>From: $pven</p><p class='card-text mb-1'>Description: $pDes</p>";
+                          
             echo "   </div><div class=' d-flex justify-content-center'> ";
             echo "<a id='$pId' class='btn btn-primary p-2 $w50 mr5' onclick='addcart($pId)' >Add to cart</a>";
             if ($para == 1)
