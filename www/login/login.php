@@ -68,7 +68,6 @@ cant_access();
       $password = $_POST['password'];
 
       $userdata =  (array) json_decode(file_get_contents('../../accounts.txt'),true);
-      print_r($userdata);
       if ($userdata != null and array_key_exists($username,$userdata)) {
         if (password_verify($password, $userdata[$username]['password'])) {
           $_SESSION['loggedin'] = true;

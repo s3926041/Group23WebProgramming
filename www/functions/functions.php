@@ -256,7 +256,7 @@ function shipper_orders()
   }
   $orderdata = (array) json_decode(file_get_contents('../../../order.txt'),true);
    foreach($orderdata as $key => $value ){
-    if(gettype($value) == 'array' and $value['status'] == 'active'){
+    if(gettype($value) == 'array' and $value['status'] == 'active' and $value['hub_id'] == $hub){
       $oId = $key;
       $userId = $value['user_id'];
       $status = $value['status'];
