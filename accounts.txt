@@ -1,19 +1,54 @@
 {
-    "autoID": 2,
+    "autoID": 6,
     "customer01": {
         "id": 0,
-        "password": "$2y$10$OtAdvpA1e7BL0njBFa4u\/e6n4JbGpikszopH6hpDSYxE6YY9F13VC",
-        "name": "Customer01@",
-        "address": "Customer01@",
-        "image": "20220126_112709522_iOS.jpg",
+        "password": "$2y$10$LDqe8TqLXEdTj8K8i3JVg.ArUy360HasxfWhVVcIEcDR8mfVmzbSe",
+        "name": "customer01",
+        "address": "hanoi",
+        "image": "david_beckham.jpg",
         "role": "customer"
     },
     "vendor01": {
         "id": 1,
-        "password": "$2y$10$zLupZHy5QaVyEJGqaOcyguTb0L0JF4P\/UolvyvdjWl9b.lCrrL2Oi",
-        "name": "Customer01@",
-        "address": "Customer01@",
-        "image": "20220130_164023312_iOS.jpg",
+        "password": "$2y$10$m30OOHSJFdJpVUqMSmGJvesNqsAu0PJhyOvxQC76.v4Qj09ULL87.",
+        "name": "vingroup",
+        "address": "hanoi",
+        "image": "david_beckham.jpg",
         "role": "vendor"
+    },
+    "shipperhub01": {
+        "id": 2,
+        "password": "$2y$10$fH7mgr8ZQZVD44VEqSqs4epAEYjXEBy0NxPVTuTDSSEsg4Wbc4NKG",
+        "name": "shipperhub01",
+        "address": "hanoi",
+        "image": "david_beckham.jpg",
+        "hub": "0",
+        "role": "shipper"
+    },
+    "shipperhub02": {
+        "id": 3,
+        "password": "$2y$10$Ng5MgWakHszWJxNPKm\/Bu.LkY.URlnFf2EiSeGEccCEiQOrcHp5QO",
+        "name": "shipperhub02",
+        "address": "ho chi minh",
+        "image": "david_beckham.jpg",
+        "hub": "1",
+        "role": "shipper"
+    },
+    "shipperhub03": {
+        "id": 4,
+        "password": "$2y$10$2HH3RnTqdXboIy6m6U0hhOVFNE\/05BeUQRu5E\/NdamMrmGfWdgGba",
+        "name": "shipperhu03",
+        "address": "Da Nang",
+        "image": "david_beckham.jpg",
+        "hub": "2",
+        "role": "shipper"
+    },
+    "customer02": {
+        "id": 5,
+        "password": "$2y$10$vRMRLBsAyQEZpzAcwipqZOcFaOo76Ab\/FrfJ.G\/ntcxtTUa6hqZQK",
+        "name": "customer02",
+        "address": "Ho Chi Minh",
+        "image": "david_beckham.jpg",
+        "role": "customer"
     }
 }

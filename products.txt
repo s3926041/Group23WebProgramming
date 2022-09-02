@@ -1,19 +1,99 @@
 {
-    "autoID": 3,
-    "Bach Le Xuan": {
+    "autoID": 12,
+    "Samsung Galaxy S22 ": {
         "id": 0,
-        "name": "Bach Le Xuan",
-        "price": "32322323",
-        "image": "20220101_182539000_iOS.png",
-        "des": " 232432442",
+        "name": "Samsung Galaxy S22 ",
+        "price": "300",
+        "image": "s22.jpg",
+        "des": " Samsung Galaxy S22 Ultra",
         "vendor_id": 1
     },
-    "sadasdrpodasassdaa": {
+    "Iphone 13 Pro Max": {
+        "id": 1,
+        "name": "Iphone 13 Pro Max",
+        "price": "301",
+        "image": "ip13.jpg",
+        "des": " Iphone 13 Pro Max",
+        "vendor_id": 1
+    },
+    "Garfield the Cat": {
         "id": 2,
-        "name": "sadasdrpodasassdaa",
-        "price": "3",
-        "image": "20220122_153207806_iOS.jpg",
-        "des": " adasdasd",
+        "name": "Garfield the Cat",
+        "price": "267",
+        "image": "cat.jpg",
+        "des": " Cat",
+        "vendor_id": 1
+    },
+    "Golden Retriever": {
+        "id": 3,
+        "name": "Golden Retriever",
+        "price": "253",
+        "image": "dog.jpg",
+        "des": " Golden Retriever",
+        "vendor_id": 1
+    },
+    "\"Hot\" Dog (meme)": {
+        "id": 4,
+        "name": "\"Hot\" Dog (meme)",
+        "price": "10000",
+        "image": "fire.jpg",
+        "des": "Yep he's totally fine ",
+        "vendor_id": 1
+    },
+    "Huawei Smartphone": {
+        "id": 5,
+        "name": "Huawei Smartphone",
+        "price": "274",
+        "image": "huawei.jpg",
+        "des": "Best phone out there in the smartphone industry\r\n",
+        "vendor_id": 1
+    },
+    "Water Bottle": {
+        "id": 6,
+        "name": "Water Bottle",
+        "price": "1",
+        "image": "water.jpg",
+        "des": " Water Bottle",
+        "vendor_id": 1
+    },
+    "Cristiano Ronaldo": {
+        "id": 7,
+        "name": "Cristiano Ronaldo",
+        "price": "999999",
+        "image": "cr7.jpg",
+        "des": " The \"GOAT\"",
+        "vendor_id": 1
+    },
+    "Lionel Messi": {
+        "id": 8,
+        "name": "Lionel Messi",
+        "price": "999999",
+        "image": "m10.jpg",
+        "des": " The \"GOAT\"",
+        "vendor_id": 1
+    },
+    "Playstation 5": {
+        "id": 9,
+        "name": "Playstation 5",
+        "price": "321",
+        "image": "ps5.jpg",
+        "des": " Playstation 5",
+        "vendor_id": 1
+    },
+    "Nintendo Switch": {
+        "id": 10,
+        "name": "Nintendo Switch",
+        "price": "300",
+        "image": "nintendo.jpg",
+        "des": " Nintendo Switch",
+        "vendor_id": 1
+    },
+    "Xbox Series X": {
+        "id": 11,
+        "name": "Xbox Series X",
+        "price": "48",
+        "image": "xbox.jpg",
+        "des": " Xbox Series X",
         "vendor_id": 1
     }
 }
