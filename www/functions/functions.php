@@ -234,7 +234,8 @@ function add_product()
     $productData = (array) json_decode(file_get_contents('../../../products.txt'),true);
     if ($productData != null and array_key_exists($pName,$productData)) {
       echo "<script> alert('Product name existed') </script>";
-    } else {
+    } else if(!$_POST['pPrice'] <= 100000000){
+      
       if($productData == null){
         $productData=array();
         $productData['autoID'] = 0;
@@ -255,6 +256,7 @@ function add_product()
       echo "<script>alert('Product added succesfully!');
        window.open('./vendor.php','_self');</script>";
     }
+    else "<script> alert('Product price exceeded 1 bilion !') </script>"
   }
 }
 function shipper_orders()
