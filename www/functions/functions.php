@@ -256,7 +256,7 @@ function add_product()
       echo "<script>alert('Product added succesfully!');
        window.open('./vendor.php','_self');</script>";
     }
-    else "<script> alert('Product price exceeded 1 bilion !') </script>"
+    else "<script> alert('Product price exceeded 1 bilion !') </script>";
   }
 }
 function shipper_orders()
