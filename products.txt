@@ -1,5 +1,5 @@
 {
-    "autoID": 13,
+    "autoID": 15,
     "Samsung Galaxy S22 ": {
         "id": 0,
         "name": "Samsung Galaxy S22 ",
@@ -103,5 +103,21 @@
         "image": "20220121_164904000_iOS.png",
         "des": " asdasdasda",
         "vendor_id": 1
+    },
+    "Bach Le Xuan": {
+        "id": 13,
+        "name": "Bach Le Xuan",
+        "price": "10",
+        "image": "20200716_091002961_iOS.jpg",
+        "des": " qweqweq",
+        "vendor_id": 8
+    },
+    "THE DUC THE GOD": {
+        "id": 14,
+        "name": "THE DUC THE GOD",
+        "price": "12412512",
+        "image": "20200718_103844000_iOS.MOV",
+        "des": " iquwryquw8qrwy",
+        "vendor_id": 8
     }
 }

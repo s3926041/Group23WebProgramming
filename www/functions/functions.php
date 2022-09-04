@@ -93,7 +93,7 @@ function generate($para,$sec,$id,$min,$max)
                     <div class='mb-3'>
                       <h5 class='card-title mb-3'>$pName</h5><div class='card-text mb-3 fw-normal'>Price: <span class='price mx-1'>$pPrice</span></div>";
             if ($para == 2) echo "
-              <p class='card-text mb-1'>From: $pven</p><p class='card-text mb-1'>Description: $pDes</p>";
+              <p class='card-text mb-3'>From: $pven</p><p class='card-text mb-3'>Description: $pDes</p>";
                           
             echo "   </div><div class=' d-flex justify-content-center'> ";
             echo "<a id='$pId' class='btn btn-primary p-2 $w50 mr5' onclick='addcart($pId)' >Add to cart</a>";
@@ -107,7 +107,7 @@ function generate($para,$sec,$id,$min,$max)
       }
     }
   }
-  if($sec != '' or $min !=0 or $max !=100000000){
+  if($sec != '' or $min !=0 or $max !=100000000000){
     if($count == 0 ){
       echo "<h2  class='nodata_message'>No product meets requirements </h2>";
     }
@@ -116,19 +116,19 @@ function generate($para,$sec,$id,$min,$max)
 
 function get_product()
 {
-  generate(1,'','',0,100000000);
+  generate(1,'','',0,100000000000);
 }
 function search_product()
 {
   $search_data = $_GET['search_data'];
-  generate(1, $search_data,'',0,100000000);
+  generate(1, $search_data,'',0,100000000000);
 
 }
 
 function view_product()
 {
   $id = $_GET['product_id'];
-  generate(2, '',$id,0,100000000);
+  generate(2, '',$id,0,100000000000);
 }
 
 function filter()
@@ -195,7 +195,7 @@ function register($post){
           $userdata[$username]['hub'] = $_POST['hub'];
         $userdata[$username]['role'] = $post;
         file_put_contents('../../accounts.txt',json_encode($userdata,JSON_PRETTY_PRINT));
-        echo "<script> alert('Registered!') </script>";
+        echo "<script> alert('Registered!'); window.open('../login/login.php','_self') </script>";
       }
     } else echo "<script>alert('$validate') </script>";
 }
@@ -241,7 +241,9 @@ function add_product()
       }
       $pImage = $_FILES['pImage']['name'];
       $tempImage =$_FILES['pImage']['tmp_name'];
+
       move_uploaded_file($tempImage, "../../pImages/$pImage");
+
       $productData[$pName]['id'] = $productData['autoID'];
       $productData['autoID'] += 1;
       $productData[$pName]['name'] = $_POST['pName'];
@@ -250,8 +252,8 @@ function add_product()
       $productData[$pName]['des'] = $_POST['pDes'];
       $productData[$pName]['vendor_id'] = $_SESSION['id'];
       file_put_contents('../../../products.txt',json_encode($productData,JSON_PRETTY_PRINT));
-       echo "<script>alert('Product added succesfully!')</script>";
-     
+      echo "<script>alert('Product added succesfully!');
+       window.open('./vendor.php','_self');</script>";
     }
   }
 }
