@@ -235,7 +235,6 @@ function add_product()
     if ($productData != null and array_key_exists($pName,$productData)) {
       echo "<script> alert('Product name existed') </script>";
     } else if(!$_POST['pPrice'] <= 100000000){
-      
       if($productData == null){
         $productData=array();
         $productData['autoID'] = 0;
