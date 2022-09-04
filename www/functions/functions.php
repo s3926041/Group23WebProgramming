@@ -232,7 +232,7 @@ function add_product()
   if (isset($_POST['add_product'])) {
     $pName = $_POST['pName'];
     $productData = (array) json_decode(file_get_contents('../../../products.txt'),true);
-    if ($productData != null and array_key_exists($pName,$productData)) {
+    if ($productData != null and array_key_exists(ltrim(rtrim($pName)),$productData)) {
       echo "<script> alert('Product name existed') </script>";
     } else if(!$_POST['pPrice'] <= 100000000){
       if($productData == null){
@@ -246,10 +246,10 @@ function add_product()
 
       $productData[$pName]['id'] = $productData['autoID'];
       $productData['autoID'] += 1;
-      $productData[$pName]['name'] = $_POST['pName'];
+      $productData[$pName]['name'] = ltrim(rtrim($pName));
       $productData[$pName]['price'] = $_POST['pPrice'];
       $productData[$pName]['image'] = $_FILES['pImage']['name'];
-      $productData[$pName]['des'] = $_POST['pDes'];
+      $productData[$pName]['des'] = ltrim(rtrim($_POST['pDes']));
       $productData[$pName]['vendor_id'] = $_SESSION['id'];
       file_put_contents('../../../products.txt',json_encode($productData,JSON_PRETTY_PRINT));
       echo "<script>alert('Product added succesfully!');

@@ -1,8 +1,8 @@
 {
     "autoID": 15,
-    "Samsung Galaxy S22 ": {
+    "Samsung Galaxy S22": {
         "id": 0,
-        "name": "Samsung Galaxy S22 ",
+        "name": "Samsung Galaxy S22",
         "price": "300",
         "image": "s22.jpg",
         "des": " Samsung Galaxy S22 Ultra",
