@@ -50,30 +50,5 @@
         "address": "Ho Chi Minh",
         "image": "david_beckham.jpg",
         "role": "customer"
-    },
-    "customer0123": {
-        "id": 6,
-        "password": "$2y$10$MJbJTQy\/lNAPGmSu\/aQKdeeugbqVQH5A4CaevclKB39oWczRL4JxW",
-        "name": "Customer01@",
-        "address": "Customer01@",
-        "image": "20220122_164126693_iOS.jpg",
-        "hub": "Default",
-        "role": "shipper"
-    },
-    "customer01234": {
-        "id": 7,
-        "password": "$2y$10$ws6vRs7Ay8QNwcPcCrRfTuxsXUaAgdcR3GlWj92w7v1Q9rXNUp0RK",
-        "name": "Customer0123@",
-        "address": "Customer0123@",
-        "image": "20220121_095953324_iOS.heic",
-        "role": "customer"
-    },
-    "vendor02": {
-        "id": 8,
-        "password": "$2y$10$La5DdAgGDP7cFaZ4bwfPaO8vKaEcCPfexzYlafGgrSfeZlv8vKF02",
-        "name": "Vendor02@",
-        "address": "Vendor02@",
-        "image": "20220121_095953324_iOS.heic",
-        "role": "vendor"
     }
 }
