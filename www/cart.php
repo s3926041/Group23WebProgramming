@@ -17,12 +17,11 @@ redr('customer');
 </head>
 
 <body>
-    <?php include('./includes/toast.php') ?>
     <header>
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="./index.php">Group 23</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" id='but' type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -41,9 +40,6 @@ redr('customer');
         </nav>
     </header>
     <main>
-        <?php include('./includes/toast.php') ?>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-        <script src="./toast.js"></script>
         <div class="container text-center my-4">
             <h2 class="my-2">Cart</h2>
             <table class="table" style="overflow-x:auto;">
@@ -66,7 +62,6 @@ redr('customer');
                         let pImage
                         let vendorname
                         let cart = JSON.parse(localStorage.getItem('cart'))
-
                         function display(cart) {
                             for (let key in cart) {
                                 pname = products[key].pname
@@ -114,17 +109,17 @@ redr('customer');
                                     }
                                     document.getElementById('total_price').innerHTML = temp;
                                 } else {
-                                    setToast('bg-danger', 'Quantity must be greater than 0! ')
+                                    alert( 'Quantity must be greater than 0! ')
                                     document.getElementById(`${pid}`).value = cart[pid]
                                 }
                             } else {
                                 if (!value == '') {
                                     // alert('Inapopriate input!')
-                                    setToast('bg-danger', 'Inapopriate input!')
+                                    alert( 'Inapopriate input!')
                                     document.getElementById(`${pid}`).value = cart[pid]
                                 } else if (para == 2) {
                                     // alert('You can not leave this field blank')
-                                    setToast('bg-danger', 'You can not leave this field blank!')
+                                    alert( 'You can not leave this field blank!')
                                     document.getElementById(`${pid}`).value = cart[pid]
                                 }
                             }
@@ -197,7 +192,7 @@ redr('customer');
                         
                         $json = json_decode($json1, true);     
                         if ($json == null) {
-                            echo "<script> setToast('bg-danger','Cart is empty!');
+                            echo "<script> alert('Cart is empty!');
                             </script>";
                         } else {
                             $userid = $_SESSION['id'];
@@ -224,11 +219,11 @@ redr('customer');
                            $orderdata[$oid]['details'] = $details;
                             $orderdata['autoID'] += 1;
                             file_put_contents('../order.txt',json_encode($orderdata,JSON_PRETTY_PRINT));
-                            echo "<script> alert('You have placed an order !'); window.open('cart.php','_self');
+                            echo "<script> alert('You placed an order !'); window.open('cart.php','_self');
                                  localStorage.clear();</script>";
                         }
                     } else {
-                        echo "<script>setToast('bg-danger','You need to login first!');
+                        echo "<script>alert('You need to login first!');
                                 </script>";
                     }
                 }
@@ -239,9 +234,6 @@ redr('customer');
     <?php
     include('includes/footer.php');
     ?>
-    <!-- JavaScript Bundle with Popper -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 
 </html>

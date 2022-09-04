@@ -24,12 +24,11 @@ if (isset($_SESSION['role']) and !isset($_GET['logout'])) {
 
 
 <body>
-  <?php include('./includes/toast.php') ?>
   <header>
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="./index.php">Group 23</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" id='but' data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -52,7 +51,6 @@ if (isset($_SESSION['role']) and !isset($_GET['logout'])) {
       </div>
     </nav>
   </header>
-  <script src="./toast.js"></script>
   <script src="./app.js"></script>
   <?php
   logout();
@@ -93,8 +91,6 @@ if (isset($_SESSION['role']) and !isset($_GET['logout'])) {
   logout();
   include('includes/footer.php');
   ?>
-  <!-- JavaScript Bundle with Popper -->
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        <script src="./nav.js"></script>
 </body>
 </html>

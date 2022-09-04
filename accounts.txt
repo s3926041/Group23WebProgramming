@@ -1,5 +1,5 @@
 {
-    "autoID": 6,
+    "autoID": 7,
     "customer01": {
         "id": 0,
         "password": "$2y$10$LDqe8TqLXEdTj8K8i3JVg.ArUy360HasxfWhVVcIEcDR8mfVmzbSe",
@@ -50,5 +50,14 @@
         "address": "Ho Chi Minh",
         "image": "david_beckham.jpg",
         "role": "customer"
+    },
+    "customer0123": {
+        "id": 6,
+        "password": "$2y$10$MJbJTQy\/lNAPGmSu\/aQKdeeugbqVQH5A4CaevclKB39oWczRL4JxW",
+        "name": "Customer01@",
+        "address": "Customer01@",
+        "image": "20220122_164126693_iOS.jpg",
+        "hub": "Default",
+        "role": "shipper"
     }
 }

@@ -18,9 +18,7 @@ cant_access();
 </head>
 
 <body>
-  <?php include('../includes/toast.php') ?>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-  <script src="../toast.js"></script>
+ 
 
   <header>
     <nav class="navbar navbar-expand-lg bg-light">
@@ -68,7 +66,6 @@ cant_access();
       $password = $_POST['password'];
 
       $userdata =  (array) json_decode(file_get_contents('../../accounts.txt'),true);
-      print_r($userdata);
       if ($userdata != null and array_key_exists($username,$userdata)) {
         if (password_verify($password, $userdata[$username]['password'])) {
           $_SESSION['loggedin'] = true;
@@ -87,10 +84,10 @@ cant_access();
             echo "<script>window.open('../users/shipper/shipper.php','_self');</script> ";
           }
         } else {
-          echo"<script>setToast('bg-danger','Wrong Password!')</script>";
+          echo"<script>alert('Wrong Password!')</script>";
         }
       } else {
-        echo"<script>setToast('bg-danger','Username not exist!')</script>";
+        echo"<script>alert('Username not exist!')</script>";
       }
     } 
     ?>

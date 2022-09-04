@@ -1,6 +1,7 @@
 <?php
 include('../includes/connect.php');
-include('../functions/functions.php')
+include('../functions/functions.php');
+cant_access();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,9 +18,6 @@ include('../functions/functions.php')
 </head>
 
 <body>
-<?php include('../includes/toast.php')?>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-  <script src="../toast.js"></script>
   <header>
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
@@ -62,10 +60,10 @@ include('../functions/functions.php')
         </div>
         <div class="mb-3">
           <label for="hub">Distribution hub:</label>
-          <select name="hub" class="form-control" id="hub" required>
+          <select name="hub" class="form-control" id="hub"  required>
+          <option value=''>Choose</option>
             <?php
             $hubdata = (array) json_decode(file_get_contents('../../hub.txt'),true);
-
             foreach($hubdata as $key => $value){
               $hub_id = $value["id"];
               $name = $key;
@@ -95,8 +93,7 @@ include('../functions/functions.php')
   include('../includes/footer.php');
   ?>
   <script src="./validate.js"></script>
-  <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

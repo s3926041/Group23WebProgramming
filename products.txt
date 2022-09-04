@@ -1,5 +1,5 @@
 {
-    "autoID": 12,
+    "autoID": 13,
     "Samsung Galaxy S22 ": {
         "id": 0,
         "name": "Samsung Galaxy S22 ",
@@ -94,6 +94,14 @@
         "price": "48",
         "image": "xbox.jpg",
         "des": " Xbox Series X",
+        "vendor_id": 1
+    },
+    "Samsung Galaxy S22": {
+        "id": 12,
+        "name": "Samsung Galaxy S22",
+        "price": "3",
+        "image": "20220121_164904000_iOS.png",
+        "des": " asdasdasda",
         "vendor_id": 1
     }
 }

@@ -13,16 +13,16 @@ function addcart(pid) {
   if (cart === null) {
     cart[pid] = 1;
     localStorage.setItem("cart", JSON.stringify(cart));
-    setToast('bg-success','Product added successfully!');
+    alert('Product added successfully!');
   } else {
     if (cart.hasOwnProperty(pid)) {
       if (cart[pid] > 0) {
-        setToast('bg-danger','Product already added!');
+       alert('Product already added!');
       }
     } else {
       cart[pid] = 1;
       localStorage.setItem("cart", JSON.stringify(cart));
-      setToast('bg-success','Product added successfully!');
+      alert('Product added successfully!');
     }
     count = 0;
     for (let key in cart) {

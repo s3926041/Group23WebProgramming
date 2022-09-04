@@ -7,7 +7,7 @@
                         <ul class="list-unstyled ul-class font-size-10 text-dark">
                               <li class="mb-2">This is a web prototype by Group 23</li>
                               <li class="mb-2">With the help of 4 members</li>
-                              <li class="mb-2">From RMIT University</li><br>
+                              <li class="mb-2">From RMIT University</li>
                         </ul>
                   </div>
                   <div class="col my-3 d-flex flex-column align-items-center">
@@ -60,3 +60,8 @@
             </div>
       </div>
 </footer>
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>

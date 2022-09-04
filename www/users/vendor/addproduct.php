@@ -16,7 +16,7 @@ add_product();
     <input type="file" class="form-control" name="pImage" id="img" required>
   </div>
   <div class="input-group mb-3 ">
-    <textarea type="text" class="form-control" placeholder="Description" name="pDes" required id='des' value='<?php if(isset($_POST['pDes'])) $var = $_POST['pDes'];else $var = ""; echo $var;  ?>'> </textarea>
+    <textarea class="form-control" placeholder="Description" name="pDes" required id='des'> </textarea>
   </div>
   <div class="mb-3 text-center">
     <span id="error" ></span>

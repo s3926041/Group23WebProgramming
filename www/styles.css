@@ -11,6 +11,9 @@ body{
 header,footer{
     width: 100%;
 }
+table {
+    overflow-x: auto;
+}
 .center_main{
     min-height:calc((100vh - 200px));
     display: grid;
